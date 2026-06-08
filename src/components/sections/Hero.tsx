@@ -21,47 +21,49 @@ export default function Hero() {
       </span>
 
       <div className="relative mx-auto flex max-w-3xl flex-col items-center px-6 text-center">
-        <span className="font-script text-2xl text-plum-500 sm:text-3xl">
+        <span className="animate-hero-in [animation-delay:0.1s] font-script text-2xl text-plum-500 sm:text-3xl">
           welcome to a little meadow of magic
         </span>
-        <h1 className="mt-3 font-display text-5xl font-semibold tracking-wide text-plum-700 sm:text-6xl md:text-7xl">
+        <h1 className="animate-hero-in [animation-delay:0.35s] mt-3 font-display text-5xl font-semibold tracking-wide text-plum-700 sm:text-6xl md:text-7xl">
           ENCHANTA
         </h1>
-        <p className="mt-2 font-display text-sm tracking-[0.4em] text-plum-500 uppercase">
+        <p className="animate-hero-in [animation-delay:0.55s] mt-2 font-display text-sm tracking-[0.4em] text-plum-500 uppercase">
           Made by Ada
         </p>
 
-        {/* the retro tv in the flower field */}
-        <div className="animate-float relative mt-12 flex flex-col items-center">
-          <div className="absolute -top-3 left-1/2 h-12 w-px -translate-x-1/2 -rotate-12 bg-plum-500/50" />
-          <div className="relative w-56 rounded-2xl border-[6px] border-plum-700 bg-plum-900 p-3 shadow-2xl shadow-plum-900/40 sm:w-64">
-            <div className="flex h-36 items-center justify-center rounded-lg bg-gradient-to-br from-lavender-300 via-blossom-300 to-plum-300 sm:h-40">
-              <div className="flex flex-col items-center gap-1 text-white">
-                <span className="text-3xl">🧚</span>
-                <span className="font-display text-sm font-semibold tracking-wide">
-                  Enchanta
-                </span>
-                <span className="font-script text-xs">Made by Ada</span>
+        {/* entrance wrapper so float can run freely after heroIn */}
+        <div className="animate-hero-in [animation-delay:0.72s]">
+          <div className="animate-float relative mt-12 flex flex-col items-center">
+            <div className="absolute -top-3 left-1/2 h-12 w-px -translate-x-1/2 -rotate-12 bg-plum-500/50" />
+            <div className="relative w-56 rounded-2xl border-[6px] border-plum-700 bg-plum-900 p-3 shadow-2xl shadow-plum-900/40 sm:w-64">
+              <div className="flex h-36 items-center justify-center rounded-lg bg-gradient-to-br from-lavender-300 via-blossom-300 to-plum-300 sm:h-40">
+                <div className="flex flex-col items-center gap-1 text-white">
+                  <span className="text-3xl">🧚</span>
+                  <span className="font-display text-sm font-semibold tracking-wide">
+                    Enchanta
+                  </span>
+                  <span className="font-script text-xs">Made by Ada</span>
+                </div>
+              </div>
+              <div className="absolute top-1/2 -right-2.5 flex -translate-y-1/2 flex-col gap-2">
+                <span className="h-3 w-3 rounded-full bg-blossom-300" />
+                <span className="h-3 w-3 rounded-full bg-lavender-300" />
               </div>
             </div>
-            <div className="absolute top-1/2 -right-2.5 flex -translate-y-1/2 flex-col gap-2">
-              <span className="h-3 w-3 rounded-full bg-blossom-300" />
-              <span className="h-3 w-3 rounded-full bg-lavender-300" />
-            </div>
+            {/* little bunny */}
+            <div className="-mt-1 text-3xl">🐇</div>
           </div>
-          {/* little bunny */}
-          <div className="-mt-1 text-3xl">🐇</div>
         </div>
 
-        <p className="mt-10 max-w-xl text-base leading-relaxed text-plum-700/80 sm:text-lg">
-          Enchanta weaves hand-crocheted bags, dresses & accessories — each
+        <p className="animate-hero-in [animation-delay:1s] mt-10 max-w-xl text-base leading-relaxed text-plum-700/80 sm:text-lg">
+          Enchanta weaves hand-crocheted bags, dresses &amp; accessories — each
           piece stitched slowly, dipped in pastel dreams, and made to feel like
           a little piece of folklore you can carry with you.
         </p>
 
         <a
           href="#about"
-          className="mt-8 inline-flex items-center gap-2 rounded-full bg-plum-700 px-7 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition hover:-translate-y-0.5 hover:bg-plum-900"
+          className="btn-shine animate-hero-in [animation-delay:1.2s] mt-8 inline-flex items-center gap-2 rounded-full bg-plum-700 px-7 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-700/40"
         >
           Step into the meadow
           <span aria-hidden>↓</span>

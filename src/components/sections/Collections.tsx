@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ArtPlaceholder from "@/components/ArtPlaceholder";
+import { useInView } from "@/hooks/useInView";
 
 type Category = "All Relics" | "Bags" | "Outfits";
 
@@ -35,7 +36,7 @@ const RELICS: { name: string; price: string; desc: string; icon: string; categor
     desc: "Cloud-soft knit for cool evenings.",
     icon: "⭐",
     category: "Outfits",
-    },
+  },
   {
     name: "Dewdrop Crossbody",
     price: "$150",
@@ -54,6 +55,8 @@ const RELICS: { name: string; price: string; desc: string; icon: string; categor
 
 export default function Collections() {
   const [filter, setFilter] = useState<Category>("All Relics");
+  const [bannerRef, bannerInView] = useInView();
+  const [gridRef, gridInView] = useInView();
 
   const visible =
     filter === "All Relics" ? RELICS : RELICS.filter((r) => r.category === filter);
@@ -72,14 +75,23 @@ export default function Collections() {
           🛍️
         </div>
 
-        <div className="relative mx-auto flex max-w-3xl flex-col items-center text-center">
-          <span className="font-script text-2xl text-plum-500">a softer kind of shine</span>
-          <h2 className="mt-2 font-display text-4xl font-bold tracking-wide text-plum-700 sm:text-5xl">
+        <div
+          ref={bannerRef}
+          className="relative mx-auto flex max-w-3xl flex-col items-center text-center"
+        >
+          <span
+            className={`transition-[opacity,transform] duration-700 ease-out font-script text-2xl text-plum-500 ${bannerInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          >
+            a softer kind of shine
+          </span>
+          <h2
+            className={`mt-2 transition-[opacity,transform] duration-700 ease-out delay-150 font-display text-4xl font-bold tracking-wide text-plum-700 sm:text-5xl ${bannerInView ? "opacity-100 scale-100" : "opacity-0 scale-90"}`}
+          >
             MAGICAL GLOW
           </h2>
           <a
             href="#preorder"
-            className="mt-7 inline-flex items-center justify-center rounded-full bg-plum-700 px-10 py-3.5 text-sm font-semibold tracking-[0.15em] text-white uppercase shadow-lg shadow-plum-900/30 transition hover:-translate-y-0.5 hover:bg-plum-900"
+            className={`btn-shine mt-7 inline-flex items-center justify-center rounded-full bg-plum-700 px-10 py-3.5 text-sm font-semibold tracking-[0.15em] text-white uppercase shadow-lg shadow-plum-900/30 transition-[opacity,transform,background-color,box-shadow] duration-500 ease-out delay-300 hover:-translate-y-1 hover:scale-[1.04] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-900/40 ${bannerInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
           >
             Order yours now
           </a>
@@ -91,21 +103,25 @@ export default function Collections() {
         <div className="pointer-events-none absolute top-1/4 right-10 h-64 w-64 rounded-full bg-blossom-300/15 blur-3xl" />
         <div className="pointer-events-none absolute bottom-10 left-10 h-72 w-72 rounded-full bg-lavender-300/15 blur-3xl" />
 
-        <div className="relative mx-auto max-w-6xl text-center">
-          <h2 className="bg-gradient-to-r from-white via-blossom-100 to-sky-100 bg-clip-text font-display text-4xl font-bold text-transparent sm:text-5xl">
+        <div ref={gridRef} className="relative mx-auto max-w-6xl text-center">
+          <h2
+            className={`transition-[opacity,transform] duration-700 ease-out bg-gradient-to-r from-white via-blossom-100 to-sky-100 bg-clip-text font-display text-4xl font-bold text-transparent sm:text-5xl ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
+          >
             Enchanted Collections
           </h2>
 
-          <div className="mt-8 inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 p-2 backdrop-blur-sm">
+          <div
+            className={`mt-8 inline-flex flex-wrap items-center justify-center gap-3 rounded-full border border-white/15 bg-white/5 p-2 backdrop-blur-sm transition-[opacity,transform] duration-700 ease-out delay-150 ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
+          >
             {FILTERS.map((label) => (
               <button
                 key={label}
                 type="button"
                 onClick={() => setFilter(label)}
-                className={`rounded-full px-5 py-2 text-sm font-semibold tracking-wide transition ${
+                className={`rounded-full px-5 py-2 text-sm font-semibold tracking-wide transition duration-200 hover:scale-[1.06] ${
                   filter === label
-                    ? "bg-white text-plum-700 shadow-md"
-                    : "text-white/70 hover:bg-white/10 hover:text-white"
+                    ? "bg-white text-plum-700 shadow-md shadow-plum-900/20"
+                    : "text-white/70 hover:bg-white/15 hover:text-white hover:shadow-sm"
                 }`}
               >
                 {label}
@@ -114,10 +130,11 @@ export default function Collections() {
           </div>
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {visible.map((relic) => (
+            {visible.map((relic, i) => (
               <div
                 key={relic.name}
-                className="flex flex-col rounded-[1.75rem] border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition hover:-translate-y-1 hover:bg-white/10"
+                style={{ transitionDelay: `${200 + i * 100}ms` }}
+                className={`group/card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:-translate-y-3 hover:border-white/25 hover:bg-white/10 hover:shadow-[0_20px_56px_rgba(90,48,73,0.4)] ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
               >
                 <ArtPlaceholder
                   gradient="bg-gradient-to-br from-plum-300/70 to-plum-700/70"
@@ -131,7 +148,7 @@ export default function Collections() {
                 <p className="mt-2 text-sm text-white/65 italic">{relic.desc}</p>
                 <button
                   type="button"
-                  className="mt-5 rounded-full bg-plum-900/70 py-2.5 text-sm font-semibold tracking-wide text-white transition hover:bg-plum-900"
+                  className="btn-shine mt-5 rounded-full bg-plum-900/70 py-2.5 text-sm font-semibold tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-plum-900 hover:shadow-lg hover:shadow-plum-900/50"
                 >
                   Buy Now
                 </button>

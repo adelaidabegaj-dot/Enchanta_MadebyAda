@@ -32,7 +32,7 @@ export default function Nav() {
       >
         <a
           href="#top"
-          className="font-display text-lg font-semibold tracking-wide text-white drop-shadow-sm sm:text-xl"
+          className="font-display text-lg font-semibold tracking-wide text-white drop-shadow-sm transition-transform duration-300 hover:scale-105 sm:text-xl"
         >
           Enchanta
         </a>
@@ -42,7 +42,7 @@ export default function Nav() {
             <li key={link.href}>
               <a
                 href={link.href}
-                className="underline-offset-4 transition hover:text-white hover:underline"
+                className="nav-link pb-0.5 transition-[color,opacity] duration-200 hover:text-white"
               >
                 {link.label}
               </a>
