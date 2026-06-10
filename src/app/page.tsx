@@ -9,6 +9,7 @@ import PreOrder from "@/components/sections/PreOrder";
 import Editorial from "@/components/sections/Editorial";
 import CustomMade from "@/components/sections/CustomMade";
 import RisingMoon from "@/components/sections/RisingMoon";
+import Artistry from "@/components/sections/Artistry";
 
 export default function Home() {
   return (
@@ -24,6 +25,7 @@ export default function Home() {
         <Editorial />
         <CustomMade />
         <RisingMoon />
+        <Artistry />
       </main>
       <Footer />
     </>

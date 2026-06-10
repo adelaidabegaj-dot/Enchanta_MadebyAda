@@ -79,7 +79,7 @@ export default function PreOrder() {
               />
               <button
                 type="submit"
-                className="btn-shine rounded-full bg-lavender-100 px-6 py-3 text-sm font-semibold text-plum-700 transition duration-300 hover:-translate-y-0.5 hover:scale-[1.04] hover:bg-white hover:shadow-lg hover:shadow-lavender-300/40"
+                className="btn-shine rounded-full bg-lavender-100 px-6 py-3 text-sm font-semibold text-plum-700 transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.04] hover:bg-white hover:shadow-lg hover:shadow-lavender-300/40"
               >
                 Submit
               </button>
@@ -97,7 +97,7 @@ export default function PreOrder() {
               href="https://wa.me/"
               target="_blank"
               rel="noopener noreferrer"
-              className="btn-shine mx-auto mt-3 flex w-fit items-center gap-2 rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 transition duration-300 hover:-translate-y-1 hover:scale-[1.05] hover:bg-emerald-600 hover:shadow-xl hover:shadow-emerald-700/40"
+              className="btn-shine mx-auto mt-3 flex w-fit items-center gap-2 rounded-full bg-emerald-500 px-6 py-2.5 text-sm font-semibold text-white shadow-lg shadow-emerald-900/40 transition-all duration-400 ease-out hover:-translate-y-1 hover:scale-[1.05] hover:bg-emerald-600 hover:shadow-xl hover:shadow-emerald-700/40"
             >
               <span aria-hidden>💬</span> WhatsApp Ada
             </a>

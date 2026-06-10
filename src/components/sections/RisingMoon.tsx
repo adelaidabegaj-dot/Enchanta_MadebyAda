@@ -37,36 +37,6 @@ const LIMITED: {
   },
 ];
 
-const ARTISTRY: {
-  name: string;
-  desc: string;
-  icon: string;
-  tag: string;
-  gradient: string;
-}[] = [
-  {
-    name: "Book Cover Design",
-    desc: "Editorial covers for indie publishers — typography-led, mood-first, print-ready.",
-    icon: "📖",
-    tag: "Print",
-    gradient: "bg-gradient-to-br from-amber-800 via-orange-900 to-[#06101f]",
-  },
-  {
-    name: "Digital Illustration",
-    desc: "Character art and dreamscapes for brands, books, and personal collections.",
-    icon: "🎨",
-    tag: "Digital",
-    gradient: "bg-gradient-to-br from-violet-800 via-purple-900 to-[#06101f]",
-  },
-  {
-    name: "Brand Identity",
-    desc: "Visual identity systems — logo, colour palette, typography, and art direction.",
-    icon: "✦",
-    tag: "Branding",
-    gradient: "bg-gradient-to-br from-rose-800 via-pink-900 to-[#06101f]",
-  },
-];
-
 const STARS = [
   { top: "10%", left: "7%",  size: "h-0.5 w-0.5", opacity: "opacity-60" },
   { top: "18%", left: "22%", size: "h-1 w-1",     opacity: "opacity-40" },
@@ -83,7 +53,6 @@ const STARS = [
 export default function RisingMoon() {
   const [headerRef, headerInView] = useInView(0.1);
   const [limitedRef, limitedInView] = useInView();
-  const [artistryRef, artistryInView] = useInView();
 
   return (
     <section
@@ -121,31 +90,36 @@ export default function RisingMoon() {
         {/* ── moon header ── */}
         <div ref={headerRef} className="mb-20 flex flex-col items-center text-center">
 
-          {/* crescent moon SVG */}
+          {/* full moon SVG */}
           <div className={`relative mb-10 flex items-center justify-center transition-[opacity,transform] duration-1000 ease-out ${headerInView ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-8"}`}>
-            {/* outer pulse ring */}
-            <span className="animate-moon-pulse pointer-events-none absolute h-44 w-44 rounded-full bg-blue-300/10 blur-2xl" />
-            <span className="animate-moon-pulse pointer-events-none absolute h-28 w-28 rounded-full bg-blue-200/15 blur-xl [animation-delay:1.5s]" />
-            {/* crescent SVG */}
+            {/* outer pulse rings */}
+            <span className="animate-moon-pulse pointer-events-none absolute h-64 w-64 rounded-full bg-blue-300/10 blur-3xl" />
+            <span className="animate-moon-pulse pointer-events-none absolute h-44 w-44 rounded-full bg-blue-200/15 blur-2xl [animation-delay:1.5s]" />
+            <span className="animate-moon-pulse pointer-events-none absolute h-32 w-32 rounded-full bg-white/20 blur-xl [animation-delay:0.8s]" />
+            {/* full moon SVG */}
             <svg
-              width="96"
-              height="96"
+              width="128"
+              height="128"
               viewBox="0 0 96 96"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              className="relative drop-shadow-[0_0_24px_rgba(147,197,253,0.6)]"
+              className="relative drop-shadow-[0_0_40px_rgba(147,197,253,0.8)]"
             >
               <defs>
                 <radialGradient id="mg" cx="38%" cy="32%" r="68%" gradientUnits="objectBoundingBox">
-                  <stop offset="0%"   stopColor="#e8f0ff" />
-                  <stop offset="45%"  stopColor="#b8ccf4" />
-                  <stop offset="100%" stopColor="#6e8ecb" />
+                  <stop offset="0%"   stopColor="#ffffff" />
+                  <stop offset="45%"  stopColor="#dbe7ff" />
+                  <stop offset="100%" stopColor="#9ab4e8" />
+                </radialGradient>
+                <radialGradient id="mshine" cx="38%" cy="32%" r="30%" gradientUnits="objectBoundingBox">
+                  <stop offset="0%"   stopColor="#ffffff" stopOpacity="0.9" />
+                  <stop offset="100%" stopColor="#ffffff" stopOpacity="0" />
                 </radialGradient>
               </defs>
               {/* full circle */}
               <circle cx="48" cy="48" r="44" fill="url(#mg)" />
-              {/* shadow circle that creates the crescent */}
-              <circle cx="64" cy="32" r="36" fill="#06101f" />
+              {/* shine highlight */}
+              <circle cx="48" cy="48" r="44" fill="url(#mshine)" className="animate-moon-pulse" />
             </svg>
           </div>
 
@@ -199,7 +173,7 @@ export default function RisingMoon() {
 
               <button
                 type="button"
-                className="btn-shine mt-5 rounded-full bg-moon-800 py-2.5 text-sm font-semibold tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-moon-700 hover:shadow-lg hover:shadow-blue-900/60"
+                className="btn-shine mt-5 rounded-full bg-moon-800 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-moon-700 hover:shadow-lg hover:shadow-blue-900/60"
               >
                 Reserve Yours
               </button>
@@ -207,81 +181,12 @@ export default function RisingMoon() {
           ))}
         </div>
 
-        {/* ── artistry divider ── */}
-        <div className="my-24 flex items-center gap-6">
-          <div className="h-px flex-1 bg-gradient-to-r from-transparent to-white/15" />
-          <div className="flex flex-col items-center gap-1">
-            <span className="text-lg text-white/20">✦</span>
-            <span className="font-display text-xs tracking-[0.45em] text-white/30 uppercase">Artistry</span>
-            <span className="text-lg text-white/20">✦</span>
-          </div>
-          <div className="h-px flex-1 bg-gradient-to-l from-transparent to-white/15" />
-        </div>
-
-        {/* ── artistry section ── */}
-        <div ref={artistryRef}>
-          <div
-            className={`mb-12 text-center transition-[opacity,transform] duration-700 ease-out ${artistryInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"}`}
-          >
-            <span className="font-script text-2xl text-blue-200/55">designed by Ada</span>
-            <h3 className="mt-1 font-display text-4xl font-bold text-white sm:text-5xl">
-              Artistry
-            </h3>
-            <p className="mx-auto mt-4 max-w-md text-sm leading-relaxed text-white/45">
-              Beyond crochet — book cover design, digital illustration, and visual identity work
-              created with the same care as every handmade piece.
-            </p>
-          </div>
-
-          <div className="grid gap-6 sm:grid-cols-3">
-            {ARTISTRY.map((item, i) => (
-              <div
-                key={item.name}
-                style={{ transitionDelay: `${i * 130}ms` }}
-                className={`group/card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:-translate-y-3 hover:border-white/20 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(100,60,200,0.2)] ${artistryInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
-              >
-                <ArtPlaceholder
-                  gradient={item.gradient}
-                  icon={item.icon}
-                  className="aspect-[4/3] w-full rounded-2xl"
-                />
-
-                <div className="mt-4 flex items-start justify-between gap-2">
-                  <h3 className="font-display text-base font-semibold leading-snug">{item.name}</h3>
-                  <span className="shrink-0 rounded-full border border-white/15 px-2.5 py-0.5 font-display text-xs tracking-wide text-white/45">
-                    {item.tag}
-                  </span>
-                </div>
-                <p className="mt-2 grow text-sm leading-relaxed text-white/55 italic">{item.desc}</p>
-
-                <button
-                  type="button"
-                  className="btn-shine mt-5 rounded-full border border-white/20 bg-white/5 py-2.5 text-sm font-semibold tracking-wide text-white/80 transition duration-300 hover:-translate-y-0.5 hover:border-white/35 hover:bg-white/10 hover:text-white hover:shadow-lg"
-                >
-                  View Work
-                </button>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* ── bottom CTA ── */}
-        <div
-          className={`mt-16 flex justify-center transition-[opacity,transform] duration-700 ease-out delay-300 ${artistryInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"}`}
-        >
-          <a
-            href="#preorder"
-            className="btn-shine rounded-full bg-gradient-to-r from-blue-600 to-indigo-600 px-10 py-3.5 font-display text-sm font-semibold tracking-wide text-white shadow-xl shadow-blue-900/50 transition duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-[0_12px_40px_rgba(59,130,246,0.45)]"
-          >
-            Commission a Piece
-          </a>
-        </div>
       </div>
 
-      {/* wave to Footer lavender-100 */}
+      {/* wave to Artistry plum-900 */}
       <div className="absolute bottom-0 left-0 w-full leading-none">
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="block h-16 w-full sm:h-20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,0 360,72 540,36 C720,0 900,72 1080,36 C1260,0 1380,54 1440,36 L1440,72 L0,72 Z" fill="#ece1f7" />
+          <path d="M0,36 C180,0 360,72 540,36 C720,0 900,72 1080,36 C1260,0 1380,54 1440,36 L1440,72 L0,72 Z" fill="#5a3049" />
         </svg>
       </div>
     </section>

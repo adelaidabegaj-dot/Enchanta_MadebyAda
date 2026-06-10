@@ -22,7 +22,7 @@ export default function ArtPlaceholder({
       <div className="pointer-events-none absolute inset-0 translate-x-[-110%] skew-x-[-18deg] bg-[linear-gradient(90deg,transparent,rgba(255,255,255,0.22),transparent)] transition-transform duration-700 ease-in-out group-hover/art:translate-x-[210%]" />
 
       {icon && (
-        <span className="relative text-4xl drop-shadow-sm transition-[transform] duration-500 ease-out sm:text-5xl group-hover/art:-translate-y-2 group-hover/art:scale-125">
+        <span className="relative text-4xl drop-shadow-sm transition-transform duration-700 ease-[cubic-bezier(.25,.8,.25,1)] sm:text-5xl group-hover/art:-translate-y-2 group-hover/art:scale-110">
           {icon}
         </span>
       )}

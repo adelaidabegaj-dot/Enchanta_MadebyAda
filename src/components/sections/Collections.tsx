@@ -148,7 +148,7 @@ export default function Collections() {
                 <p className="mt-2 text-sm text-white/65 italic">{relic.desc}</p>
                 <button
                   type="button"
-                  className="btn-shine mt-5 rounded-full bg-plum-900/70 py-2.5 text-sm font-semibold tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-plum-900 hover:shadow-lg hover:shadow-plum-900/50"
+                  className="btn-shine mt-5 rounded-full bg-plum-900/70 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-plum-900 hover:shadow-lg hover:shadow-plum-900/50"
                 >
                   Buy Now
                 </button>

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Playfair_Display, Dancing_Script, Quicksand } from "next/font/google";
 import "./globals.css";
+import Sparkles from "@/components/Sparkles";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair",
@@ -37,6 +38,7 @@ export default function RootLayout({
       className={`${playfair.variable} ${dancingScript.variable} ${quicksand.variable} scroll-smooth`}
     >
       <body className="min-h-full bg-cream font-sans antialiased text-ink">
+        <Sparkles />
         {children}
       </body>
     </html>

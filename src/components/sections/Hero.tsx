@@ -9,6 +9,10 @@ export default function Hero() {
       <div className="pointer-events-none absolute top-10 right-0 h-80 w-80 rounded-full bg-lavender-300/40 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-64 w-64 rounded-full bg-sky-300/40 blur-3xl" />
 
+      {/* flowing side gradients */}
+      <div className="animate-gradient-flow pointer-events-none absolute top-0 -left-1/3 h-full w-2/3 bg-[length:200%_200%] bg-gradient-to-br from-blossom-300/50 via-lavender-300/40 to-sky-300/50 blur-3xl" />
+      <div className="animate-gradient-flow [animation-delay:-8s] pointer-events-none absolute top-0 -right-1/3 h-full w-2/3 bg-[length:200%_200%] bg-gradient-to-bl from-sky-300/50 via-blossom-300/40 to-lavender-300/50 blur-3xl" />
+
       {/* drifting petals */}
       <span className="animate-drift pointer-events-none absolute top-1/3 left-[12%] text-2xl opacity-70">
         🌸
@@ -36,15 +40,14 @@ export default function Hero() {
           <div className="animate-float relative mt-12 flex flex-col items-center">
             <div className="absolute -top-3 left-1/2 h-12 w-px -translate-x-1/2 -rotate-12 bg-plum-500/50" />
             <div className="relative w-56 rounded-2xl border-[6px] border-plum-700 bg-plum-900 p-3 shadow-2xl shadow-plum-900/40 sm:w-64">
-              <div className="flex h-36 items-center justify-center rounded-lg bg-gradient-to-br from-lavender-300 via-blossom-300 to-plum-300 sm:h-40">
-                <div className="flex flex-col items-center gap-1 text-white">
-                  <span className="text-3xl">🧚</span>
-                  <span className="font-display text-sm font-semibold tracking-wide">
-                    Enchanta
-                  </span>
-                  <span className="font-script text-xs">Made by Ada</span>
-                </div>
-              </div>
+              <video
+                src="/videos/hero.mp4"
+                autoPlay
+                loop
+                muted
+                playsInline
+                className="h-36 w-full rounded-lg object-cover sm:h-40"
+              />
               <div className="absolute top-1/2 -right-2.5 flex -translate-y-1/2 flex-col gap-2">
                 <span className="h-3 w-3 rounded-full bg-blossom-300" />
                 <span className="h-3 w-3 rounded-full bg-lavender-300" />
@@ -63,7 +66,7 @@ export default function Hero() {
 
         <a
           href="#about"
-          className="btn-shine animate-hero-in [animation-delay:1.2s] mt-8 inline-flex items-center gap-2 rounded-full bg-plum-700 px-7 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-700/40"
+          className="btn-shine animate-hero-in [animation-delay:1.2s] mt-8 inline-flex items-center gap-2 rounded-full bg-plum-700 px-7 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition-all duration-400 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-700/40"
         >
           Step into the meadow
           <span aria-hidden>↓</span>

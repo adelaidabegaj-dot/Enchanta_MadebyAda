@@ -111,7 +111,7 @@ export default function CustomMade() {
             </label>
             <button
               type="submit"
-              className="btn-shine mt-1 rounded-full bg-plum-700 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition duration-300 hover:-translate-y-1 hover:scale-[1.02] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-700/40"
+              className="btn-shine mt-1 rounded-full bg-plum-700 py-3 text-sm font-semibold tracking-wide text-white shadow-lg shadow-plum-700/30 transition-all duration-400 ease-out hover:-translate-y-1 hover:scale-[1.02] hover:bg-plum-900 hover:shadow-xl hover:shadow-plum-700/40"
             >
               Send my idea to Ada
             </button>

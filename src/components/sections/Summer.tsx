@@ -148,7 +148,7 @@ export default function Summer() {
               </p>
               <button
                 type="button"
-                className="btn-shine mt-5 rounded-full bg-sky-700 py-2.5 text-sm font-semibold tracking-wide text-white transition duration-300 hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-sky-900 hover:shadow-lg hover:shadow-sky-900/40"
+                className="btn-shine mt-5 rounded-full bg-sky-700 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-sky-900 hover:shadow-lg hover:shadow-sky-900/40"
               >
                 BUY NOW
               </button>
@@ -161,7 +161,7 @@ export default function Summer() {
         >
           <a
             href="#collections"
-            className="btn-shine rounded-full bg-gradient-to-r from-blossom-500 to-blossom-300 px-8 py-3 text-sm font-bold tracking-wide text-white shadow-lg shadow-plum-900/20 transition duration-300 hover:-translate-y-1 hover:scale-[1.04] hover:shadow-xl hover:shadow-blossom-500/30"
+            className="btn-shine rounded-full bg-gradient-to-r from-blossom-500 to-blossom-300 px-8 py-3 text-sm font-bold tracking-wide text-white shadow-lg shadow-plum-900/20 transition-all duration-400 ease-out hover:-translate-y-1 hover:scale-[1.04] hover:shadow-xl hover:shadow-blossom-500/30"
           >
             See more
           </a>

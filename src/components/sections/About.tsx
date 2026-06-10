@@ -30,7 +30,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative overflow-hidden bg-gradient-to-br from-plum-900 via-plum-700 to-plum-500 py-24 text-white"
+      className="relative overflow-hidden bg-gradient-to-b from-plum-900 via-plum-700 to-plum-500 py-24 text-white"
     >
       <div className="pointer-events-none absolute -top-32 -right-20 h-80 w-80 rounded-full bg-blossom-300/20 blur-3xl" />
       <div className="pointer-events-none absolute bottom-0 left-0 h-72 w-72 rounded-full bg-lavender-300/20 blur-3xl" />
