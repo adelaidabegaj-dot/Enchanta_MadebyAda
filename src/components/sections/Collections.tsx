@@ -53,13 +53,6 @@ const RELICS: { name: string; price: string; desc: string; icon: string; categor
   },
 ];
 
-// staggered offsets so the cards don't sit in a perfect row
-const OFFSETS = [
-  "lg:-translate-y-6 lg:rotate-[-2deg]",
-  "lg:translate-y-14 lg:rotate-[1.5deg]",
-  "lg:-translate-y-2 lg:rotate-[2.5deg]",
-];
-
 export default function Collections() {
   const [filter, setFilter] = useState<Category>("All Relics");
   const [showAll, setShowAll] = useState(false);
@@ -138,29 +131,31 @@ export default function Collections() {
             ))}
           </div>
 
-          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          <div className="mt-12 flex flex-col gap-6">
             {visible.map((relic, i) => (
               <div
                 key={relic.name}
                 style={{ transitionDelay: `${200 + i * 100}ms` }}
-                className={`group/card flex flex-col rounded-[1.75rem] border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:-translate-y-3 hover:border-white/25 hover:bg-white/10 hover:shadow-[0_20px_56px_rgba(90,48,73,0.4)] ${OFFSETS[i % OFFSETS.length]} ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+                className={`group/card flex flex-col gap-6 rounded-[1.75rem] border border-white/10 bg-white/5 p-5 text-left backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:border-white/25 hover:bg-white/10 hover:shadow-[0_20px_56px_rgba(90,48,73,0.4)] sm:flex-row sm:items-center ${i % 2 === 1 ? "sm:flex-row-reverse" : ""} ${gridInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
               >
                 <ArtPlaceholder
                   gradient="bg-gradient-to-br from-plum-300/70 to-plum-700/70"
                   icon={relic.icon}
-                  className="aspect-square w-full rounded-2xl"
+                  className="aspect-square w-full rounded-2xl sm:w-1/2"
                 />
-                <h3 className="mt-5 font-display text-lg font-semibold">{relic.name}</h3>
-                <span className="mt-1 font-display text-base font-bold text-blossom-100">
-                  {relic.price}
-                </span>
-                <p className="mt-2 text-sm text-white/65 italic">{relic.desc}</p>
-                <button
-                  type="button"
-                  className="btn-shine mt-5 rounded-full bg-plum-900/70 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-plum-900 hover:shadow-lg hover:shadow-plum-900/50"
-                >
-                  Buy Now
-                </button>
+                <div className="flex flex-col sm:w-1/2">
+                  <h3 className="font-display text-lg font-semibold">{relic.name}</h3>
+                  <span className="mt-1 font-display text-base font-bold text-blossom-100">
+                    {relic.price}
+                  </span>
+                  <p className="mt-2 text-sm text-white/65 italic">{relic.desc}</p>
+                  <button
+                    type="button"
+                    className="btn-shine mt-5 w-fit rounded-full bg-plum-900/70 px-8 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-plum-900 hover:shadow-lg hover:shadow-plum-900/50"
+                  >
+                    Buy Now
+                  </button>
+                </div>
               </div>
             ))}
           </div>

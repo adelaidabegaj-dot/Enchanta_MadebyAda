@@ -127,18 +127,18 @@ export default function Summer() {
           </div>
         </div>
 
-        {/* product grid */}
-        <div ref={productsRef} className="mt-20 grid gap-6 sm:grid-cols-3">
+        {/* product list — alternating image / text rows */}
+        <div ref={productsRef} className="mt-20 flex flex-col gap-8">
           {PRODUCTS.map((product, i) => (
             <div
               key={product.name}
               style={{ transitionDelay: `${i * 130}ms` }}
-              className={`group/card relative flex flex-col overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/10 p-5 backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:-translate-y-3 hover:border-white/45 hover:bg-white/18 hover:shadow-[0_20px_60px_rgba(14,165,233,0.25)] ${productsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              className={`group/card relative flex flex-col gap-6 overflow-hidden rounded-[1.75rem] border border-white/25 bg-white/10 p-5 backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:border-white/45 hover:bg-white/18 hover:shadow-[0_20px_60px_rgba(14,165,233,0.25)] sm:flex-row sm:items-center ${i % 2 === 1 ? "sm:flex-row-reverse" : ""} ${productsInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
             >
               {/* glow that appears on hover */}
               <div className="pointer-events-none absolute -inset-1 rounded-[1.75rem] bg-gradient-to-br from-blossom-300/0 via-white/0 to-sky-200/0 opacity-0 blur-2xl transition-opacity duration-500 ease-out group-hover/card:from-blossom-300/30 group-hover/card:via-white/20 group-hover/card:to-sky-200/30 group-hover/card:opacity-100" />
 
-              <div className="relative overflow-hidden rounded-2xl">
+              <div className="relative overflow-hidden rounded-2xl sm:w-1/2">
                 <ArtPlaceholder
                   gradient={product.gradient}
                   icon={product.icon}
@@ -147,21 +147,23 @@ export default function Summer() {
                 {/* shimmer sweep across the artwork */}
                 <div className="pointer-events-none absolute inset-0 -translate-x-full bg-gradient-to-r from-transparent via-white/40 to-transparent transition-transform duration-700 ease-out group-hover/card:translate-x-full" />
               </div>
-              <h3 className="relative mt-5 font-display text-lg font-semibold transition-colors duration-300 group-hover/card:text-blossom-100">
-                {product.name}
-              </h3>
-              <span className="relative mt-1 inline-block w-fit rounded-md bg-yellow-200/80 px-2 py-0.5 font-display text-sm font-semibold text-plum-700 transition-transform duration-300 ease-out group-hover/card:scale-105">
-                {product.price}
-              </span>
-              <p className="relative mt-3 text-sm leading-relaxed text-white/75 italic">
-                {product.desc}
-              </p>
-              <button
-                type="button"
-                className="btn-shine relative mt-5 rounded-full bg-sky-700 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-sky-900 hover:shadow-lg hover:shadow-sky-900/40"
-              >
-                BUY NOW
-              </button>
+              <div className="relative flex flex-col sm:w-1/2">
+                <h3 className="font-display text-lg font-semibold transition-colors duration-300 group-hover/card:text-blossom-100">
+                  {product.name}
+                </h3>
+                <span className="mt-1 inline-block w-fit rounded-md bg-yellow-200/80 px-2 py-0.5 font-display text-sm font-semibold text-plum-700 transition-transform duration-300 ease-out group-hover/card:scale-105">
+                  {product.price}
+                </span>
+                <p className="mt-3 text-sm leading-relaxed text-white/75 italic">
+                  {product.desc}
+                </p>
+                <button
+                  type="button"
+                  className="btn-shine mt-5 w-fit rounded-full bg-sky-700 px-8 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-sky-900 hover:shadow-lg hover:shadow-sky-900/40"
+                >
+                  BUY NOW
+                </button>
+              </div>
             </div>
           ))}
         </div>

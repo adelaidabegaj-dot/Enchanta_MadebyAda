@@ -146,13 +146,13 @@ export default function RisingMoon() {
           </p>
         </div>
 
-        {/* ── limited edition crochet cards ── */}
-        <div ref={limitedRef} className="grid gap-6 sm:grid-cols-3">
+        {/* ── limited edition crochet pieces ── */}
+        <div ref={limitedRef} className="flex flex-col gap-6">
           {LIMITED.map((item, i) => (
             <div
               key={item.name}
               style={{ transitionDelay: `${i * 130}ms` }}
-              className={`group/card relative flex flex-col overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:-translate-y-3 hover:border-blue-300/30 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(59,130,246,0.22)] ${limitedInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
+              className={`group/card relative flex flex-col gap-6 overflow-hidden rounded-[1.75rem] border border-white/10 bg-white/5 p-5 backdrop-blur-md transition-[opacity,transform,box-shadow,border-color,background-color] duration-500 ease-out hover:border-blue-300/30 hover:bg-white/[0.07] hover:shadow-[0_20px_60px_rgba(59,130,246,0.22)] sm:flex-row sm:items-center ${i % 2 === 1 ? "sm:flex-row-reverse" : ""} ${limitedInView ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10"}`}
             >
               {/* edition badge */}
               <span className="absolute top-4 right-4 z-10 rounded-full border border-blue-300/25 bg-blue-400/15 px-3 py-1 font-display text-xs font-semibold tracking-wide text-blue-200 backdrop-blur-sm">
@@ -162,21 +162,23 @@ export default function RisingMoon() {
               <ArtPlaceholder
                 gradient={item.gradient}
                 icon={item.icon}
-                className="aspect-square w-full rounded-2xl"
+                className="aspect-square w-full rounded-2xl sm:w-1/2"
               />
 
-              <h3 className="mt-5 font-display text-lg font-semibold">{item.name}</h3>
-              <span className="mt-1 inline-block w-fit rounded-md bg-blue-300/15 px-2.5 py-0.5 font-display text-sm font-semibold text-blue-100">
-                {item.price}
-              </span>
-              <p className="mt-3 grow text-sm leading-relaxed text-white/55 italic">{item.desc}</p>
+              <div className="flex flex-col sm:w-1/2">
+                <h3 className="font-display text-lg font-semibold">{item.name}</h3>
+                <span className="mt-1 inline-block w-fit rounded-md bg-blue-300/15 px-2.5 py-0.5 font-display text-sm font-semibold text-blue-100">
+                  {item.price}
+                </span>
+                <p className="mt-3 text-sm leading-relaxed text-white/55 italic">{item.desc}</p>
 
-              <button
-                type="button"
-                className="btn-shine mt-5 rounded-full bg-moon-800 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-moon-700 hover:shadow-lg hover:shadow-blue-900/60"
-              >
-                Reserve Yours
-              </button>
+                <button
+                  type="button"
+                  className="btn-shine mt-5 w-fit rounded-full bg-moon-800 px-8 py-2.5 text-sm font-semibold tracking-wide text-white transition-all duration-400 ease-out hover:-translate-y-0.5 hover:scale-[1.03] hover:bg-moon-700 hover:shadow-lg hover:shadow-blue-900/60"
+                >
+                  Reserve Yours
+                </button>
+              </div>
             </div>
           ))}
         </div>
