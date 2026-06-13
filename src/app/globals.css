@@ -51,6 +51,7 @@
   --animate-letter-pop: letterPop 0.7s cubic-bezier(.34, 1.56, .64, 1) both;
   --animate-title-glow: textGlowPulse 4s ease-in-out infinite;
   --animate-spin-glow: spinGlow 9s linear infinite;
+  --animate-bubble-flow: bubbleFlow 8s linear infinite;
 }
 
 @keyframes float {
@@ -92,6 +93,13 @@
 @keyframes pulseGlow {
   0%, 100% { opacity: 0.6; transform: scale(1); }
   50%       { opacity: 1;  transform: scale(1.06); }
+}
+
+@keyframes bubbleFlow {
+  0%   { bottom: -10%; opacity: 0; transform: translateX(0) scale(0.5); }
+  10%  { opacity: 1; }
+  90%  { opacity: 1; }
+  100% { bottom: 110%; opacity: 0; transform: translateX(var(--drift)) scale(1.1); }
 }
 
 @keyframes blobMove {

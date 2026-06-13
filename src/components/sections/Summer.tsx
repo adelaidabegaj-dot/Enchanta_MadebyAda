@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import ArtPlaceholder from "@/components/ArtPlaceholder";
+import Bubbles from "@/components/Bubbles";
 import { useInView } from "@/hooks/useInView";
 
 const SLIDES = [
@@ -66,6 +67,9 @@ export default function Summer() {
       <span className="animate-float pointer-events-none absolute top-1/3 right-12 h-10 w-10 rounded-full bg-white/25 backdrop-blur-sm [animation-delay:2s]" />
       <span className="animate-float pointer-events-none absolute bottom-20 left-1/4 h-20 w-20 rounded-full bg-white/15 backdrop-blur-sm [animation-delay:3.5s]" />
       <span className="animate-float pointer-events-none absolute right-1/4 bottom-10 h-12 w-12 rounded-full bg-white/20 backdrop-blur-sm [animation-delay:1.2s]" />
+
+      {/* rising water bubbles along the edges */}
+      <Bubbles />
 
       <div className="relative mx-auto max-w-6xl px-6">
 

@@ -62,7 +62,13 @@ export default function RisingMoon() {
       {/* wave dipping down from the pink CustomMade section into the night sky */}
       <div className="absolute top-0 left-0 w-full leading-none">
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="block h-16 w-full sm:h-20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="#06101f" />
+          <defs>
+            <linearGradient id="customToMoon" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stopColor="#fbdcec" />
+              <stop offset="100%" stopColor="#dcedfb" />
+            </linearGradient>
+          </defs>
+          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="url(#customToMoon)" />
         </svg>
       </div>
 
@@ -193,13 +199,6 @@ export default function RisingMoon() {
           </button>
         </div>
 
-      </div>
-
-      {/* wave to Artistry plum-900 */}
-      <div className="absolute bottom-0 left-0 w-full leading-none">
-        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" className="block h-16 w-full sm:h-20" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,0 360,72 540,36 C720,0 900,72 1080,36 C1260,0 1380,54 1440,36 L1440,72 L0,72 Z" fill="#5a3049" />
-        </svg>
       </div>
     </section>
   );

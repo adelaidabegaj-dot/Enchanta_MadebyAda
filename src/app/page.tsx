@@ -1,6 +1,7 @@
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import Hero from "@/components/sections/Hero";
+import Perks from "@/components/sections/Perks";
 import About from "@/components/sections/About";
 import Summer from "@/components/sections/Summer";
 import Collections from "@/components/sections/Collections";
@@ -10,6 +11,7 @@ import Editorial from "@/components/sections/Editorial";
 import CustomMade from "@/components/sections/CustomMade";
 import RisingMoon from "@/components/sections/RisingMoon";
 import Artistry from "@/components/sections/Artistry";
+import DigitalArt from "@/components/sections/DigitalArt";
 
 export default function Home() {
   return (
@@ -17,6 +19,7 @@ export default function Home() {
       <Nav />
       <main>
         <Hero />
+        <Perks />
         <About />
         <Summer />
         <Collections />
@@ -26,6 +29,7 @@ export default function Home() {
         <CustomMade />
         <RisingMoon />
         <Artistry />
+        <DigitalArt />
       </main>
       <Footer />
     </>
