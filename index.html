@@ -1,0 +1,1162 @@
+<!DOCTYPE html>
+<html lang="en" id="html-root">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Enchanta — Made by Ada</title>
+  <meta name="description" content="Handcrafted crochet bags, dresses & accessories woven with whimsy. Enchanta — made by Ada." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/sections.css">
+
+  <style>
+    /* Magical Smooth Scroll Experience */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* --- Scroll-Driven Fancy Motion Animations --- */
+    [data-reveal] {
+      opacity: 0;
+      /* Using a premium, fluid cubic-bezier curve for a high-end boutique feel */
+      transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
+                  transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: transform, opacity;
+    }
+
+    [data-reveal].revealed {
+      opacity: 1;
+      transform: translate(0, 0) scale(1) !important;
+    }
+
+    /* Dynamic Fancy Translations */
+    [data-reveal="up"] {
+      transform: translateY(60px);
+    }
+
+    [data-reveal="down"] {
+      transform: translateY(-60px);
+    }
+
+    [data-reveal="left"] {
+      transform: translateX(-60px);
+    }
+
+    [data-reveal="right"] {
+      transform: translateX(60px);
+    }
+
+    [data-reveal="right-lg"] {
+      transform: translateX(90px);
+    }
+
+    /* Sleek zoom entry */
+    [data-reveal="scale"] {
+      transform: scale(0.92);
+    }
+
+    /* Combined swoop up and scale */
+    [data-reveal="scale-up"] {
+      transform: scale(0.9) translateY(40px);
+    }
+
+    [data-reveal="fade"] {
+      transform: none;
+    }
+
+    /* --- Whimsical Sparkle Cursor Trail Styles --- */
+    .whimsical-sparkle {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99999;
+      font-family: 'Quicksand', sans-serif;
+      font-size: 1.2rem;
+      color: #fbdcec;
+      text-shadow: 0 0 8px rgba(255, 255, 255, 0.8), 0 0 15px rgba(220, 237, 251, 0.6);
+      user-select: none;
+      animation: flyAwaySparkle 1.2s forwards cubic-bezier(0.25, 1, 0.5, 1);
+      will-change: transform, opacity;
+    }
+
+    @keyframes flyAwaySparkle {
+      0% {
+        transform: translate(-50%, -50%) translate(0, 0) scale(1) rotate(0deg);
+        opacity: 1;
+      }
+      100% {
+        /* Drifts outward randomly using CSS variables injected via JS */
+        transform: translate(-50%, -50%) translate(var(--x-drift), var(--y-drift)) scale(0) rotate(var(--rot));
+        opacity: 0;
+      }
+    }
+
+    /* --- Interactive Whimsical Hover Highlights --- */
+    .btn-shine, .product-card, .relic, .item, .work-card {
+      transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease !important;
+    }
+    .btn-shine:hover, .product-card:hover, .relic:hover, .item:hover, .work-card:hover {
+      transform: scale(1.04) translateY(-4px) !important;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="sparkles-layer" aria-hidden="true"></div>
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="#top" class="logo">
+        <img src="assets/images/logo-enchanta.png" alt="Enchanta" width="677" height="606">
+      </a>
+
+      <ul class="nav-links">
+        <li><a class="nav-link" href="#about">About</a></li>
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#summer">Summer</a></li>
+            <li><a class="dropdown-item" href="#collections">Collections</a></li>
+            <li><a class="dropdown-item" href="#moon">Rising Moon</a></li>
+            <li><a class="dropdown-item" href="#preorder">Pre-order</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inspiration</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#moodboard">Moodboard</a></li>
+            <li><a class="dropdown-item" href="#editorial">Editorial</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link" href="#custom">Custom Made</a></li>
+      </ul>
+
+      <a href="#preorder" class="btn-shine shop-now">
+        <span aria-hidden="true">✦</span> Shop now
+      </a>
+
+      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu">
+      <ul>
+        <li><a href="#about">About</a></li>
+        <li class="mobile-group">
+          <details>
+            <summary>Shop</summary>
+            <ul>
+              <li><a href="#summer">Summer</a></li>
+              <li><a href="#collections">Collections</a></li>
+              <li><a href="#moon">Rising Moon</a></li>
+              <li><a href="#preorder">Pre-order</a></li>
+            </ul>
+          </details>
+        </li>
+        <li class="mobile-group">
+          <details>
+            <summary>Inspiration</summary>
+            <ul>
+              <li><a href="#moodboard">Moodboard</a></li>
+              <li><a href="#editorial">Editorial</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="#custom">Custom Made</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+
+    <section id="top" class="hero">
+      <div class="breathing-glow anim-breathing-glow"></div>
+
+      <div class="blob blob-1 anim-blob"></div>
+      <div class="blob blob-2 anim-blob"></div>
+      <div class="blob blob-3 anim-blob"></div>
+      <div class="blob blob-4 anim-blob"></div>
+
+      <div class="gradient-side gradient-side-left anim-gradient-flow"></div>
+      <div class="gradient-side gradient-side-right anim-gradient-flow"></div>
+
+      <div class="sparkle-field" aria-hidden="true"></div>
+
+      <div class="petal petal-1 anim-float"></div>
+      <div class="petal petal-2 anim-float"></div>
+      <div class="petal petal-3 anim-float"></div>
+      <div class="petal petal-4 anim-float"></div>
+
+      <div class="hero-inner">
+        <span class="kicker font-script">welcome to a little meadow of magic</span>
+        <h1 class="font-display">
+          <span style="animation-delay:0.35s">E</span>
+          <span style="animation-delay:0.42s">N</span>
+          <span style="animation-delay:0.49s">C</span>
+          <span style="animation-delay:0.56s">H</span>
+          <span style="animation-delay:0.63s">A</span>
+          <span style="animation-delay:0.70s">N</span>
+          <span style="animation-delay:0.77s">T</span>
+          <span style="animation-delay:0.84s">A</span>
+        </h1>
+        <p class="subtitle font-display">Made by Ada</p>
+
+        <div class="showcase-wrap">
+          <div class="showcase anim-float">
+            <div class="glow-ring arch-frame showcase-frame">
+              <video class="arch-frame" src="assets/videos/hero.mp4" autoplay loop muted playsinline></video>
+            </div>
+          </div>
+        </div>
+
+        <p class="lead">
+          Enchanta weaves hand-crocheted bags, dresses &amp; accessories — each
+          piece stitched slowly, dipped in pastel dreams, and made to feel like
+          a little piece of folklore you can carry with you.
+        </p>
+
+        <a href="#about" class="btn-shine cta">
+          Step into the meadow
+          <span aria-hidden="true">↓</span>
+        </a>
+      </div>
+    </section>
+
+    <style>
+      .night-sky-perks {
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 50%, #0c1a30 0%, #040914 100%);
+        padding: 60px 0;
+        z-index: 1;
+      }
+
+      /* Starry Sky Background Layer */
+      .night-sky-perks::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 0;
+        background-image: 
+          radial-gradient(1.5px 1.5px at 15% 20%, rgba(255, 255, 255, 0.8) 100%, transparent),
+          radial-gradient(2px 2px at 40% 65%, rgba(255, 255, 255, 0.9) 100%, transparent),
+          radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.7) 100%, transparent),
+          radial-gradient(2px 2px at 85% 75%, rgba(255, 255, 255, 0.85) 100%, transparent),
+          radial-gradient(1.5px 1.5px at 30% 15%, rgba(255, 255, 255, 0.6) 100%, transparent),
+          radial-gradient(2.5px 2.5px at 60% 85%, rgba(255, 255, 255, 0.9) 100%, transparent);
+        background-size: 100% 100%;
+        animation: twinkleStars 6s ease-in-out infinite alternate;
+      }
+
+      /* Moving Clouds Foreground Layer */
+      .night-sky-perks::after {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 300%;
+        height: 100%;
+        z-index: 1;
+        pointer-events: none;
+        opacity: 0.18;
+        background: 
+          radial-gradient(circle at 15% 45%, rgba(255, 255, 255, 0.35) 0%, transparent 35%),
+          radial-gradient(circle at 45% 65%, rgba(255, 255, 255, 0.25) 0%, transparent 40%),
+          radial-gradient(circle at 75% 35%, rgba(255, 255, 255, 0.3) 0%, transparent 35%),
+          radial-gradient(circle at 105% 55%, rgba(255, 255, 255, 0.2) 0%, transparent 45%);
+        animation: moveClouds 40s linear infinite;
+      }
+
+      @keyframes twinkleStars {
+        0% { opacity: 0.6; }
+        100% { opacity: 1; }
+      }
+
+      @keyframes moveClouds {
+        0% { transform: translateX(0); }
+        100% { transform: translateX(-50%); }
+      }
+
+      /* Gentle pulse and glow animation for the text */
+      @keyframes textPulse {
+        0% {
+          transform: scale(1);
+          text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 255, 255, 0.15);
+        }
+        50% {
+          transform: scale(1.02);
+          text-shadow: 0 4px 20px rgba(0, 0, 0, 0.9), 0 0 40px rgba(255, 255, 255, 0.35);
+        }
+        100% {
+          transform: scale(1);
+          text-shadow: 0 4px 15px rgba(0, 0, 0, 0.8), 0 0 25px rgba(255, 255, 255, 0.15);
+        }
+      }
+
+      .night-sky-perks .grid {
+        position: relative;
+        z-index: 2;
+        max-width: 1400px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 20px;
+      }
+
+      .perk {
+        text-align: center;
+        padding: 10px;
+        flex: 1;
+        min-width: 250px;
+      }
+
+      .perk-logo {
+        width: 220px;
+        height: 220px;
+        object-fit: contain;
+        display: inline-block;
+        margin-bottom: 18px;
+        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+      }
+
+      .perk h3 {
+        font-family: 'Alice', serif;
+        font-size: 316px; /* Increased from 66px to 316px (+250px) */
+        font-weight: 700; 
+        color: #ffffff;
+        margin: 0;
+        letter-spacing: 0.5px;
+        line-height: 1.1;
+        display: inline-block;
+        animation: textPulse 4s ease-in-out infinite; /* Added text animation */
+      }
+    </style>
+
+    <section class="perks night-sky-perks">
+      <div class="grid">
+        <div class="perk">
+          <img src="2.png" alt="Chat Support Logo" class="perk-logo">
+          <h3>24/7 Chat Support</h3>
+        </div>
+        <div class="perk">
+          <img src="4.png" alt="Hand Crafted Logo" class="perk-logo">
+          <h3>Hand Crafted</h3>
+        </div>
+        <div class="perk">
+          <img src="3.png" alt="Packed with Love Logo" class="perk-logo">
+          <h3>Packed With Love</h3>
+        </div>
+        <div class="perk">
+          <img src="1.png" alt="Free Shipping Logo" class="perk-logo">
+          <h3>Free Shipping</h3>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <div class="glow-blob glow-1"></div>
+      <div class="glow-blob glow-2"></div>
+
+      <div class="grid">
+        <div class="col-left">
+          <span class="kicker font-script" data-reveal="left">the story behind the stitches</span>
+          <h2 class="font-display" data-reveal="left" style="transition-delay:100ms">About Enchanta</h2>
+          <p data-reveal="up" style="transition-delay:150ms">
+            Enchanta began as Ada&rsquo;s quiet hobby — a hook, a ball of yarn,
+            and a love for fairy-tale colour palettes. It grew into a tiny
+            atelier devoted to crochet pieces that feel like wearable
+            daydreams: soft, textured, and just a little whimsical.
+          </p>
+          <p class="muted" data-reveal="up" style="transition-delay:200ms">
+            From sun-soaked summer totes to moonlit evening bags, every
+            Enchanta piece is designed to carry a bit of wonder into your
+            everyday.
+          </p>
+
+          <div class="values">
+            <div class="value" data-reveal="up" style="transition-delay:280ms">
+              <span class="icon">🧶</span>
+              <h3 class="font-display">Hand-crocheted</h3>
+              <p>Every stitch made by hand, slowly, with cotton &amp; silk-blend yarns.</p>
+            </div>
+            <div class="value" data-reveal="up" style="transition-delay:390ms">
+              <span class="icon">🌙</span>
+              <h3 class="font-display">Small batches</h3>
+              <p>Limited drops so each piece keeps its one-of-a-kind charm.</p>
+            </div>
+            <div class="value" data-reveal="up" style="transition-delay:500ms">
+              <span class="icon">💌</span>
+              <h3 class="font-display">Made to order</h3>
+              <p>Custom colours &amp; sizing — Ada crafts each piece just for you.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-right video-wrap" data-reveal="right-lg" style="transition-delay:300ms">
+          <video src="assets/videos/about.mp4" autoplay loop muted playsinline></video>
+        </div>
+      </div>
+    </section>
+
+    <section id="summer" class="summer">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="#9c5d7a" />
+        </svg>
+      </div>
+
+      <span class="float-bubble fb-1 anim-float"></span>
+      <span class="float-bubble fb-2 anim-float"></span>
+      <span class="float-bubble fb-3 anim-float"></span>
+      <span class="float-bubble fb-4 anim-float"></span>
+
+      <div class="bubbles-layer" data-count="16" aria-hidden="true"></div>
+
+      <div class="wrap">
+        <div class="heading-grid">
+          <div>
+            <span class="kicker font-script" data-reveal="up">Mermaid Tales</span>
+            <h2 class="font-display" data-reveal="up" style="transition-delay:100ms">Koleksioni i ri</h2>
+            <p class="desc" data-reveal="up" style="transition-delay:200ms">
+              A summer capsule inspired by tide pools and golden sand —
+              hand-crocheted bags built for salty hair and bare feet.
+            </p>
+            <a href="#collections" class="btn-shine buy-now" data-reveal="up" style="transition-delay:300ms">
+              <span aria-hidden="true">🛒</span> Buy Now
+            </a>
+          </div>
+
+          <div class="carousel" data-reveal="right" style="transition-delay:200ms">
+            <div class="carousel-frame">
+              <div class="carousel-glow anim-pulse-glow"></div>
+              <div class="art-placeholder carousel-art grad-skydeep">
+                <span class="art-icon">🐚</span>
+                <span class="art-label">Shell-stitch totes by the shore</span>
+              </div>
+            </div>
+            <div class="carousel-dots">
+              <button type="button" class="active" aria-label="Go to slide 1"></button>
+              <button type="button" aria-label="Go to slide 2"></button>
+              <button type="button" aria-label="Go to slide 3"></button>
+              <button type="button" aria-label="Go to slide 4"></button>
+              <button type="button" aria-label="Go to slide 5"></button>
+            </div>
+          </div>
+        </div>
+
+        <div class="products">
+          <div class="product-card" data-reveal="up" style="transition-delay:0ms">
+            <div class="product-art">
+              <div class="art-placeholder grad-skydeep">
+                <span class="art-icon">👜</span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="font-display">Azure Silk Tote</h3>
+              <span class="price font-display">$420.00</span>
+              <p class="desc">Një krijim artizanal prej mëndafshi të pastër, i krijuar për të reflektuar shkëlqimin e diellit mbi det.</p>
+              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+            </div>
+          </div>
+
+          <div class="product-card reverse" data-reveal="up" style="transition-delay:130ms">
+            <div class="product-art">
+              <div class="art-placeholder grad-sand">
+                <span class="art-icon">✨</span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="font-display">Sand Pearl Clutch</h3>
+              <span class="price font-display">$290.00</span>
+              <p class="desc">Detaje perlash të punuara me dorë në një bazë sateni, perfekte për mbrëmjet elegante të verës.</p>
+              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+            </div>
+          </div>
+
+          <div class="product-card" data-reveal="up" style="transition-delay:260ms">
+            <div class="product-art">
+              <div class="art-placeholder grad-coastline">
+                <span class="art-icon">🐚</span>
+              </div>
+            </div>
+            <div class="product-info">
+              <h3 class="font-display">Coastline Mini</h3>
+              <span class="price font-display">$350.00</span>
+              <p class="desc">E vogël, fine dhe plot stil. Një aksesor që mban brenda magjinë e bregdetit.</p>
+              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="see-more" data-reveal="up" style="transition-delay:500ms">
+          <a href="#collections" class="btn-shine">See more</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="collections">
+      <div class="collections-banner">
+        <span class="deco deco-1">🌸</span>
+        <span class="deco deco-2">🌸</span>
+
+        <div class="inner">
+          <span class="kicker font-script" data-reveal="up">a softer kind of shine</span>
+          <h2 class="font-display" data-reveal="scale" style="transition-delay:150ms">MAGICAL GLOW</h2>
+          <a href="#preorder" class="btn-shine cta" data-reveal="up" style="transition-delay:300ms">Order yours now</a>
+        </div>
+      </div>
+
+      <div class="collections-grid">
+        <div class="glow-blob glow-1"></div>
+        <div class="glow-blob glow-2"></div>
+
+        <div class="inner">
+          <h2 class="font-display" data-reveal="up">Enchanted Collections</h2>
+
+          <div class="filters" data-reveal="up" style="transition-delay:150ms">
+            <button type="button" class="active" data-filter="all">All Relics</button>
+            <button type="button" data-filter="bags">Bags</button>
+            <button type="button" data-filter="outfits">Outfits</button>
+          </div>
+
+          <div class="relics">
+            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:200ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">🌙</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Forest Moon Bag</h3>
+                <span class="price font-display">$180</span>
+                <p class="desc">A lunar-inspired velvet bag.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+
+            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:300ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">🌿</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Willow Wrap Dress</h3>
+                <span class="price font-display">$240</span>
+                <p class="desc">Flowing silk dress.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+
+            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:400ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">✨</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Pixie Dust Mini</h3>
+                <span class="price font-display">$95</span>
+                <p class="desc">Tiny pouch filling.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+
+            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:500ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">⭐</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Starlit Cardigan</h3>
+                <span class="price font-display">$210</span>
+                <p class="desc">Cloud-soft knit for cool evenings.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+
+            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:600ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">💧</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Dewdrop Crossbody</h3>
+                <span class="price font-display">$150</span>
+                <p class="desc">Petite, dainty, dipped in pearls.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+
+            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:700ms">
+              <div class="art-placeholder grad-plum">
+                <span class="art-icon">🌼</span>
+              </div>
+              <div class="relic-info">
+                <h3 class="font-display">Meadow Slip Dress</h3>
+                <span class="price font-display">$260</span>
+                <p class="desc">Hand-finished hem &amp; lace trim.</p>
+                <button type="button" class="btn-shine buy-btn">Buy Now</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="see-more">
+            <button type="button" class="btn-shine">See more</button>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="moodboard" class="moodboard">
+      <div class="glow-blob glow-1 anim-blob"></div>
+      <div class="glow-blob glow-2 anim-blob"></div>
+      <div class="sheen anim-gradient-flow"></div>
+
+      <span class="shooting-star ss-1 anim-shooting-star"></span>
+      <span class="shooting-star ss-2 anim-shooting-star"></span>
+      <span class="shooting-star ss-3 anim-shooting-star"></span>
+
+      <div class="grid">
+        <div data-reveal="left">
+          <h2 class="font-display">
+            <span class="line1" data-reveal="up">Photo Gallery</span>
+            <span class="line2" data-reveal="up" style="transition-delay:150ms">To inspire you</span>
+          </h2>
+          <p class="desc" data-reveal="up" style="transition-delay:250ms">
+            Zgjidh atë që të pëlqen dhe ne do ta krijojmë të personalizuar për ty.
+          </p>
+          <a href="#custom" aria-label="Browse the moodboard" class="arrow-link" data-reveal="scale" style="transition-delay:300ms">→</a>
+        </div>
+
+        <div class="right-col" data-reveal="scale-up" style="transition-delay:200ms">
+          <div class="art-placeholder grad-lavender">
+            <span class="art-icon">🤍</span>
+            <span class="art-label">texture &amp; lace study</span>
+          </div>
+          <button type="button" class="btn-shine open-btn" data-reveal="up" style="transition-delay:500ms">
+            <span aria-hidden="true">✨</span> Open Moodboard
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section id="preorder" class="preorder">
+      <span class="star star-1"></span>
+      <span class="star star-2"></span>
+      <span class="star star-3"></span>
+      <span class="star star-4"></span>
+      <span class="deco-sparkle ds-1 anim-float">✦</span>
+      <span class="deco-sparkle ds-2 anim-float">✧</span>
+
+      <div class="wrap">
+        <span class="kicker font-script" data-reveal="down">reserve a piece of magic</span>
+        <h2 class="font-display" data-reveal="down" style="transition-delay:100ms">Celestial Pre-order</h2>
+
+        <div class="content">
+          <div data-reveal="scale-up" style="transition-delay:200ms">
+            <div class="art-placeholder grad-cloud">
+              <span class="art-icon">🌥️</span>
+            </div>
+          </div>
+
+          <form data-reveal="right" style="transition-delay:300ms">
+            <p class="label">Register for early access</p>
+
+            <div class="email-row">
+              <input type="email" required placeholder="Enter your email">
+              <button type="submit" class="btn-shine">Submit</button>
+            </div>
+            <p class="submitted-msg" style="display:none">Thank you — you&rsquo;re on the list! ✨</p>
+
+            <p class="or-chat">or chat with us</p>
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" class="btn-shine whatsapp">
+              <span aria-hidden="true">💬</span> WhatsApp Ada
+            </a>
+          </form>
+        </div>
+
+        <p class="ex-label" data-reveal="fade" style="transition-delay:500ms">Preorder Product ex.</p>
+      </div>
+    </section>
+
+    <section id="editorial" class="editorial">
+      <div class="glow-blob glow-1"></div>
+      <div class="glow-blob glow-2"></div>
+
+      <div class="card">
+        <header data-reveal="down">
+          <h2 class="font-display">ENCHANTA</h2>
+          <p class="sub font-script">the editorial archive</p>
+          <div class="meta">
+            <span>Vol. 01</span>
+            <span>Est. 2026</span>
+          </div>
+        </header>
+
+        <div class="content-grid">
+          <div class="main-img" data-reveal="scale-up" style="transition-delay:200ms">
+            <div class="art-placeholder grad-lavender">
+              <span class="art-icon">🤍</span>
+              <span class="art-label">lace study, no. 1</span>
+            </div>
+          </div>
+
+          <div class="side-col">
+            <div class="side-img-1" data-reveal="right" style="transition-delay:350ms">
+              <div class="art-placeholder grad-skyfade">
+                <span class="art-icon">🌺</span>
+                <span class="art-label">the silk study</span>
+              </div>
+            </div>
+            <p class="caption" data-reveal="fade" style="transition-delay:450ms">
+              The Silk Study — hand-dyed accessories tailored for dreamers.
+            </p>
+
+            <div class="side-img-2" data-reveal="right" style="transition-delay:500ms">
+              <div class="art-placeholder grad-skydeep">
+                <span class="art-icon">🏖️</span>
+                <span class="art-label">seaside, golden hour</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <blockquote data-reveal="left" style="transition-delay:550ms">
+          &ldquo;In the soft intersection of baby pink sunsets and velvet
+          shadows, we found the true essence of Enchanta.&rdquo;
+        </blockquote>
+
+        <p class="footer-note" data-reveal="fade" style="transition-delay:700ms">
+          Curated by Ada · The Lace Affair · Spring / Summer
+        </p>
+      </div>
+    </section>
+
+    <section id="custom" class="custom-made">
+      <div class="glow-blob glow-1"></div>
+      <div class="glow-blob glow-2"></div>
+
+      <div class="grid">
+        <div>
+          <span class="kicker font-script" data-reveal="left">woven just for you</span>
+          <h2 class="font-display" data-reveal="left" style="transition-delay:100ms">Custom Made</h2>
+          <p class="desc" data-reveal="up" style="transition-delay:150ms">
+            Dreaming of a one-of-a-kind piece? Ada designs bespoke crochet bags,
+            dresses &amp; accessories tailored to your colours, your shape, your story.
+          </p>
+
+          <div class="steps">
+            <div class="step" data-reveal="left" style="transition-delay:220ms">
+              <span class="num font-display">1</span>
+              <div>
+                <h3 class="font-display"><span class="icon">🎨</span>Pick your palette</h3>
+                <p>Tell Ada the colours and yarns that feel like you.</p>
+              </div>
+            </div>
+            <div class="step" data-reveal="left" style="transition-delay:340ms">
+              <span class="num font-display">2</span>
+              <div>
+                <h3 class="font-display"><span class="icon">📐</span>Share your fit</h3>
+                <p>Send measurements or a reference piece for sizing.</p>
+              </div>
+            </div>
+            <div class="step" data-reveal="left" style="transition-delay:460ms">
+              <span class="num font-display">3</span>
+              <div>
+                <h3 class="font-display"><span class="icon">🧵</span>Watch it woven</h3>
+                <p>Ada hand-stitches your piece and shares progress along the way.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <form data-reveal="right-lg" style="transition-delay:300ms">
+          <h3 class="font-display">Start your custom order</h3>
+          <p class="sub">Share a few details and Ada will reach out to bring your idea to life.</p>
+
+          <div class="fields">
+            <label>
+              Your name
+              <input type="text" required placeholder="e.g. Elira">
+            </label>
+            <label>
+              Tell us your vision
+              <textarea required rows="4" placeholder="Colours, style, occasion, size..."></textarea>
+            </label>
+            <button type="submit">Send my idea to Ada</button>
+            <p class="sent-msg" style="display:none">Lovely — Ada will be in touch soon. ✨</p>
+          </div>
+        </form>
+      </div>
+    </section>
+
+    <section id="moon" class="rising-moon">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="shape-rendering: crispEdges;">
+          <defs>
+            <linearGradient id="customToMoon" x1="0%" y1="0%" x2="100%" y2="0%">
+              <stop offset="0%" stop-color="#fbdcec" stop-opacity="1" />
+              <stop offset="100%" stop-color="#dcedfb" stop-opacity="1" />
+            </linearGradient>
+          </defs>
+          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="url(#customToMoon)" fill-opacity="1" />
+        </svg>
+      </div>
+
+      <span class="star" style="top:10%;left:7%;width:2px;height:2px;opacity:.6"></span>
+      <span class="star" style="top:18%;left:22%;width:4px;height:4px;opacity:.4"></span>
+      <span class="star" style="top:8%;left:55%;width:2px;height:2px;opacity:.5"></span>
+      <span class="star" style="top:25%;left:80%;width:4px;height:4px;opacity:.35"></span>
+      <span class="star" style="top:45%;left:4%;width:2px;height:2px;opacity:.45"></span>
+      <span class="star" style="top:52%;left:92%;width:4px;height:4px;opacity:.3"></span>
+      <span class="star" style="top:70%;left:15%;width:2px;height:2px;opacity:.55"></span>
+      <span class="star" style="top:75%;left:88%;width:2px;height:2px;opacity:.4"></span>
+      <span class="star" style="top:88%;left:35%;width:4px;height:4px;opacity:.35"></span>
+      <span class="star" style="top:92%;left:62%;width:2px;height:2px;opacity:.5"></span>
+
+      <span class="deco-sparkle anim-float" style="top:14%;left:9%;font-size:1.125rem;animation-delay:1s">✦</span>
+      <span class="deco-sparkle anim-float" style="top:62%;right:7%;font-size:0.875rem;animation-delay:4s">✧</span>
+      <span class="deco-sparkle anim-float" style="top:38%;left:3%;font-size:0.75rem;animation-delay:7s">✦</span>
+
+      <div class="glow-blob glow-1 anim-moon-pulse"></div>
+      <div class="glow-blob glow-2"></div>
+      <div class="glow-blob glow-3"></div>
+
+      <div class="wrap">
+        <div class="header">
+          <div class="moon-wrap" data-reveal="down">
+            <span class="moon-ring ring-1 anim-moon-pulse"></span>
+            <span class="moon-ring ring-2 anim-moon-pulse"></span>
+            <span class="moon-ring ring-3 anim-moon-pulse"></span>
+            <svg width="128" height="128" viewBox="0 0 96 96" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <defs>
+                <radialGradient id="mg" cx="38%" cy="32%" r="68%" gradientUnits="objectBoundingBox">
+                  <stop offset="0%" stop-color="#ffffff" />
+                  <stop offset="45%" stop-color="#dbe7ff" />
+                  <stop offset="100%" stop-color="#9ab4e8" />
+                </radialGradient>
+                <radialGradient id="mshine" cx="38%" cy="32%" r="30%" gradientUnits="objectBoundingBox">
+                  <stop offset="0%" stop-color="#ffffff" stop-opacity="0.9" />
+                  <stop offset="100%" stop-color="#ffffff" stop-opacity="0" />
+                </radialGradient>
+              </defs>
+              <circle cx="48" cy="48" r="44" fill="url(#mg)" />
+              <circle cx="48" cy="48" r="44" fill="url(#mshine)" class="anim-moon-pulse" />
+            </svg>
+          </div>
+
+          <span class="kicker font-script" data-reveal="up" style="transition-delay:200ms">limited · bespoke · celestial</span>
+          <h2 class="font-display" data-reveal="up" style="transition-delay:300ms">Rising Moon</h2>
+          <span class="tagline font-display" data-reveal="up" style="transition-delay:400ms">in Mako</span>
+          <p class="desc" data-reveal="up" style="transition-delay:500ms">
+            A curated drop of one-of-a-kind hand-crocheted pieces, crafted in the smallest of
+            numbers. Each carries a lunar story — only a few will ever exist.
+          </p>
+        </div>
+
+        <div class="items">
+          <div class="item" data-reveal="up" style="transition-delay:0ms">
+            <span class="edition-badge font-display">3 / 7</span>
+            <div class="art-placeholder grad-moon1">
+              <span class="art-icon">🌑</span>
+            </div>
+            <div class="item-info">
+              <h3 class="font-display">Moonrise Tote</h3>
+              <span class="price font-display">$580</span>
+              <p class="desc">Hand-crocheted in midnight cotton with silver-threaded handles and a mother-of-pearl clasp.</p>
+              <button type="button" class="btn-shine reserve-btn">Reserve Yours</button>
+            </div>
+          </div>
+
+          <div class="item reverse" data-reveal="up" style="transition-delay:130ms">
+            <span class="edition-badge font-display">2 / 5</span>
+            <div class="art-placeholder grad-moon2">
+              <span class="art-icon">🌙</span>
+            </div>
+            <div class="item-info">
+              <h3 class="font-display">Crescent Clutch</h3>
+              <span class="price font-display">$420</span>
+              <p class="desc">Shaped like a waning crescent — silk-lined interior, hand-sewn pearl-button closure.</p>
+              <button type="button" class="btn-shine reserve-btn">Reserve Yours</button>
+            </div>
+          </div>
+
+          <div class="item" data-reveal="up" style="transition-delay:260ms">
+            <span class="edition-badge font-display">1 / 4</span>
+            <div class="art-placeholder grad-moon3">
+              <span class="art-icon">🦪</span>
+            </div>
+            <div class="item-info">
+              <h3 class="font-display">Mako Pearl Bag</h3>
+              <span class="price font-display">$650</span>
+              <p class="desc">Woven in deep-sea cotton yarn, finished with hand-knotted freshwater pearls.</p>
+              <button type="button" class="btn-shine reserve-btn">Reserve Yours</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="see-more">
+          <button type="button" class="btn-shine">See More</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="artistry" class="artistry">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="#06101f" />
+        </svg>
+      </div>
+
+      <div class="glow-blob glow-2"></div>
+      <div class="glow-blob glow-3"></div>
+      <div class="glow-blob glow-4"></div>
+
+      <span class="deco-sparkle ds-1 anim-float">🎨</span>
+      <span class="deco-sparkle ds-2 anim-float">✨</span>
+      <span class="deco-sparkle ds-3 anim-float">🎨</span>
+      <span class="deco-sparkle ds-4 anim-float">💫</span>
+
+      <div class="wrap">
+        <div class="header" data-reveal="up">
+          <span class="kicker font-script">designed by Ada</span>
+          <h2 class="font-display">Artistry</h2>
+          <p class="desc">
+            Beyond crochet — book cover design, digital illustration, and visual identity work
+            created with the same care as every handmade piece.
+          </p>
+        </div>
+
+        <div class="grid">
+          <div class="work-card" data-reveal="up" style="transition-delay:0ms">
+            <div class="art-placeholder grad-art1">
+              <span class="art-icon">📖</span>
+            </div>
+            <div class="title-row">
+              <h3 class="font-display">Book Cover Design</h3>
+              <span class="tag font-display">Print</span>
+            </div>
+            <p class="desc">Editorial covers for indie publishers — typography-led, mood-first, print-ready.</p>
+            <button type="button" class="btn-shine view-btn">View Work</button>
+          </div>
+
+          <div class="work-card" data-reveal="up" style="transition-delay:130ms">
+            <div class="art-placeholder grad-art2">
+              <span class="art-icon">🎨</span>
+            </div>
+            <div class="title-row">
+              <h3 class="font-display">Digital Illustration</h3>
+              <span class="tag font-display">Digital</span>
+            </div>
+            <p class="desc">Character art and dreamscapes for brands, books, and personal collections.</p>
+            <button type="button" class="btn-shine view-btn">View Work</button>
+          </div>
+
+          <div class="work-card" data-reveal="up" style="transition-delay:260ms">
+            <div class="art-placeholder grad-art3">
+              <span class="art-icon">✦</span>
+            </div>
+            <div class="title-row">
+              <h3 class="font-display">Brand Identity</h3>
+              <span class="tag font-display">Branding</span>
+            </div>
+            <p class="desc">Visual identity systems — logo, colour palette, typography, and art direction.</p>
+            <button type="button" class="btn-shine view-btn">View Work</button>
+          </div>
+        </div>
+
+        <div class="bottom-cta" data-reveal="up" style="transition-delay:300ms">
+          <a href="#preorder" class="btn-shine">Commission a Piece</a>
+        </div>
+      </div>
+
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C180,0 360,72 540,36 C720,0 900,72 1080,36 C1260,0 1380,54 1440,36 L1440,72 L0,72 Z" fill="#fbf2ef" />
+        </svg>
+      </div>
+    </section>
+
+    <section id="digital-art" class="digital-art">
+      <div class="glow-blob glow-1"></div>
+      <div class="glow-blob glow-2"></div>
+
+      <div class="wrap">
+        <div class="header" data-reveal="up">
+          <span class="kicker font-script">digital art by Ada</span>
+          <h2 class="font-display">
+            Your
+            <span class="story">story</span>
+            brought to
+            <span class="life">life</span>
+          </h2>
+        </div>
+
+        <div class="grid">
+          <div class="work" data-reveal="up" style="transition-delay:0ms">
+            <div class="img-wrap">
+              <div class="art-placeholder grad-digital1">
+                <span class="art-icon">⚔️</span>
+              </div>
+              <span class="title-pill font-display">Character Art</span>
+            </div>
+            <p class="desc">Custom character portraits brought to life with expressive detail and style.</p>
+          </div>
+
+          <div class="work" data-reveal="up" style="transition-delay:130ms">
+            <div class="img-wrap">
+              <div class="art-placeholder grad-digital2">
+                <span class="art-icon">📚</span>
+              </div>
+              <span class="title-pill font-display">Book Cover Design</span>
+            </div>
+            <p class="desc">Custom illustrated book covers, sprayed edges, end papers &amp; more that visually capture your book's story.</p>
+          </div>
+
+          <div class="work" data-reveal="up" style="transition-delay:260ms">
+            <div class="img-wrap">
+              <div class="art-placeholder grad-digital3">
+                <span class="art-icon">🌙</span>
+              </div>
+              <span class="title-pill font-display">Illustration</span>
+            </div>
+            <p class="desc">Expressive illustrated works with detailed backgrounds &amp; more.</p>
+          </div>
+        </div>
+
+        <div class="bottom-cta" data-reveal="up" style="transition-delay:300ms">
+          <a href="#preorder" class="btn-shine">Book Now</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+    <span class="deco-1 anim-drift">🌸</span>
+    <span class="deco-2 anim-drift">🌷</span>
+
+    <div class="wrap">
+      <div class="grid">
+        <div class="brand">
+          <img src="assets/images/logo-enchanta.png" alt="Enchanta" width="677" height="606">
+          <p>
+            Hand-crocheted pieces made with love in small batches —
+            wearable daydreams from Ada&rsquo;s little atelier.
+          </p>
+          <div class="socials">
+            <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><span aria-hidden="true">📷</span></a>
+            <a href="https://tiktok.com/" target="_blank" rel="noopener noreferrer" aria-label="TikTok"><span aria-hidden="true">🎵</span></a>
+            <a href="https://wa.me/" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp"><span aria-hidden="true">💬</span></a>
+          </div>
+        </div>
+
+        <div>
+          <h3 class="font-display">Shop</h3>
+          <ul class="links">
+            <li><a href="#summer">Summer</a></li>
+            <li><a href="#collections">Collections</a></li>
+            <li><a href="#moodboard">Moodboard</a></li>
+            <li><a href="#preorder">Pre-order</a></li>
+            <li><a href="#moon">Rising Moon</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-display">Studio</h3>
+          <ul class="links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#editorial">Editorial</a></li>
+            <li><a href="#custom">Custom Made</a></li>
+          </ul>
+        </div>
+
+        <div class="newsletter">
+          <h3 class="font-display">Stay in touch</h3>
+          <p>Get notified about new drops, restocks &amp; behind-the-scenes moodboards.</p>
+          <form>
+            <input type="email" placeholder="Your email">
+            <button type="submit" class="btn-shine">Join</button>
+          </form>
+          <a href="mailto:hello@enchanta.com" class="email-link">hello@enchanta.com</a>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <p class="font-display">Enchanta · Made by Ada · © <span id="year"></span></p>
+        <div class="emoji anim-float">🐇</div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="js/main.js"></script>
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Magical Motion Trigger via IntersectionObserver
+    document.addEventListener("DOMContentLoaded", () => {
+      const observerOptions = {
+        root: null,
+        rootMargin: "0px 0px -12% 0px", // Triggers just as elements pass into view elegantly
+        threshold: 0.02
+      };
+
+      const revealObserver = new IntersectionObserver((entries, observer) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("revealed");
+          }
+        });
+      }, observerOptions);
+
+      document.querySelectorAll("[data-reveal]").forEach(el => {
+        revealObserver.observe(el);
+      });
+
+      // --- Whimsical Cursor Sparkles Trail Logic ---
+      const sparkleTypes = ['✦', '✧', '◦'];
+      let lastMove = 0;
+
+      document.addEventListener('mousemove', (e) => {
+        const now = Date.now();
+        // Throttles creation so it doesn't clutter the DOM or drop frames
+        if (now - lastMove < 45) return; 
+        lastMove = now;
+
+        const sparkle = document.createElement('span');
+        sparkle.className = 'whimsical-sparkle';
+        sparkle.textContent = sparkleTypes[Math.floor(Math.random() * sparkleTypes.length)];
+        
+        // Position exactly at tip of mouse coordinates
+        sparkle.style.left = `${e.clientX}px`;
+        sparkle.style.top = `${e.clientY}px`;
+
+        // Generate randomized drift paths for CSS transitions
+        const driftX = (Math.random() - 0.5) * 120;
+        const driftY = (Math.random() - 0.5) * 120 - 40; // favors floating upwards lightly
+        const rotation = (Math.random() - 0.5) * 360;
+
+        sparkle.style.setProperty('--x-drift', `${driftX}px`);
+        sparkle.style.setProperty('--y-drift', `${driftY}px`);
+        sparkle.style.setProperty('--rot', `${rotation}deg`);
+
+        document.body.appendChild(sparkle);
+
+        // Clear node right as animation sequence completes
+        setTimeout(() => {
+          sparkle.remove();
+        }, 1200);
+      });
+    });
+  </script>
+</body>
+</html>

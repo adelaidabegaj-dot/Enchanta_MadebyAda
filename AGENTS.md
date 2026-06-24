@@ -1,5 +1,14 @@
-<!-- BEGIN:nextjs-agent-rules -->
-# This is NOT the Next.js you know
+# Enchanta — static site
 
-This version has breaking changes — APIs, conventions, and file structure may all differ from your training data. Read the relevant guide in `node_modules/next/dist/docs/` before writing any code. Heed deprecation notices.
-<!-- END:nextjs-agent-rules -->
+This is a static HTML/CSS/Bootstrap/JS site. There is no build step, no
+Node.js dependencies, and no framework.
+
+- `index.html` — all page markup/sections
+- `css/style.css` — theme variables, keyframes, shared utilities
+- `css/sections.css` — per-section styles
+- `js/main.js` — all interactivity (nav, sparkles, bubbles, scroll-reveal, carousel, filters, forms)
+- `assets/` — images and videos
+- Bootstrap 5.3.3 is loaded via CDN in `index.html`
+
+To preview locally, serve the directory with any static file server
+(e.g. `npx serve .`) and open `index.html`.

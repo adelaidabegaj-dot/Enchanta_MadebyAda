@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(curl -s http://localhost:3000)",
+      "Bash(grep -o \".\\\\{0,30\\\\}error.\\\\{0,30\\\\}\")",
+      "Bash(npx eslint *)"
+    ]
+  }
+}
