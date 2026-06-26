@@ -8,7 +8,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Dancing+Script:wght@500;600;700&family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght=500;600;700&family=Dancing+Script:wght=500;600;700&family=Quicksand:wght=400;500;600;700&display=swap" rel="stylesheet">
 
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
@@ -24,7 +24,6 @@
     /* --- Scroll-Driven Fancy Motion Animations --- */
     [data-reveal] {
       opacity: 0;
-      /* Using a premium, fluid cubic-bezier curve for a high-end boutique feel */
       transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), 
                   transform 1.4s cubic-bezier(0.16, 1, 0.3, 1);
       will-change: transform, opacity;
@@ -35,7 +34,6 @@
       transform: translate(0, 0) scale(1) !important;
     }
 
-    /* Dynamic Fancy Translations */
     [data-reveal="up"] {
       transform: translateY(60px);
     }
@@ -56,12 +54,10 @@
       transform: translateX(90px);
     }
 
-    /* Sleek zoom entry */
     [data-reveal="scale"] {
       transform: scale(0.92);
     }
 
-    /* Combined swoop up and scale */
     [data-reveal="scale-up"] {
       transform: scale(0.9) translateY(40px);
     }
@@ -90,7 +86,6 @@
         opacity: 1;
       }
       100% {
-        /* Drifts outward randomly using CSS variables injected via JS */
         transform: translate(-50%, -50%) translate(var(--x-drift), var(--y-drift)) scale(0) rotate(var(--rot));
         opacity: 0;
       }
@@ -103,7 +98,471 @@
     .btn-shine:hover, .product-card:hover, .relic:hover, .item:hover, .work-card:hover {
       transform: scale(1.04) translateY(-4px) !important;
     }
+
+    /* --- Pastel Glowing Effect for the Editorial Card --- */
+    #editorial .card {
+      position: relative;
+      box-shadow: 0 0 25px rgba(251, 220, 236, 0.5), 
+                  0 0 50px rgba(220, 237, 251, 0.3);
+      animation: pastelGlowPulse 6s ease-in-out infinite alternate;
+    }
+    @keyframes pastelGlowPulse {
+      0% {
+        box-shadow: 0 0 20px rgba(251, 220, 236, 0.4), 
+                    0 0 40px rgba(220, 237, 251, 0.3), 
+                    0 0 60px rgba(253, 242, 239, 0.2);
+      }
+      50% {
+        box-shadow: 0 0 30px rgba(220, 237, 251, 0.6), 
+                    0 0 55px rgba(251, 220, 236, 0.4), 
+                    0 0 80px rgba(243, 229, 245, 0.3);
+      }
+      100% {
+        box-shadow: 0 0 25px rgba(253, 242, 239, 0.5), 
+                    0 0 50px rgba(251, 220, 236, 0.4), 
+                    0 0 70px rgba(220, 237, 251, 0.3);
+      }
+    }
+
+    /* --- Magical Aura Glow for the Hero Video Card Frame --- */
+    .showcase-frame {
+      border: 2px solid rgba(255, 255, 255, 0.8) !important;
+      animation: heroMagicalGlow 5s ease-in-out infinite alternate;
+      will-change: box-shadow;
+    }
+    @keyframes heroMagicalGlow {
+      0% {
+        box-shadow: 0 0 25px rgba(251, 220, 236, 0.6), 
+                    0 0 50px rgba(220, 237, 251, 0.4),
+                    inset 0 0 15px rgba(255, 255, 255, 0.6);
+      }
+      50% {
+        box-shadow: 0 0 40px rgba(243, 229, 245, 0.8), 
+                    0 0 75px rgba(251, 220, 236, 0.6), 
+                    0 0 100px rgba(220, 237, 251, 0.4),
+                    inset 0 0 25px rgba(255, 255, 255, 0.8);
+      }
+      100% {
+        box-shadow: 0 0 30px rgba(220, 237, 251, 0.6), 
+                    0 0 60px rgba(253, 242, 239, 0.5), 
+                    inset 0 0 15px rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    /* --- Custom Lightbox / Modal --- */
+    .luxury-lightbox {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(12, 26, 48, 0.85);
+      backdrop-filter: blur(12px);
+      z-index: 100000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-lightbox.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .lightbox-content {
+      position: relative;
+      max-width: 85%;
+      max-height: 80%;
+      transform: scale(0.9);
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-lightbox.active .lightbox-content {
+      transform: scale(1);
+    }
+    .lightbox-img {
+      max-width: 100%;
+      max-height: 80vh;
+      object-fit: contain;
+      border-radius: 16px;
+      box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+    }
+    .lightbox-close {
+      position: absolute;
+      top: -50px;
+      right: 0;
+      background: rgba(255, 255, 255, 0.2);
+      border: 1px solid rgba(255, 255, 255, 0.4);
+      color: #fff;
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .lightbox-close:hover {
+      background: #ff69b4;
+      border-color: #ff69b4;
+    }
+
+    /* --- Dreamy Transitions & Keyframes for Magical Carousel --- */
+    .carousel-fade .carousel-item {
+      opacity: 0;
+      transition-property: opacity, transform;
+      transition-duration: 1.2s; 
+    }
+
+    .carousel-fade .carousel-item.active {
+      opacity: 1;
+    }
+
+    .carousel-transform-wrap {
+      width: 100%;
+      height: 100%;
+      transform: scale(1.02);
+      animation: slowPanMagic 20s infinite alternate ease-in-out;
+    }
+
+    @keyframes slowPanMagic {
+      0% { transform: scale(1.02) rotate(0deg); }
+      100% { transform: scale(1.1) rotate(1deg); }
+    }
+
+    @keyframes carouselAuraPulse {
+      0%, 100% { transform: scale(1); opacity: 0.7; }
+      50% { transform: scale(1.06); opacity: 1; filter: blur(35px); }
+    }
+
+    .carousel-sparkle-overlay {
+      position: absolute;
+      top: 30%;
+      left: 20%;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 1.5rem;
+      text-shadow: 0 0 10px rgba(255, 105, 180, 1);
+      pointer-events: none;
+      animation: floatySparkle 4s infinite ease-in-out;
+    }
+
+    @keyframes floatySparkle {
+      0%, 100% { transform: translateY(0) scale(1); opacity: 0.3; }
+      50% { transform: translateY(-20px) scale(1.3); opacity: 0.9; }
+    }
+
+    .custom-nav-orb {
+      font-size: 1.4rem;
+      background: rgba(255, 255, 255, 0.4);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      padding: 10px;
+      border-radius: 50%;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 4px 15px rgba(255, 105, 180, 0.2);
+      transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      display: inline-block;
+    }
+
+    .carousel-control-prev:hover .custom-nav-orb,
+    .carousel-control-next:hover .custom-nav-orb {
+      transform: scale(1.2);
+      background: rgba(255, 230, 242, 0.8);
+      box-shadow: 0 0 20px rgba(255, 105, 180, 0.6);
+    }
+
+    /* Global section styling update for crisp waves */
+    section {
+      position: relative;
+    }
+    .wave-top, .wave-bottom {
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 72px;
+      z-index: 5;
+      pointer-events: none;
+    }
+    .wave-top {
+      top: 0;
+      transform: translateY(-0.5px);
+    }
+    .wave-bottom {
+      bottom: -1px; 
+      transform: translateY(1px); 
+    }
+    .wave-top svg, .wave-bottom svg {
+      width: 100%;
+      height: 100%;
+      display: block;
+    }
+
+    /* --- Custom Additions for About Section --- */
+    .about-shop-btn {
+      font-size: 1.35rem !important;
+      padding: 14px 36px !important;
+      display: inline-block;
+      animation: magicalPulse 2.5s infinite ease-in-out;
+    }
+    @keyframes magicalPulse {
+      0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 0 15px rgba(255, 105, 180, 0.4);
+      }
+      50% {
+        transform: scale(1.08);
+        box-shadow: 0 0 30px rgba(255, 105, 180, 0.8), 0 0 15px rgba(255, 255, 255, 0.6);
+      }
+    }
+
+    .about-video-frame {
+      border-radius: 24px; 
+      overflow: hidden; 
+      transform: scale(1.05);
+      box-shadow: 0 20px 45px rgba(251, 220, 236, 0.6);
+      animation: pastelPinkGlow 4s ease-in-out infinite alternate;
+    }
+    @keyframes pastelPinkGlow {
+      0% {
+        box-shadow: 0 0 25px 5px rgba(251, 220, 236, 0.5), 0 15px 35px rgba(0, 0, 0, 0.15);
+      }
+      100% {
+        box-shadow: 0 0 45px 15px rgba(255, 192, 203, 0.8), 0 15px 35px rgba(0, 0, 0, 0.15);
+      }
+    }
+
+    /* Added styling explicitly for carousel images to fit beautifully */
+    .carousel-img {
+      height: 480px;
+      width: 100%;
+      object-fit: cover;
+      display: block;
+    }
+
+    /* Gallery PNG handling style */
+    .gallery-png-img, .card-png-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    /* --- Rising Moon Content Glow & Custom Updates --- */
+    #moon .item {
+      border: none !important;
+      outline: none !important;
+      box-shadow: none !important;
+      background: transparent !important;
+    }
+
+    #moon .item img, #moon .item .art-placeholder {
+      filter: drop-shadow(0 0 15px rgba(173, 216, 230, 0.6)) 
+              drop-shadow(0 0 30px rgba(135, 206, 250, 0.4));
+      transition: filter 0.3s ease-in-out, transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) !important;
+    }
+
+    #moon .item:hover img, #moon .item:hover .art-placeholder {
+      filter: drop-shadow(0 0 22px rgba(173, 216, 230, 0.85)) 
+              drop-shadow(0 0 45px rgba(135, 206, 250, 0.65));
+    }
+
+    #moon .item .reserve-btn {
+      animation: moonButtonPulse 2.2s infinite ease-in-out;
+    }
+
+    @keyframes moonButtonPulse {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(173, 216, 230, 0.7);
+      }
+      70% {
+        transform: scale(1.04);
+        box-shadow: 0 0 0 14px rgba(173, 216, 230, 0);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(173, 216, 230, 0);
+      }
+    }
+
+    /* --- Moodboard Premium Heart Shaped Card --- */
+    .bubble-mood-card {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      background: transparent !important;
+      clip-path: url(#heart-clip);
+      animation: premiumHeartFloat 5s ease-in-out infinite alternate;
+      box-shadow: 0 25px 55px rgba(251, 220, 236, 0.65);
+    }
+    
+    .bubble-mood-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border: 3px solid rgba(255, 255, 255, 0.85);
+      clip-path: url(#heart-clip);
+      pointer-events: none;
+      z-index: 4;
+    }
+    
+    .bubble-mood-card .fade-img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 1.2s ease-in-out;
+      z-index: 1;
+    }
+    .bubble-mood-card .fade-img.active {
+      opacity: 1;
+      z-index: 2;
+    }
+    .bubble-shine-overlay {
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.8) 0%, transparent 45%),
+                  linear-gradient(135deg, transparent 15%, rgba(255, 255, 255, 0.6) 45%, rgba(243, 229, 245, 0.8) 50%, rgba(220, 237, 251, 0.6) 55%, transparent 85%);
+      background-size: 200% 200%;
+      pointer-events: none;
+      z-index: 3;
+      mix-blend-mode: overlay;
+      animation: premiumGleamSweep 4s ease-in-out infinite;
+    }
+    
+    @keyframes premiumHeartFloat {
+      0% { 
+        transform: translateY(0) scale(1) rotate(0deg); 
+        filter: drop-shadow(0 15px 30px rgba(251, 220, 236, 0.7)) drop-shadow(0 0 20px rgba(243, 229, 245, 0.4)); 
+      }
+      50% {
+        transform: translateY(-10px) scale(1.02) rotate(1.5deg);
+        filter: drop-shadow(0 25px 45px rgba(220, 237, 251, 0.85)) drop-shadow(0 0 35px rgba(255, 182, 193, 0.6));
+      }
+      100% { 
+        transform: translateY(-22px) scale(1.04) rotate(-1.5deg); 
+        filter: drop-shadow(0 35px 60px rgba(255, 182, 193, 0.95)) drop-shadow(0 0 45px rgba(243, 229, 245, 0.75)); 
+      }
+    }
+    @keyframes premiumGleamSweep {
+      0% { background-position: -150% -150%; opacity: 0.8; }
+      50% { background-position: 50% 50%; opacity: 1; }
+      100% { background-position: 250% 250%; opacity: 0.8; }
+    }
+
+    /* --- Moodboard Expanded Gallery Overlay --- */
+    .moodboard-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      background: rgba(12, 26, 48, 0.92);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100050;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+      padding: 40px 20px;
+    }
+    .moodboard-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+    .moodboard-overlay-title {
+      color: #fff;
+      font-family: 'Playfair Display', serif;
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      text-align: center;
+      text-shadow: 0 0 15px rgba(251, 220, 236, 0.6);
+    }
+    .moodboard-cards-container {
+      display: flex;
+      gap: 30px;
+      justify-content: center;
+      align-items: center;
+      flex-wrap: wrap;
+      max-width: 1300px;
+      width: 100%;
+    }
+    .moodboard-separated-card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 20px;
+      padding: 16px;
+      width: 320px;
+      height: 420px;
+      cursor: pointer;
+      overflow: hidden;
+      box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .moodboard-separated-card:hover {
+      transform: translateY(-12px) scale(1.05);
+      background: rgba(255, 255, 255, 0.15);
+      border-color: rgba(255, 105, 180, 0.6);
+      box-shadow: 0 25px 50px rgba(255, 105, 180, 0.25);
+    }
+    .moodboard-separated-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      border-radius: 12px;
+      transition: transform 0.5s ease;
+    }
+    .moodboard-separated-card:hover img {
+      transform: scale(1.04);
+    }
+    .moodboard-overlay-close {
+      position: absolute;
+      top: 30px;
+      right: 40px;
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.3);
+      color: #fff;
+      font-size: 2rem;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: all 0.3s ease;
+    }
+    .moodboard-overlay-close:hover {
+      background: #ff69b4;
+      border-color: #ff69b4;
+      transform: rotate(90deg);
+    }
   </style>
+  
+
+ <svg width="0" height="0" style="position: absolute;">
+  <defs>
+    <clipPath id="bubble-clip" clipPathUnits="objectBoundingBox">
+      <path d="M 0.5, 0 
+               C 0.776, 0, 1, 0.224, 1, 0.5 
+               C 1, 0.776, 0.776, 1, 0.5, 1 
+               C 0.224, 1, 0, 0.776, 0, 0.5 
+               C 0, 0.224, 0.224, 0, 0.5, 0 Z" />
+    </clipPath>
+  </defs>
+</svg>
+
+
+
 </head>
 <body>
 
@@ -121,7 +580,6 @@
           <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
           <ul class="dropdown-menu">
             <li><a class="dropdown-item" href="#summer">Summer</a></li>
-            <li><a class="dropdown-item" href="#collections">Collections</a></li>
             <li><a class="dropdown-item" href="#moon">Rising Moon</a></li>
             <li><a class="dropdown-item" href="#preorder">Pre-order</a></li>
           </ul>
@@ -155,7 +613,6 @@
             <summary>Shop</summary>
             <ul>
               <li><a href="#summer">Summer</a></li>
-              <li><a href="#collections">Collections</a></li>
               <li><a href="#moon">Rising Moon</a></li>
               <li><a href="#preorder">Pre-order</a></li>
             </ul>
@@ -235,11 +692,10 @@
         position: relative;
         overflow: hidden;
         background: radial-gradient(circle at 50% 50%, #0c1a30 0%, #040914 100%);
-        padding: 60px 0;
+        padding: 80px 0 60px 0;
         z-index: 1;
       }
 
-      /* Starry Sky Background Layer */
       .night-sky-perks::before {
         content: "";
         position: absolute;
@@ -252,14 +708,13 @@
           radial-gradient(1.5px 1.5px at 15% 20%, rgba(255, 255, 255, 0.8) 100%, transparent),
           radial-gradient(2px 2px at 40% 65%, rgba(255, 255, 255, 0.9) 100%, transparent),
           radial-gradient(1px 1px at 70% 30%, rgba(255, 255, 255, 0.7) 100%, transparent),
-          radial-gradient(2px 2px at 85% 75%, rgba(255, 255, 255, 0.85) 100%, transparent),
+          radial-gradient(2px 2px at 85% 75%, rgba(255, 255, 255, 0.8) 100%, transparent),
           radial-gradient(1.5px 1.5px at 30% 15%, rgba(255, 255, 255, 0.6) 100%, transparent),
           radial-gradient(2.5px 2.5px at 60% 85%, rgba(255, 255, 255, 0.9) 100%, transparent);
         background-size: 100% 100%;
         animation: twinkleStars 6s ease-in-out infinite alternate;
       }
 
-      /* Moving Clouds Foreground Layer */
       .night-sky-perks::after {
         content: "";
         position: absolute;
@@ -288,7 +743,6 @@
         100% { transform: translateX(-50%); }
       }
 
-      /* Gentle pulse and glow animation for the text */
       @keyframes textPulse {
         0% {
           transform: scale(1);
@@ -329,92 +783,66 @@
         object-fit: contain;
         display: inline-block;
         margin-bottom: 18px;
-        filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.4));
+        filter: drop-shadow(0 8px 166px rgba(0, 0, 0, 0.4));
       }
 
       .perk h3 {
         font-family: 'Alice', serif;
-        font-size: 316px; /* Increased from 66px to 316px (+250px) */
+        font-size: 31px;
         font-weight: 700; 
         color: #ffffff;
         margin: 0;
         letter-spacing: 0.5px;
         line-height: 1.1;
         display: inline-block;
-        animation: textPulse 4s ease-in-out infinite; /* Added text animation */
+        animation: textPulse 4s ease-in-out infinite;
       }
     </style>
 
-    <section class="perks night-sky-perks">
-      <div class="grid">
-        <div class="perk">
-          <img src="2.png" alt="Chat Support Logo" class="perk-logo">
-          <h3>24/7 Chat Support</h3>
-        </div>
-        <div class="perk">
-          <img src="4.png" alt="Hand Crafted Logo" class="perk-logo">
-          <h3>Hand Crafted</h3>
-        </div>
-        <div class="perk">
-          <img src="3.png" alt="Packed with Love Logo" class="perk-logo">
-          <h3>Packed With Love</h3>
-        </div>
-        <div class="perk">
-          <img src="1.png" alt="Free Shipping Logo" class="perk-logo">
-          <h3>Free Shipping</h3>
-        </div>
-      </div>
-    </section>
-
     <section id="about" class="about">
+
       <div class="glow-blob glow-1"></div>
       <div class="glow-blob glow-2"></div>
 
-      <div class="grid">
-        <div class="col-left">
-          <span class="kicker font-script" data-reveal="left">the story behind the stitches</span>
-          <h2 class="font-display" data-reveal="left" style="transition-delay:100ms">About Enchanta</h2>
-          <p data-reveal="up" style="transition-delay:150ms">
+      <div class="grid align-items-center">
+        <div class="col-left video-wrap" data-reveal="left" style="transition-delay:100ms">
+          <div class="about-video-frame">
+            <video src="assets/videos/about.mp4" autoplay loop muted playsinline style="width:100%; display:block; object-fit:cover;"></video>
+          </div>
+        </div>
+
+        <div class="col-right text-center d-flex flex-column align-items-center justify-content-center">
+          <span class="kicker font-script" data-reveal="right">the story behind the stitches</span>
+          <h2 class="font-display" data-reveal="right" style="transition-delay:100ms">About Enchanta</h2>
+          <p data-reveal="up" style="transition-delay:150ms; max-width: 600px; margin-left: auto; margin-right: auto;">
             Enchanta began as Ada&rsquo;s quiet hobby — a hook, a ball of yarn,
             and a love for fairy-tale colour palettes. It grew into a tiny
             atelier devoted to crochet pieces that feel like wearable
             daydreams: soft, textured, and just a little whimsical.
           </p>
-          <p class="muted" data-reveal="up" style="transition-delay:200ms">
+          <p class="muted" data-reveal="up" style="transition-delay:200ms; max-width: 600px; margin-left: auto; margin-right: auto; margin-bottom: 30px;">
             From sun-soaked summer totes to moonlit evening bags, every
             Enchanta piece is designed to carry a bit of wonder into your
             everyday.
           </p>
 
-          <div class="values">
-            <div class="value" data-reveal="up" style="transition-delay:280ms">
-              <span class="icon">🧶</span>
-              <h3 class="font-display">Hand-crocheted</h3>
-              <p>Every stitch made by hand, slowly, with cotton &amp; silk-blend yarns.</p>
-            </div>
-            <div class="value" data-reveal="up" style="transition-delay:390ms">
-              <span class="icon">🌙</span>
-              <h3 class="font-display">Small batches</h3>
-              <p>Limited drops so each piece keeps its one-of-a-kind charm.</p>
-            </div>
-            <div class="value" data-reveal="up" style="transition-delay:500ms">
-              <span class="icon">💌</span>
-              <h3 class="font-display">Made to order</h3>
-              <p>Custom colours &amp; sizing — Ada crafts each piece just for you.</p>
-            </div>
+          <div data-reveal="up" style="transition-delay:300ms">
+            <a href="#summer" class="btn-shine about-shop-btn">Shop Now</a>
           </div>
         </div>
+      </div>
 
-        <div class="col-right video-wrap" data-reveal="right-lg" style="transition-delay:300ms">
-          <video src="assets/videos/about.mp4" autoplay loop muted playsinline></video>
-        </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#9c5d7a" />
+        </svg>
       </div>
     </section>
 
-    <section id="summer" class="summer">
+    <section id="summer" class="summer" style="padding-bottom: 90px; position: relative;">
       <div class="wave-top">
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="#9c5d7a" />
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#9c5d7a" />
         </svg>
       </div>
 
@@ -426,7 +854,7 @@
       <div class="bubbles-layer" data-count="16" aria-hidden="true"></div>
 
       <div class="wrap">
-        <div class="heading-grid">
+        <div class="heading-grid" style="align-items: center;">
           <div>
             <span class="kicker font-script" data-reveal="up">Mermaid Tales</span>
             <h2 class="font-display" data-reveal="up" style="transition-delay:100ms">Koleksioni i ri</h2>
@@ -434,188 +862,332 @@
               A summer capsule inspired by tide pools and golden sand —
               hand-crocheted bags built for salty hair and bare feet.
             </p>
-            <a href="#collections" class="btn-shine buy-now" data-reveal="up" style="transition-delay:300ms">
+            <a href="#moon" class="btn-shine buy-now" data-reveal="up" style="transition-delay:300ms">
               <span aria-hidden="true">🛒</span> Buy Now
             </a>
           </div>
 
-          <div class="carousel" data-reveal="right" style="transition-delay:200ms">
-            <div class="carousel-frame">
-              <div class="carousel-glow anim-pulse-glow"></div>
-              <div class="art-placeholder carousel-art grad-skydeep">
-                <span class="art-icon">🐚</span>
-                <span class="art-label">Shell-stitch totes by the shore</span>
+          <div id="mermaidCarousel" class="carousel slide carousel-fade" data-bs-ride="carousel" data-reveal="right" style="transition-delay:200ms; width: 100%; max-width: 480px; margin: 0 auto; position: relative;">
+            
+            <div style="position: absolute; inset: -15px; background: radial-gradient(circle, rgba(255, 105, 180, 0.5) 0%, rgba(220, 237, 251, 0.3) 50%, transparent 100%); filter: blur(25px); z-index: 0; pointer-events: none; animation: carouselAuraPulse 6s infinite ease-in-out;"></div>
+
+            <div class="carousel-inner" style="border-radius: 260px 260px 24px 24px; border: 3px solid rgba(255, 255, 255, 0.7); box-shadow: 0 20px 45px rgba(255, 182, 193, 0.4), inset 0 0 20px rgba(255, 255, 255, 0.5); overflow: hidden; z-index: 1;">
+              
+              <div class="carousel-item active" data-bs-interval="3800">
+                <div class="carousel-transform-wrap">
+                  <img src="Gemini_Generated_Image_d32u2qd32u2qd32u.png" alt="Mermaid Tales Collection Item 1" class="carousel-img">
+                  <div class="carousel-sparkle-overlay">✦</div>
+                </div>
               </div>
+              
+              <div class="carousel-item" data-bs-interval="3800">
+                <div class="carousel-transform-wrap">
+                  <img src="Zara Larson bag png.png" alt="Mermaid Tales Collection Item 2" class="carousel-img">
+                  <div class="carousel-sparkle-overlay" style="top: 20%; left: 75%; animation-delay: 1.5s;">✧</div>
+                </div>
+              </div>
+              
+              <div class="carousel-item" data-bs-interval="3800">
+                <div class="carousel-transform-wrap">
+                  <img src="assets/images/mermaid3.png" alt="Mermaid Tales Collection Item 3" class="carousel-img">
+                  <div class="carousel-sparkle-overlay" style="top: 70%; left: 25%; animation-delay: 0.7s;">✦</div>
+                </div>
+              </div>
+
             </div>
-            <div class="carousel-dots">
-              <button type="button" class="active" aria-label="Go to slide 1"></button>
-              <button type="button" aria-label="Go to slide 2"></button>
-              <button type="button" aria-label="Go to slide 3"></button>
-              <button type="button" aria-label="Go to slide 4"></button>
-              <button type="button" aria-label="Go to slide 5"></button>
+
+            <button class="carousel-control-prev" type="button" data-bs-target="#mermaidCarousel" data-bs-slide="prev" style="z-index: 2; width: 15%; opacity: 1;">
+              <span class="custom-nav-orb" aria-hidden="true">🤍</span>
+              <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#mermaidCarousel" data-bs-slide="next" style="z-index: 2; width: 15%; opacity: 1;">
+              <span class="custom-nav-orb" aria-hidden="true">🤍</span>
+              <span class="visually-hidden">Next</span>
+            </button>
+
+            <div class="carousel-indicators" style="z-index: 2; margin-bottom: -35px;">
+              <button type="button" data-bs-target="#mermaidCarousel" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1" style="width: 10px; height: 10px; border-radius: 50%; background-color: #9c5d7a; border: none;"></button>
+              <button type="button" data-bs-target="#mermaidCarousel" data-bs-slide-to="1" aria-label="Slide 2" style="width: 10px; height: 10px; border-radius: 50%; background-color: #9c5d7a; border: none;"></button>
+              <button type="button" data-bs-target="#mermaidCarousel" data-bs-slide-to="2" aria-label="Slide 3" style="width: 10px; height: 10px; border-radius: 50%; background-color: #9c5d7a; border: none;"></button>
+            </div>
+          </div>
+
+        </div>
+
+        <style>
+          .luxury-card {
+            position: relative;
+            background: rgba(255, 230, 242, 0.45);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 182, 193, 0.6);
+            border-radius: 24px;
+            padding: 24px;
+            overflow: hidden;
+            box-shadow: 0 12px 35px rgba(255, 182, 193, 0.2), 
+                        0 0 20px rgba(255, 255, 255, 0.4);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: space-between;
+            height: 520px; 
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .luxury-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -150%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+              90deg,
+              transparent,
+              rgba(255, 255, 255, 0.6),
+              transparent
+            );
+            transform: skewX(-20deg);
+            pointer-events: none;
+            animation: continuousShine 4s ease-in-out infinite;
+          }
+
+          .row > div:nth-child(2) .luxury-card::before { animation-delay: 1.3s; }
+          .row > div:nth-child(3) .luxury-card::before { animation-delay: 2.6s; }
+
+          .luxury-card:hover {
+            transform: translateY(-10px) scale(1.04) !important;
+            box-shadow: 0 25px 50px rgba(255, 105, 180, 0.35), 0 0 30px rgba(255, 255, 255, 0.7);
+            background: rgba(255, 215, 235, 0.6);
+            border-color: rgba(255, 105, 180, 0.8);
+          }
+
+          @keyframes continuousShine {
+            0% { left: -150%; }
+            30% { left: 150%; }
+            100% { left: 150%; }
+          }
+
+          .luxury-card-img-container {
+            height: 300px;
+            width: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            border-radius: 16px;
+            background: rgba(255, 255, 255, 0.3);
+            box-shadow: inset 0 0 15px rgba(255,182,193,0.1);
+          }
+
+          .luxury-card-img {
+            width: 100% !important;
+            height: 100% !important;
+            object-fit: cover;
+            transform: scale(1.02);
+            cursor: pointer;
+            transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+          }
+
+          .luxury-card:hover .luxury-card-img {
+            transform: scale(1.08);
+          }
+
+          .luxury-card-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #703d52;
+            margin-top: 15px;
+            margin-bottom: 0;
+            text-align: center;
+            text-shadow: 0 1px 1px rgba(255,255,255,0.6);
+          }
+
+          .luxury-badge-pink {
+            background: linear-gradient(135deg, #ff7dbf, #ff9ebb);
+            color: #ffffff;
+            font-family: 'Quicksand', sans-serif;
+            font-size: 1.25rem;
+            font-weight: 700;
+            padding: 2px 18px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 10px 0;
+            letter-spacing: 0.5px;
+            box-shadow: 0 4px 12px rgba(255, 105, 180, 0.3);
+            animation: pricePulse 2.5s infinite ease-in-out;
+          }
+
+          @keyframes pricePulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.04); }
+          }
+
+          .luxury-order-btn {
+            background: linear-gradient(135deg, #9c5d7a, #b37391);
+            color: #ffffff;
+            font-family: 'Quicksand', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 50px;
+            width: 100%;
+            box-shadow: 0 6px 18px rgba(156, 93, 122, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            z-index: 2;
+          }
+
+          .luxury-card:hover .luxury-order-btn {
+            background: linear-gradient(135deg, #ff69b4, #ff85c2);
+            box-shadow: 0 8px 24px rgba(255, 105, 180, 0.4);
+          }
+          
+          /* Smoothly reveals additional cards hidden by default */
+          #moreMermaidCards {
+            display: none;
+          }
+          #moreMermaidCards.show-grid {
+            display: flex !important;
+          }
+        </style>
+
+        <div class="row g-4 mt-5">
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:0ms">
+              <div class="luxury-card-img-container">
+                <img src="Zara Larson bag png.png" alt="Sunrise Bag" class="luxury-card-img img-fluid" loading="eager" onclick="openLightbox('Zara Larson bag png.png')">
+              </div>
+              <h3 class="luxury-card-title">Sunrise</h3>
+              <div>
+                <span class="luxury-badge-pink">$12</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:130ms">
+              <div class="luxury-card-img-container">
+                <img src="croche.png" alt="Deep Ocean" class="luxury-card-img img-fluid" loading="eager" onclick="openLightbox('croche.png')">
+              </div>
+              <h3 class="luxury-card-title">Deep Ocean</h3>
+              <div>
+                <span class="luxury-badge-pink">$20</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
+            </div>
+          </div>
+
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:260ms">
+              <div class="luxury-card-img-container">
+                <img src="downloaaad_1.png" alt="Coastline Mini" class="luxury-card-img img-fluid" loading="eager" onclick="openLightbox(this.src)">
+              </div>
+              <h3 class="luxury-card-title">Sea Shell</h3>
+              <div>
+                <span class="luxury-badge-pink">$25</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
             </div>
           </div>
         </div>
 
-        <div class="products">
-          <div class="product-card" data-reveal="up" style="transition-delay:0ms">
-            <div class="product-art">
-              <div class="art-placeholder grad-skydeep">
-                <span class="art-icon">👜</span>
+        <!-- Hidden container that opens when See More is clicked -->
+        <div id="moreMermaidCards" class="row g-4 mt-3">
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:0ms">
+              <div class="luxury-card-img-container">
+                <img src="assets/images/mermaid2.png" alt="Coral Dream Bag" class="luxury-card-img img-fluid" loading="lazy" onclick="openLightbox('assets/images/mermaid2.png')">
               </div>
-            </div>
-            <div class="product-info">
-              <h3 class="font-display">Azure Silk Tote</h3>
-              <span class="price font-display">$420.00</span>
-              <p class="desc">Një krijim artizanal prej mëndafshi të pastër, i krijuar për të reflektuar shkëlqimin e diellit mbi det.</p>
-              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+              <h3 class="luxury-card-title">Coral Dream</h3>
+              <div>
+                <span class="luxury-badge-pink">$30</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
             </div>
           </div>
 
-          <div class="product-card reverse" data-reveal="up" style="transition-delay:130ms">
-            <div class="product-art">
-              <div class="art-placeholder grad-sand">
-                <span class="art-icon">✨</span>
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:130ms">
+              <div class="luxury-card-img-container">
+                <img src="assets/images/mermaid3.png" alt="Tide Pool Tote" class="luxury-card-img img-fluid" loading="lazy" onclick="openLightbox('assets/images/mermaid3.png')">
               </div>
-            </div>
-            <div class="product-info">
-              <h3 class="font-display">Sand Pearl Clutch</h3>
-              <span class="price font-display">$290.00</span>
-              <p class="desc">Detaje perlash të punuara me dorë në një bazë sateni, perfekte për mbrëmjet elegante të verës.</p>
-              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+              <h3 class="luxury-card-title">Tide Pool</h3>
+              <div>
+                <span class="luxury-badge-pink">$35</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
             </div>
           </div>
 
-          <div class="product-card" data-reveal="up" style="transition-delay:260ms">
-            <div class="product-art">
-              <div class="art-placeholder grad-coastline">
-                <span class="art-icon">🐚</span>
+          <div class="col-lg-4 col-md-6 col-12">
+            <div class="luxury-card" data-reveal="up" style="transition-delay:260ms">
+              <div class="luxury-card-img-container">
+                <img src="Gemini_Generated_Image_d32u2qd32u2qd32u.png" alt="Salty Horizon Bag" class="luxury-card-img img-fluid" loading="lazy" onclick="openLightbox('Gemini_Generated_Image_d32u2qd32u2qd32u.png')">
               </div>
-            </div>
-            <div class="product-info">
-              <h3 class="font-display">Coastline Mini</h3>
-              <span class="price font-display">$350.00</span>
-              <p class="desc">E vogël, fine dhe plot stil. Një aksesor që mban brenda magjinë e bregdetit.</p>
-              <button type="button" class="btn-shine buy-btn">BUY NOW</button>
+              <h3 class="luxury-card-title">Salty Horizon</h3>
+              <div>
+                <span class="luxury-badge-pink">$40</span>
+              </div>
+              <button type="button" class="luxury-order-btn">ORDER NOW</button>
             </div>
           </div>
         </div>
 
-        <div class="see-more" data-reveal="up" style="transition-delay:500ms">
-          <a href="#collections" class="btn-shine">See more</a>
+        <div class="see-more mt-5 text-center" data-reveal="up" style="transition-delay:500ms">
+          <a href="javascript:void(0)" class="btn-shine" id="revealMermaidBtn" onclick="revealMoreMermaidCards()">See more</a>
         </div>
+      </div>
+
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#0c1a30" />
+        </svg>
       </div>
     </section>
 
-    <section id="collections">
-      <div class="collections-banner">
-        <span class="deco deco-1">🌸</span>
-        <span class="deco deco-2">🌸</span>
-
-        <div class="inner">
-          <span class="kicker font-script" data-reveal="up">a softer kind of shine</span>
-          <h2 class="font-display" data-reveal="scale" style="transition-delay:150ms">MAGICAL GLOW</h2>
-          <a href="#preorder" class="btn-shine cta" data-reveal="up" style="transition-delay:300ms">Order yours now</a>
+    <section class="perks night-sky-perks">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#0c1a30" />
+        </svg>
+      </div>
+      <div class="grid">
+        <div class="perk" data-reveal="up" style="transition-delay:0ms">
+          <img src="2.png" alt="Chat Support Logo" class="perk-logo">
+          <h3>24/7 Chat Support</h3>
+        </div>
+        <div class="perk" data-reveal="up" style="transition-delay:150ms">
+          <img src="4.png" alt="Hand Crafted Logo" class="perk-logo">
+          <h3>Hand Crafted</h3>
+        </div>
+        <div class="perk" data-reveal="up" style="transition-delay:300ms">
+          <img src="3.png" alt="Packed with Love Logo" class="perk-logo">
+          <h3>Packed With Love</h3>
+        </div>
+        <div class="perk" data-reveal="up" style="transition-delay:450ms">
+          <img src="1.png" alt="Free Shipping Logo" class="perk-logo">
+          <h3>Free Shipping</h3>
         </div>
       </div>
-
-      <div class="collections-grid">
-        <div class="glow-blob glow-1"></div>
-        <div class="glow-blob glow-2"></div>
-
-        <div class="inner">
-          <h2 class="font-display" data-reveal="up">Enchanted Collections</h2>
-
-          <div class="filters" data-reveal="up" style="transition-delay:150ms">
-            <button type="button" class="active" data-filter="all">All Relics</button>
-            <button type="button" data-filter="bags">Bags</button>
-            <button type="button" data-filter="outfits">Outfits</button>
-          </div>
-
-          <div class="relics">
-            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:200ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">🌙</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Forest Moon Bag</h3>
-                <span class="price font-display">$180</span>
-                <p class="desc">A lunar-inspired velvet bag.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-
-            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:300ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">🌿</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Willow Wrap Dress</h3>
-                <span class="price font-display">$240</span>
-                <p class="desc">Flowing silk dress.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-
-            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:400ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">✨</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Pixie Dust Mini</h3>
-                <span class="price font-display">$95</span>
-                <p class="desc">Tiny pouch filling.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-
-            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:500ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">⭐</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Starlit Cardigan</h3>
-                <span class="price font-display">$210</span>
-                <p class="desc">Cloud-soft knit for cool evenings.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-
-            <div class="relic" data-category="bags" data-reveal="up" style="transition-delay:600ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">💧</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Dewdrop Crossbody</h3>
-                <span class="price font-display">$150</span>
-                <p class="desc">Petite, dainty, dipped in pearls.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-
-            <div class="relic reverse" data-category="outfits" data-reveal="up" style="transition-delay:700ms">
-              <div class="art-placeholder grad-plum">
-                <span class="art-icon">🌼</span>
-              </div>
-              <div class="relic-info">
-                <h3 class="font-display">Meadow Slip Dress</h3>
-                <span class="price font-display">$260</span>
-                <p class="desc">Hand-finished hem &amp; lace trim.</p>
-                <button type="button" class="btn-shine buy-btn">Buy Now</button>
-              </div>
-            </div>
-          </div>
-
-          <div class="see-more">
-            <button type="button" class="btn-shine">See more</button>
-          </div>
-        </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbdcec" />
+        </svg>
       </div>
     </section>
 
     <section id="moodboard" class="moodboard">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbdcec" />
+        </svg>
+      </div>
       <div class="glow-blob glow-1 anim-blob"></div>
-      <div class="glow-blob glow-2 anim-blob"></div>
+      <div class="glow-blob glow-2"></div>
       <div class="sheen anim-gradient-flow"></div>
 
       <span class="shooting-star ss-1 anim-shooting-star"></span>
@@ -635,18 +1207,30 @@
         </div>
 
         <div class="right-col" data-reveal="scale-up" style="transition-delay:200ms">
-          <div class="art-placeholder grad-lavender">
-            <span class="art-icon">🤍</span>
-            <span class="art-label">texture &amp; lace study</span>
+          <div class="art-placeholder bubble-mood-card">
+            <img src="__adelas_diary___1755731741_3703668744867377711_8658414876.jpg" alt="texture &amp; lace study" class="gallery-png-img fade-img active">
+            <img src="editorial2.png" alt="the silk study" class="gallery-png-img fade-img">
+            <img src="editorial3.png" alt="seaside sunset study" class="gallery-png-img fade-img">
+            <div class="bubble-shine-overlay"></div>
           </div>
-          <button type="button" class="btn-shine open-btn" data-reveal="up" style="transition-delay:500ms">
+          <button type="button" class="btn-shine open-btn" onclick="openMoodboardOverlay()" data-reveal="up" style="transition-delay:500ms">
             <span aria-hidden="true">✨</span> Open Moodboard
           </button>
         </div>
       </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbdcec" />
+        </svg>
+      </div>
     </section>
 
     <section id="preorder" class="preorder">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbdcec" />
+        </svg>
+      </div>
       <span class="star star-1"></span>
       <span class="star star-2"></span>
       <span class="star star-3"></span>
@@ -661,7 +1245,7 @@
         <div class="content">
           <div data-reveal="scale-up" style="transition-delay:200ms">
             <div class="art-placeholder grad-cloud">
-              <span class="art-icon">🌥️</span>
+              <img src="__adelas_diary___1755731741_3703668744867377711_8658414876.jpg" alt="Preorder Preview" class="card-png-img">
             </div>
           </div>
 
@@ -681,11 +1265,21 @@
           </form>
         </div>
 
-        <p class="ex-label" data-reveal="fade" style="transition-delay:500ms">Preorder Product ex.</p>
+       
+      </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbdcec" />
+        </svg>
       </div>
     </section>
 
     <section id="editorial" class="editorial">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbdcec" />
+        </svg>
+      </div>
       <div class="glow-blob glow-1"></div>
       <div class="glow-blob glow-2"></div>
 
@@ -702,16 +1296,14 @@
         <div class="content-grid">
           <div class="main-img" data-reveal="scale-up" style="transition-delay:200ms">
             <div class="art-placeholder grad-lavender">
-              <span class="art-icon">🤍</span>
-              <span class="art-label">lace study, no. 1</span>
+              <img src="pic.jpeg" alt="lace study, no. 1" class="card-png-img">
             </div>
           </div>
 
           <div class="side-col">
             <div class="side-img-1" data-reveal="right" style="transition-delay:350ms">
               <div class="art-placeholder grad-skyfade">
-                <span class="art-icon">🌺</span>
-                <span class="art-label">the silk study</span>
+                <img src="editorial2.png" alt="the silk study" class="card-png-img">
               </div>
             </div>
             <p class="caption" data-reveal="fade" style="transition-delay:450ms">
@@ -720,8 +1312,7 @@
 
             <div class="side-img-2" data-reveal="right" style="transition-delay:500ms">
               <div class="art-placeholder grad-skydeep">
-                <span class="art-icon">🏖️</span>
-                <span class="art-label">seaside, golden hour</span>
+                <img src="editorial3.png" alt="seaside, golden hour" class="card-png-img">
               </div>
             </div>
           </div>
@@ -736,9 +1327,19 @@
           Curated by Ada · The Lace Affair · Spring / Summer
         </p>
       </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbdcec" />
+        </svg>
+      </div>
     </section>
 
     <section id="custom" class="custom-made">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbdcec" />
+        </svg>
+      </div>
       <div class="glow-blob glow-1"></div>
       <div class="glow-blob glow-2"></div>
 
@@ -794,24 +1395,23 @@
           </div>
         </form>
       </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#0c1a30" />
+        </svg>
+      </div>
     </section>
 
     <section id="moon" class="rising-moon">
       <div class="wave-top">
-        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg" style="shape-rendering: crispEdges;">
-          <defs>
-            <linearGradient id="customToMoon" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#fbdcec" stop-opacity="1" />
-              <stop offset="100%" stop-color="#dcedfb" stop-opacity="1" />
-            </linearGradient>
-          </defs>
-          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="url(#customToMoon)" fill-opacity="1" />
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#0c1a30" />
         </svg>
       </div>
 
       <span class="star" style="top:10%;left:7%;width:2px;height:2px;opacity:.6"></span>
       <span class="star" style="top:18%;left:22%;width:4px;height:4px;opacity:.4"></span>
-      <span class="star" style="top:8%;left:55%;width:2px;height:2px;opacity:.5"></span>
+      <span class="star" style="top:8%;left:55%;width:2px;height:2px;opacity:.55"></span>
       <span class="star" style="top:25%;left:80%;width:4px;height:4px;opacity:.35"></span>
       <span class="star" style="top:45%;left:4%;width:2px;height:2px;opacity:.45"></span>
       <span class="star" style="top:52%;left:92%;width:4px;height:4px;opacity:.3"></span>
@@ -864,7 +1464,7 @@
           <div class="item" data-reveal="up" style="transition-delay:0ms">
             <span class="edition-badge font-display">3 / 7</span>
             <div class="art-placeholder grad-moon1">
-              <span class="art-icon">🌑</span>
+              <img src="__adelas_diary___1755731741_3703668744867377711_8658414876.jpg" alt="Moonrise Tote Drop" class="card-png-img">
             </div>
             <div class="item-info">
               <h3 class="font-display">Moonrise Tote</h3>
@@ -877,7 +1477,7 @@
           <div class="item reverse" data-reveal="up" style="transition-delay:130ms">
             <span class="edition-badge font-display">2 / 5</span>
             <div class="art-placeholder grad-moon2">
-              <span class="art-icon">🌙</span>
+              <img src="crescent_clutch.png" alt="Crescent Clutch Drop" class="card-png-img">
             </div>
             <div class="item-info">
               <h3 class="font-display">Crescent Clutch</h3>
@@ -890,7 +1490,7 @@
           <div class="item" data-reveal="up" style="transition-delay:260ms">
             <span class="edition-badge font-display">1 / 4</span>
             <div class="art-placeholder grad-moon3">
-              <span class="art-icon">🦪</span>
+              <img src="mako_pearl.png" alt="Mako Pearl Bag Drop" class="card-png-img">
             </div>
             <div class="item-info">
               <h3 class="font-display">Mako Pearl Bag</h3>
@@ -905,12 +1505,17 @@
           <button type="button" class="btn-shine">See More</button>
         </div>
       </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#06101f" />
+        </svg>
+      </div>
     </section>
 
     <section id="artistry" class="artistry">
       <div class="wave-top">
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,72 360,0 540,36 C720,72 900,0 1080,36 C1260,72 1380,18 1440,36 L1440,0 L0,0 Z" fill="#06101f" />
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#06101f" />
         </svg>
       </div>
 
@@ -936,7 +1541,7 @@
         <div class="grid">
           <div class="work-card" data-reveal="up" style="transition-delay:0ms">
             <div class="art-placeholder grad-art1">
-              <span class="art-icon">📖</span>
+              <img src="book_cover.png" alt="Book Cover Design Artwork" class="card-png-img">
             </div>
             <div class="title-row">
               <h3 class="font-display">Book Cover Design</h3>
@@ -948,7 +1553,7 @@
 
           <div class="work-card" data-reveal="up" style="transition-delay:130ms">
             <div class="art-placeholder grad-art2">
-              <span class="art-icon">🎨</span>
+              <img src="digital_illustration.png" alt="Digital Illustration Artwork" class="card-png-img">
             </div>
             <div class="title-row">
               <h3 class="font-display">Digital Illustration</h3>
@@ -959,8 +1564,8 @@
           </div>
 
           <div class="work-card" data-reveal="up" style="transition-delay:260ms">
-            <div class="art-placeholder grad-art3">
-              <span class="art-icon">✦</span>
+            <div class="art-placeholder grad-brand1">
+              <img src="brand_identity.png" alt="Brand Identity Artwork" class="card-png-img">
             </div>
             <div class="title-row">
               <h3 class="font-display">Brand Identity</h3>
@@ -978,12 +1583,17 @@
 
       <div class="wave-bottom">
         <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <path d="M0,36 C180,0 360,72 540,36 C720,0 900,72 1080,36 C1260,0 1380,54 1440,36 L1440,72 L0,72 Z" fill="#fbf2ef" />
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbf2ef" />
         </svg>
       </div>
     </section>
 
     <section id="digital-art" class="digital-art">
+      <div class="wave-top">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbf2ef" />
+        </svg>
+      </div>
       <div class="glow-blob glow-1"></div>
       <div class="glow-blob glow-2"></div>
 
@@ -1002,7 +1612,7 @@
           <div class="work" data-reveal="up" style="transition-delay:0ms">
             <div class="img-wrap">
               <div class="art-placeholder grad-digital1">
-                <span class="art-icon">⚔️</span>
+                <img src="character_art.png" alt="Character Art" class="card-png-img">
               </div>
               <span class="title-pill font-display">Character Art</span>
             </div>
@@ -1012,7 +1622,7 @@
           <div class="work" data-reveal="up" style="transition-delay:130ms">
             <div class="img-wrap">
               <div class="art-placeholder grad-digital2">
-                <span class="art-icon">📚</span>
+                <img src="illustrated_covers.png" alt="Book Cover Artwork" class="card-png-img">
               </div>
               <span class="title-pill font-display">Book Cover Design</span>
             </div>
@@ -1022,7 +1632,7 @@
           <div class="work" data-reveal="up" style="transition-delay:260ms">
             <div class="img-wrap">
               <div class="art-placeholder grad-digital3">
-                <span class="art-icon">🌙</span>
+                <img src="general_illustration.png" alt="Detailed Illustration Work" class="card-png-img">
               </div>
               <span class="title-pill font-display">Illustration</span>
             </div>
@@ -1034,11 +1644,45 @@
           <a href="#preorder" class="btn-shine">Book Now</a>
         </div>
       </div>
+      <div class="wave-bottom">
+        <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,73 L0,73 Z" fill="#fbf2ef" />
+        </svg>
+      </div>
     </section>
 
   </main>
 
+  <div class="luxury-lightbox" id="luxuryLightbox" onclick="closeLightbox()">
+    <div class="lightbox-content" onclick="event.stopPropagation()">
+      <button class="lightbox-close" onclick="closeLightbox()">&times;</button>
+      <img src="" id="lightboxTargetImg" class="lightbox-img" alt="Enchanta Product Zoom Preview">
+    </div>
+  </div>
+
+  <!-- Moodboard Separated Cards Interactive Overlay -->
+  <div class="moodboard-overlay" id="moodboardOverlay" onclick="closeMoodboardOverlay()">
+    <button class="moodboard-overlay-close" onclick="closeMoodboardOverlay()">&times;</button>
+    <div class="moodboard-overlay-title">Moodboard Studio</div>
+    <div class="moodboard-cards-container" onclick="event.stopPropagation()">
+      <div class="moodboard-separated-card" onclick="openLightbox('__adelas_diary___1755731741_3703668744867377711_8658414876.jpg')">
+        <img src="__adelas_diary___1755731741_3703668744867377711_8658414876.jpg" alt="Texture & lace study">
+      </div>
+      <div class="moodboard-separated-card" onclick="openLightbox('editorial2.png')">
+        <img src="editorial2.png" alt="The silk study">
+      </div>
+      <div class="moodboard-separated-card" onclick="openLightbox('editorial3.png')">
+        <img src="editorial3.png" alt="Seaside sunset study">
+      </div>
+    </div>
+  </div>
+
   <footer class="site-footer">
+    <div class="wave-top">
+      <svg viewBox="0 0 1440 72" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M0,36 C240,72 480,0 720,36 C960,72 1200,0 1440,36 L1440,0 L0,0 Z" fill="#fbf2ef" />
+      </svg>
+    </div>
     <div class="glow-blob glow-1"></div>
     <div class="glow-blob glow-2"></div>
     <span class="deco-1 anim-drift">🌸</span>
@@ -1063,7 +1707,6 @@
           <h3 class="font-display">Shop</h3>
           <ul class="links">
             <li><a href="#summer">Summer</a></li>
-            <li><a href="#collections">Collections</a></li>
             <li><a href="#moodboard">Moodboard</a></li>
             <li><a href="#preorder">Pre-order</a></li>
             <li><a href="#moon">Rising Moon</a></li>
@@ -1102,11 +1745,68 @@
   <script>
     document.getElementById("year").textContent = new Date().getFullYear();
 
-    // Magical Motion Trigger via IntersectionObserver
+    function openLightbox(imgSrc) {
+      const lightbox = document.getElementById('luxuryLightbox');
+      const targetImg = document.getElementById('lightboxTargetImg');
+      targetImg.src = imgSrc;
+      lightbox.classList.add('active');
+    }
+
+    function removeLightbox() {
+      const lightbox = document.getElementById('luxuryLightbox');
+      lightbox.classList.remove('active');
+    }
+
+    function closeLightbox() {
+      const lightbox = document.getElementById('luxuryLightbox');
+      lightbox.classList.remove('active');
+    }
+
+    /* Moodboard Overlay Handlers */
+    function openMoodboardOverlay() {
+      document.getElementById('moodboardOverlay').classList.add('active');
+    }
+
+    function closeMoodboardOverlay() {
+      document.getElementById('moodboardOverlay').classList.remove('active');
+    }
+
+    /* Mermaid Tales Click Handler to Toggle and Reveal hidden cards */
+    function revealMoreMermaidCards() {
+      const cardGrid = document.getElementById('moreMermaidCards');
+      const button = document.getElementById('revealMermaidBtn');
+      
+      cardGrid.classList.toggle('show-grid');
+      
+      if (cardGrid.classList.contains('show-grid')) {
+        button.textContent = 'See less';
+        // Re-trigger scroll-driven element updates if any elements inside are visible
+        window.dispatchEvent(new Event('resize'));
+      } else {
+        button.textContent = 'See more';
+      }
+    }
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        closeLightbox();
+        closeMoodboardOverlay();
+      }
+    });
+
     document.addEventListener("DOMContentLoaded", () => {
+      /* Moodboard Image Cycle Script */
+      const moodboardImages = document.querySelectorAll('.bubble-mood-card .fade-img');
+      let currentIdx = 0;
+      setInterval(() => {
+        moodboardImages[currentIdx].classList.remove('active');
+        currentIdx = (currentIdx + 1) % moodboardImages.length;
+        moodboardImages[currentIdx].classList.add('active');
+      }, 3500);
+
       const observerOptions = {
         root: null,
-        rootMargin: "0px 0px -12% 0px", // Triggers just as elements pass into view elegantly
+        rootMargin: "0px 0px -12% 0px", 
         threshold: 0.02
       };
 
@@ -1122,13 +1822,11 @@
         revealObserver.observe(el);
       });
 
-      // --- Whimsical Cursor Sparkles Trail Logic ---
       const sparkleTypes = ['✦', '✧', '◦'];
       let lastMove = 0;
 
       document.addEventListener('mousemove', (e) => {
         const now = Date.now();
-        // Throttles creation so it doesn't clutter the DOM or drop frames
         if (now - lastMove < 45) return; 
         lastMove = now;
 
@@ -1136,13 +1834,11 @@
         sparkle.className = 'whimsical-sparkle';
         sparkle.textContent = sparkleTypes[Math.floor(Math.random() * sparkleTypes.length)];
         
-        // Position exactly at tip of mouse coordinates
         sparkle.style.left = `${e.clientX}px`;
         sparkle.style.top = `${e.clientY}px`;
 
-        // Generate randomized drift paths for CSS transitions
         const driftX = (Math.random() - 0.5) * 120;
-        const driftY = (Math.random() - 0.5) * 120 - 40; // favors floating upwards lightly
+        const driftY = (Math.random() - 0.5) * 120 - 40; 
         const rotation = (Math.random() - 0.5) * 360;
 
         sparkle.style.setProperty('--x-drift', `${driftX}px`);
@@ -1151,7 +1847,6 @@
 
         document.body.appendChild(sparkle);
 
-        // Clear node right as animation sequence completes
         setTimeout(() => {
           sparkle.remove();
         }, 1200);
