@@ -3,9 +3,9 @@
    ============================================================ */
 
 :root {
-  --font-sans: "Quicksand", sans-serif;
-  --font-display: "Playfair Display", serif;
-  --font-script: "Dancing Script", cursive;
+  --font-sans: "Alice", serif;
+  --font-display: "Alice", serif;
+  --font-script: "Allura", cursive;
 
   --color-cream: #fbf2ef;
   --color-ink: #4a2f44;

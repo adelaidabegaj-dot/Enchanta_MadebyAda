@@ -102,6 +102,31 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
+     Language switcher (UI only — no content translation yet)
+     ============================================================ */
+  const langCurrent = document.querySelector(".lang-current");
+  const langOptions = document.querySelectorAll(".lang-option");
+  const savedLang = localStorage.getItem("enchanta-lang") || "en";
+
+  function setActiveLang(code) {
+    langOptions.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.lang === code);
+    });
+    const active = document.querySelector(`.lang-option[data-lang="${code}"]`);
+    if (langCurrent && active) langCurrent.textContent = active.dataset.label;
+  }
+
+  setActiveLang(savedLang);
+
+  langOptions.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const code = btn.dataset.lang;
+      localStorage.setItem("enchanta-lang", code);
+      setActiveLang(code);
+    });
+  });
+
+  /* ============================================================
      Hero sparkles + tilt
      ============================================================ */
   const HERO_SPARKLES = [
