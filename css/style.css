@@ -69,6 +69,7 @@
 html {
   scroll-behavior: smooth;
   scroll-padding-top: 6.5rem;
+  overflow-x: hidden;
 }
 
 body {
@@ -77,6 +78,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 img, video {
