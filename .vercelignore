@@ -1,1 +1,4 @@
-assets/videos
+assets/videos/*
+!assets/videos/hero-fairy.mp4
+!assets/videos/about.mp4
+!assets/videos/pixie.mp4

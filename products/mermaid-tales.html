@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="en" data-base="../">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Mermaid Tales — Enchanta</title>
+  <meta name="description" content="The Mermaid Tales collection — sun-washed, sea-inspired hand-crocheted bags, accessories, clothing and decor from Ada's atelier." />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://fonts.googleapis.com/css2?family=Alice&family=Allura&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="../css/style.css">
+  <link rel="stylesheet" href="../css/sections.css">
+  <link rel="stylesheet" href="../css/product.css">
+  <link rel="stylesheet" href="../css/assistant.css">
+
+  <style>
+    /* ── Mermaid Tales collection page — same sun-washed lagoon mood as
+       the homepage #summer section. ── */
+    .mermaid-page {
+      position: relative;
+      overflow: hidden;
+      min-height: 100vh;
+      padding: 9rem 0 7rem;
+      background: linear-gradient(160deg,
+        var(--color-sky-100) 0%,
+        var(--color-blossom-100) 35%,
+        var(--color-lavender-100) 70%,
+        var(--color-cream) 100%);
+    }
+    .mermaid-page .wrap {
+      position: relative;
+      max-width: 72rem;
+      margin-inline: auto;
+      padding-inline: 1.5rem;
+      text-align: center;
+      z-index: 1;
+    }
+    .mermaid-page .glow-blob {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .mermaid-page .back-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      margin-bottom: 1.25rem;
+      font-weight: 600;
+      color: var(--color-plum-500);
+      text-decoration: none;
+      transition: transform .3s ease, color .3s ease;
+    }
+    .mermaid-page .back-home:hover { color: var(--color-blossom-500); transform: translateX(-3px); }
+
+    .mermaid-page .kicker {
+      display: inline-block;
+      font-size: 2.5rem;
+      color: var(--color-blossom-500);
+    }
+    .mermaid-page h1 {
+      margin: 0.25rem 0 0;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 0.08em;
+      color: var(--color-plum-700);
+      text-shadow: 0 0 24px rgba(255,255,255,.9);
+    }
+    .mermaid-page .collection-sub {
+      margin: 0.75rem auto 0;
+      max-width: 34rem;
+      line-height: 1.7;
+      font-weight: 600;
+      color: rgba(122,67,97,.8);
+    }
+
+    /* ── Filter pills (same look as the homepage Mermaid Tales pills) ── */
+    .mermaid-filters {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: 0.625rem;
+      margin-top: 2rem;
+    }
+    .mermaid-filter-btn {
+      position: relative;
+      overflow: hidden;
+      border: none;
+      background: linear-gradient(135deg, #9c5d7a, #b37391);
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.55rem 1.4rem;
+      font-size: 0.875rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 14px rgba(90,48,73,.3);
+      transition: all 0.3s ease;
+    }
+    .mermaid-filter-btn:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #b37391, #c887a6);
+      box-shadow: 0 8px 20px rgba(90,48,73,.35);
+    }
+    .mermaid-filter-btn.active {
+      background: linear-gradient(135deg, #ff69b4, #e673ad);
+      box-shadow: 0 0 18px rgba(255,105,180,.65),
+                  0 8px 20px -4px rgba(193,77,138,.55);
+    }
+    .mermaid-filter-btn.active::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -150%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,.75), transparent);
+      transform: skewX(-20deg);
+      animation: mermaidShine 2.6s ease-in-out infinite;
+    }
+    @keyframes mermaidShine {
+      0% { left: -150%; }
+      30% { left: 150%; }
+      100% { left: 150%; }
+    }
+
+    /* ── Product cards (same luxury-card look as the homepage) ── */
+    .luxury-card {
+      position: relative;
+      background: rgba(255, 230, 242, 0.55);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 182, 193, 0.6);
+      border-radius: 24px;
+      padding: 24px;
+      overflow: hidden;
+      box-shadow: 0 12px 35px rgba(255, 182, 193, 0.25),
+                  0 0 20px rgba(255, 255, 255, 0.4);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      height: 545px;
+      transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      animation: luxuryCardGlow 5s ease-in-out infinite;
+    }
+    .luxury-card-col:nth-child(3n+2) .luxury-card { animation-delay: -1.7s; }
+    .luxury-card-col:nth-child(3n) .luxury-card { animation-delay: -3.4s; }
+    @keyframes luxuryCardGlow {
+      0%, 100% { box-shadow: 0 12px 35px rgba(255, 182, 193, 0.25), 0 0 18px rgba(243, 169, 207, 0.35); }
+      50%      { box-shadow: 0 12px 35px rgba(255, 182, 193, 0.25), 0 0 34px rgba(255, 105, 180, 0.5); }
+    }
+    .luxury-card:hover {
+      transform: translateY(-10px) scale(1.03);
+      animation: none;
+      box-shadow: 0 25px 50px rgba(255, 105, 180, 0.35), 0 0 30px rgba(255, 255, 255, 0.7);
+      border-color: rgba(255, 105, 180, 0.8);
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .luxury-card { animation: none; }
+    }
+    .luxury-card-img-container {
+      height: 300px;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.35);
+    }
+    .luxury-card-img-container a { display: block; width: 100%; height: 100%; }
+    .luxury-card-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-card:hover .luxury-card-img { transform: scale(1.07); }
+    .luxury-card-title {
+      font-family: var(--font-display);
+      font-size: 1.35rem;
+      font-weight: 600;
+      color: #703d52;
+      margin: 15px 0 0;
+      text-align: center;
+    }
+    .luxury-card-desc {
+      font-size: 0.85rem;
+      line-height: 1.45;
+      color: #6b4a5a;
+      text-align: center;
+      margin: 4px 0 0;
+      padding: 0 4px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    .collection-card-tag {
+      margin-top: 8px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-blossom-500);
+    }
+    .luxury-order-btn {
+      background: linear-gradient(135deg, #9c5d7a, #b37391);
+      color: #ffffff;
+      font-weight: 700;
+      font-size: 0.9rem;
+      letter-spacing: 1.5px;
+      padding: 12px 24px;
+      border: none;
+      border-radius: 50px;
+      width: 100%;
+      box-shadow: 0 6px 18px rgba(156, 93, 122, 0.2);
+      transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .luxury-card:hover .luxury-order-btn {
+      background: linear-gradient(135deg, #ff69b4, #ff85c2);
+      box-shadow: 0 8px 24px rgba(255, 105, 180, 0.4);
+    }
+    .luxury-card-col { transition: opacity 0.35s ease, transform 0.35s ease; }
+    .luxury-card-col.is-hidden { display: none !important; }
+  </style>
+</head>
+<body>
+
+  <header class="site-header">
+    <nav class="site-nav">
+      <a href="../index.html#top" class="logo">
+        <img src="../assets/images/logo-enchanta.webp" alt="Enchanta" width="677" height="606">
+      </a>
+
+      <ul class="nav-links">
+        <li><a class="nav-link" href="../index.html#about">About</a></li>
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Shop</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../index.html#summer">Summer</a></li>
+            <li><a class="dropdown-item" href="rising-moon.html">Rising Moon</a></li>
+            <li><a class="dropdown-item" href="moonlit-hollow.html">Moonlit Hollow</a></li>
+            <li><a class="dropdown-item" href="../index.html#preorder">Pre-order</a></li>
+            <li><a class="dropdown-item" href="collection.html">Full Collection</a></li>
+          </ul>
+        </li>
+        <li class="dropdown">
+          <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Inspiration</a>
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="../index.html#moodboard">Moodboard</a></li>
+            <li><a class="dropdown-item" href="../index.html#editorial">Editorial</a></li>
+          </ul>
+        </li>
+        <li><a class="nav-link" href="../index.html#custom">Custom Made</a></li>
+      </ul>
+
+      <div class="nav-end">
+        <div class="nav-extra">
+          <div class="dropdown lang-dropdown">
+            <button type="button" class="lang-toggle" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Select language">
+              <span class="lang-current">EN</span>
+              <svg viewBox="0 0 12 8" aria-hidden="true"><path d="M1 1.5 6 6.5 11 1.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>
+            </button>
+            <ul class="dropdown-menu lang-menu">
+              <li><button type="button" class="dropdown-item lang-option" data-lang="en" data-label="EN">🇬🇧 English</button></li>
+              <li><button type="button" class="dropdown-item lang-option" data-lang="sq" data-label="SQ">🇦🇱 Shqip</button></li>
+              <li><button type="button" class="dropdown-item lang-option" data-lang="de" data-label="DE">🇩🇪 Deutsch</button></li>
+            </ul>
+          </div>
+
+          <a href="https://instagram.com/" target="_blank" rel="noopener noreferrer" class="nav-icon-link" aria-label="Instagram">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <rect x="3" y="3" width="18" height="18" rx="5"></rect>
+              <circle cx="12" cy="12" r="4"></circle>
+              <circle cx="17.2" cy="6.8" r="1" fill="currentColor" stroke="none"></circle>
+            </svg>
+          </a>
+
+          <button type="button" class="nav-icon-link cart-icon-link" aria-label="Open cart" onclick="openCartOverlay()">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true">
+              <path d="M3 6h2l2.4 12.2a2 2 0 0 0 2 1.6h8.4a2 2 0 0 0 2-1.6L21 8H6" stroke-linecap="round" stroke-linejoin="round"></path>
+              <circle cx="9.5" cy="21" r="1.3" fill="currentColor" stroke="none"></circle>
+              <circle cx="17.5" cy="21" r="1.3" fill="currentColor" stroke="none"></circle>
+            </svg>
+            <span class="cart-count">0</span>
+          </button>
+        </div>
+
+        <a href="../index.html#preorder" class="btn-shine shop-now">
+          <span aria-hidden="true">✦</span> Shop now
+        </a>
+      </div>
+
+      <button type="button" class="nav-toggle" aria-label="Toggle navigation menu" aria-expanded="false">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </nav>
+
+    <div class="mobile-menu">
+      <ul>
+        <li><a href="../index.html#about">About</a></li>
+        <li class="mobile-group">
+          <details>
+            <summary>Shop</summary>
+            <ul>
+              <li><a href="../index.html#summer">Summer</a></li>
+              <li><a href="rising-moon.html">Rising Moon</a></li>
+              <li><a href="moonlit-hollow.html">Moonlit Hollow</a></li>
+              <li><a href="../index.html#preorder">Pre-order</a></li>
+              <li><a href="collection.html">Full Collection</a></li>
+            </ul>
+          </details>
+        </li>
+        <li class="mobile-group">
+          <details>
+            <summary>Inspiration</summary>
+            <ul>
+              <li><a href="../index.html#moodboard">Moodboard</a></li>
+              <li><a href="../index.html#editorial">Editorial</a></li>
+            </ul>
+          </details>
+        </li>
+        <li><a href="../index.html#custom">Custom Made</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main>
+    <section class="mermaid-page">
+      <div class="glow-blob anim-blob" style="top:-4rem; left:-5rem; width:20rem; height:20rem; background:rgba(155,203,242,.35);"></div>
+      <div class="glow-blob anim-blob" style="top:30%; right:-6rem; width:22rem; height:22rem; background:rgba(243,169,207,.35); animation-delay:-6s;"></div>
+      <div class="glow-blob anim-blob" style="bottom:-5rem; left:20%; width:18rem; height:18rem; background:rgba(205,178,232,.3); animation-delay:-11s;"></div>
+
+      <div class="wrap">
+        <a href="../index.html#summer" class="back-home"><span aria-hidden="true">&larr;</span> Back to shop</a>
+        <div>
+          <span class="kicker font-script">Mermaid Tales</span>
+        </div>
+        <h1 class="font-display">Koleksioni i ri</h1>
+        <p class="collection-sub">
+          Sun-washed, sea-inspired pieces hand-crocheted by Ada — bags, accessories,
+          clothing and little things for your home, each one woven with a bit of magic.
+        </p>
+
+        <div class="mermaid-filters" id="mermaidFilters">
+          <button type="button" class="mermaid-filter-btn active" data-filter="all">Të gjitha</button>
+          <button type="button" class="mermaid-filter-btn" data-filter="canta">Çanta</button>
+          <button type="button" class="mermaid-filter-btn" data-filter="aksesor">Aksesor</button>
+          <button type="button" class="mermaid-filter-btn" data-filter="veshje">Veshje</button>
+          <button type="button" class="mermaid-filter-btn" data-filter="dekor">Dekor</button>
+        </div>
+
+        <div class="row g-4 mt-2 text-start" id="mermaidGrid"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <div class="glow-blob glow-1"></div>
+    <div class="glow-blob glow-2"></div>
+
+    <div class="wrap">
+      <div class="grid">
+        <div class="brand">
+          <img src="../assets/images/logo-enchanta.webp" alt="Enchanta" width="677" height="606">
+          <p>
+            Hand-crocheted pieces made with love in small batches —
+            wearable daydreams from Ada&rsquo;s little atelier.
+          </p>
+        </div>
+
+        <div>
+          <h3 class="font-display">Shop</h3>
+          <ul class="links">
+            <li><a href="../index.html#summer">Summer</a></li>
+            <li><a href="collection.html">Full Collection</a></li>
+            <li><a href="../index.html#preorder">Pre-order</a></li>
+            <li><a href="rising-moon.html">Rising Moon</a></li>
+            <li><a href="moonlit-hollow.html">Moonlit Hollow</a></li>
+          </ul>
+        </div>
+
+        <div>
+          <h3 class="font-display">Studio</h3>
+          <ul class="links">
+            <li><a href="../index.html#about">About</a></li>
+            <li><a href="../index.html#editorial">Editorial</a></li>
+            <li><a href="../index.html#custom">Custom Made</a></li>
+          </ul>
+        </div>
+
+        <div class="newsletter">
+          <h3 class="font-display">Stay in touch</h3>
+          <p>Get notified about new drops, restocks &amp; behind-the-scenes moodboards.</p>
+          <a href="mailto:hello@enchanta.com" class="email-link">hello@enchanta.com</a>
+        </div>
+      </div>
+
+      <div class="bottom-bar">
+        <p class="font-display">Enchanta · Made by Ada · © <span id="year"></span></p>
+      </div>
+    </div>
+  </footer>
+
+  <div class="product-modal" id="cartOverlay" onclick="closeCartOverlay()">
+    <div class="product-page cart-page" onclick="event.stopPropagation()">
+      <button class="product-page-close" onclick="closeCartOverlay()">
+        <span aria-hidden="true">&larr;</span> Continue shopping
+      </button>
+
+      <div class="cart-page-content">
+        <span class="kicker font-script">your basket</span>
+        <h1 class="font-display cart-page-title">Your Cart</h1>
+
+        <div id="cartLines" class="cart-lines"></div>
+        <p id="cartEmpty" class="cart-empty">Your cart is empty — go find something magical.</p>
+
+        <div class="cart-total-row">
+          <span>Total</span>
+          <span id="cartTotal" class="cart-total-amount">$0</span>
+        </div>
+
+        <div class="product-page-actions">
+          <button type="button" class="btn-shine cart-whatsapp-btn" onclick="checkoutViaWhatsApp()">
+            Order via WhatsApp
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="../js/motion.js"></script>
+  <script src="../js/main.js"></script>
+  <script src="../js/products.js"></script>
+  <script>
+    /* Render every Mermaid Tales product from the shared PRODUCTS list.
+       Runs synchronously right after products.js so the cards exist in
+       the DOM before cart.js binds its Add to Cart handlers. */
+    (function () {
+      // Products that have their own detail page under products/
+      var DETAIL_PAGES = [
+        "sunrise", "deep-ocean", "sea-shell", "coral-dream", "tide-pool",
+        "salty-horizon"
+      ];
+      var CATEGORY_LABELS = {
+        canta: "Çanta", aksesor: "Aksesor", veshje: "Veshje", dekor: "Dekor"
+      };
+
+      function assetPath(src) {
+        return /^https?:/.test(src) ? src : "../" + src;
+      }
+
+      function esc(s) {
+        return String(s).replace(/&/g, "&amp;").replace(/</g, "&lt;")
+                        .replace(/>/g, "&gt;").replace(/"/g, "&quot;");
+      }
+
+      var grid = document.getElementById("mermaidGrid");
+      var html = "";
+
+      (window.PRODUCTS || [])
+        .filter(function (p) { return p.collection === "Mermaid Tales"; })
+        .forEach(function (p) {
+          var img = assetPath((p.images || [])[0] || "");
+          var hasPage = DETAIL_PAGES.indexOf(p.id) !== -1;
+          var imgTag = '<img src="' + esc(img) + '" alt="' + esc(p.title) + '" class="luxury-card-img" loading="lazy">';
+          var tag = CATEGORY_LABELS[p.category] || esc(p.collection);
+
+          html +=
+            '<div class="col-lg-4 col-md-6 col-12 luxury-card-col" data-category="' + esc(p.category || "") + '">' +
+              '<div class="luxury-card" data-id="' + esc(p.id) + '" data-title="' + esc(p.title) + '" data-price="' + esc(p.price) + '">' +
+                '<div class="luxury-card-img-container">' +
+                  (hasPage ? '<a href="' + esc(p.id) + '.html">' + imgTag + "</a>" : imgTag) +
+                "</div>" +
+                '<h3 class="luxury-card-title">' + esc(p.title) + "</h3>" +
+                '<span class="collection-card-tag">' + tag + "</span>" +
+                '<div><span class="luxury-badge-pink">' + esc(p.price) + "</span></div>" +
+                '<p class="luxury-card-desc">' + esc(p.desc) + "</p>" +
+                '<button type="button" class="luxury-order-btn">Add to Cart</button>' +
+              "</div>" +
+            "</div>";
+        });
+
+      grid.innerHTML = html;
+
+      /* Category filter — mirrors collection.html and supports the same
+         ?category=X deep link. */
+      function applyFilter(category) {
+        document.querySelectorAll("#mermaidFilters .mermaid-filter-btn").forEach(function (b) {
+          b.classList.toggle("active", b.dataset.filter === category);
+        });
+        document.querySelectorAll("#mermaidGrid .luxury-card-col").forEach(function (col) {
+          var matches = category === "all" || col.dataset.category === category;
+          col.classList.toggle("is-hidden", !matches);
+        });
+      }
+
+      document.querySelectorAll("#mermaidFilters .mermaid-filter-btn").forEach(function (btn) {
+        btn.addEventListener("click", function () {
+          applyFilter(btn.dataset.filter);
+        });
+      });
+
+      var requested = new URLSearchParams(location.search).get("category");
+      if (requested && document.querySelector('#mermaidFilters [data-filter="' + requested + '"]')) {
+        applyFilter(requested);
+      }
+    })();
+  </script>
+  <script src="../js/cart.js"></script>
+  <script src="../js/assistant.js"></script>
+</body>
+</html>

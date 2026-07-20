@@ -327,7 +327,11 @@
 }
 
 /* ============================================================
-   Hero
+   Hero — enchanted portal
+   Layered back-to-front: aurora wash -> rotating light rays ->
+   breathing glow/blobs/gradient sides -> mist -> flower vines ->
+   sparkle field + fairy dust -> bokeh petals -> crystals ->
+   butterflies -> content (kicker/headline/portal window/lead/CTA).
    ============================================================ */
 
 .hero {
@@ -337,14 +341,61 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-sky-100), var(--color-blossom-100), var(--color-lavender-100));
-  padding: 7rem 0 5rem;
+  background: linear-gradient(120deg,
+    var(--color-sky-100) 0%,
+    var(--color-champagne-100) 24%,
+    var(--color-blossom-100) 50%,
+    var(--color-lavender-100) 76%,
+    var(--color-sky-100) 100%);
+  background-size: 280% 280%;
+  animation: heroAurora 26s ease-in-out infinite;
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+}
+
+/* ---- volumetric light rays: two oversized conic-gradient wheels spun
+   by transform (cheap) rather than animated background-position, each
+   masked to a soft radial fade so they read as rays through mist
+   instead of a visible hard-edged disc ---- */
+.hero .portal-rays {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  mask-image: radial-gradient(circle at center, #000 0%, #000 22%, transparent 58%);
+  -webkit-mask-image: radial-gradient(circle at center, #000 0%, #000 22%, transparent 58%);
+  will-change: transform;
+}
+.hero .portal-rays-1 {
+  width: 130vmax;
+  height: 130vmax;
+  margin: -65vmax 0 0 -65vmax;
+  background: conic-gradient(from 0deg,
+    transparent 0deg, rgba(255,244,214,.4) 6deg, transparent 18deg,
+    transparent 68deg, rgba(243,169,207,.32) 76deg, transparent 90deg,
+    transparent 150deg, rgba(205,178,232,.34) 158deg, transparent 172deg,
+    transparent 230deg, rgba(255,244,214,.34) 238deg, transparent 250deg,
+    transparent 310deg, rgba(155,203,242,.28) 318deg, transparent 332deg,
+    transparent 360deg);
+  opacity: .8;
+  animation: spinGlow 70s linear infinite;
+}
+.hero .portal-rays-2 {
+  width: 100vmax;
+  height: 100vmax;
+  margin: -50vmax 0 0 -50vmax;
+  background: conic-gradient(from 40deg,
+    transparent 0deg, rgba(217,180,106,.3) 10deg, transparent 26deg,
+    transparent 120deg, rgba(171,132,208,.3) 132deg, transparent 148deg,
+    transparent 240deg, rgba(111,169,232,.26) 250deg, transparent 266deg,
+    transparent 360deg);
+  opacity: .6;
+  animation: spinGlow 52s linear infinite reverse;
 }
 
 .hero .breathing-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 40%, rgba(251,220,236,.7), transparent 60%);
+  background: radial-gradient(circle at 50% 38%, rgba(255,250,240,.75), transparent 60%);
   pointer-events: none;
 }
 
@@ -357,7 +408,7 @@
 .hero .blob-1 { top: -6rem; left: 25%; width: 18rem; height: 18rem; background: rgba(243,169,207,.4); }
 .hero .blob-2 { top: 2.5rem; right: 0; width: 20rem; height: 20rem; background: rgba(205,178,232,.4); animation-delay: -5s; }
 .hero .blob-3 { bottom: 0; left: 0; width: 16rem; height: 16rem; background: rgba(155,203,242,.4); animation-delay: -10s; }
-.hero .blob-4 { right: 2.5rem; bottom: -4rem; width: 18rem; height: 18rem; background: rgba(180,120,154,.3); animation-delay: -3s; }
+.hero .blob-4 { right: 2.5rem; bottom: -4rem; width: 18rem; height: 18rem; background: rgba(217,180,106,.32); animation-delay: -3s; }
 
 .hero .gradient-side {
   position: absolute;
@@ -369,26 +420,89 @@
 }
 .hero .gradient-side-left {
   left: -33.3%;
-  background: linear-gradient(to bottom right, rgba(243,169,207,.5), rgba(205,178,232,.4), rgba(155,203,242,.5));
+  background: linear-gradient(to bottom right, rgba(243,169,207,.5), rgba(240,217,168,.3), rgba(155,203,242,.5));
 }
 .hero .gradient-side-right {
   right: -33.3%;
-  background: linear-gradient(to bottom left, rgba(155,203,242,.5), rgba(243,169,207,.4), rgba(205,178,232,.5));
+  background: linear-gradient(to bottom left, rgba(155,203,242,.5), rgba(205,178,232,.4), rgba(240,217,168,.35));
   animation-delay: -8s;
+}
+
+/* ---- mist bands: a wide soft layer low in the scene plus a thinner
+   one right at the divider seam, so the portal fades into vapor
+   instead of stopping at a hard section edge ---- */
+.hero .portal-mist {
+  position: absolute;
+  left: -10%;
+  width: 120%;
+  pointer-events: none;
+  filter: blur(18px);
+}
+.hero .portal-mist-back {
+  bottom: 8%;
+  height: 14rem;
+  background: linear-gradient(to top, rgba(255,250,244,.55), transparent 80%);
+}
+.hero .portal-mist-front {
+  bottom: -2rem;
+  height: 9rem;
+  background: linear-gradient(to top, rgba(236,225,247,.7), transparent 85%);
+}
+
+/* ---- flower vines framing the top corners ---- */
+.hero .portal-vine {
+  position: absolute;
+  top: 3%;
+  width: 8rem;
+  height: auto;
+  pointer-events: none;
+  opacity: .92;
+}
+.hero .portal-vine-left { left: 2%; }
+.hero .portal-vine-right { right: 2%; transform: scaleX(-1); }
+@media (min-width: 768px) {
+  .hero .portal-vine { width: 11rem; top: 1.5%; }
+  .hero .portal-vine-left { left: 4%; }
+  .hero .portal-vine-right { right: 4%; }
 }
 
 .hero .sparkle-field { position: absolute; inset: 0; pointer-events: none; }
 
+/* ---- fairy dust: fine motes rising through the whole portal and
+   fading at both ends of the climb (positions/timings from JS) ---- */
+.hero .fairy-dust { position: absolute; inset: 0; pointer-events: none; overflow: hidden; }
+.hero .fairy-dust span {
+  position: absolute;
+  bottom: 4%;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--color-champagne-300) 60%, transparent 100%);
+  box-shadow: 0 0 6px 2px rgba(240,217,168,.7);
+}
+
+/* ---- soft bokeh petals: outer div carries position + pointer-driven
+   drift (data-drift-x/y, set in main.js); inner div carries the blur,
+   colour and float bob — kept on separate elements so the two
+   transforms never fight over the same property ---- */
 .hero .petal {
   position: absolute;
-  filter: blur(20px);
   pointer-events: none;
   transition: transform 0.3s ease-out;
 }
-.hero .petal-1 { top: 18%; left: 10%; width: 5rem; height: 5rem; border-radius: 40%; background: rgba(243,169,207,.4); }
-.hero .petal-2 { top: 12%; right: 8%; width: 6rem; height: 6rem; border-radius: 45%; background: rgba(205,178,232,.4); animation-delay: -3s; }
-.hero .petal-3 { bottom: 14%; left: 6%; width: 4rem; height: 4rem; border-radius: 35%; background: rgba(155,203,242,.4); animation-delay: -1.5s; }
-.hero .petal-4 { right: 12%; bottom: 10%; width: 5rem; height: 5rem; border-radius: 42%; background: rgba(180,120,154,.3); animation-delay: -4s; }
+.hero .petal-inner {
+  width: 100%;
+  height: 100%;
+  filter: blur(20px);
+}
+.hero .petal-1 { top: 18%; left: 10%; width: 5rem; height: 5rem; }
+.hero .petal-1 .petal-inner { border-radius: 40%; background: rgba(243,169,207,.4); }
+.hero .petal-2 { top: 12%; right: 8%; width: 6rem; height: 6rem; }
+.hero .petal-2 .petal-inner { border-radius: 45%; background: rgba(205,178,232,.4); animation-delay: -3s; }
+.hero .petal-3 { bottom: 14%; left: 6%; width: 4rem; height: 4rem; }
+.hero .petal-3 .petal-inner { border-radius: 35%; background: rgba(155,203,242,.4); animation-delay: -1.5s; }
+.hero .petal-4 { right: 12%; bottom: 10%; width: 5rem; height: 5rem; }
+.hero .petal-4 .petal-inner { border-radius: 42%; background: rgba(217,180,106,.32); animation-delay: -4s; }
 @media (min-width: 640px) {
   .hero .petal-1 { width: 7rem; height: 7rem; }
   .hero .petal-2 { width: 8rem; height: 8rem; }
@@ -396,39 +510,276 @@
   .hero .petal-4 { width: 7rem; height: 7rem; }
 }
 
+/* ---- faceted crystal accents at the portal's base ---- */
+.hero .crystal-wrap { position: absolute; pointer-events: none; width: 2.6rem; }
+.hero .crystal-wrap svg { width: 100%; height: auto; }
+.hero .crystal-1 { left: 5%; bottom: 22%; }
+.hero .crystal-2 { right: 6%; bottom: 26%; width: 2.1rem; }
+@media (min-width: 768px) {
+  .hero .crystal-1 { width: 3.4rem; left: 8%; }
+  .hero .crystal-2 { width: 2.8rem; right: 9%; }
+}
+
+/* ---- butterflies: outer element drifts a slow wandering loop; each
+   wing pivots at the shared body edge (matching that wing's own SVG
+   bounding box) so scaleX reads as a flap, not a squash ---- */
+.hero .butterfly {
+  position: absolute;
+  width: 2.2rem;
+  pointer-events: none;
+}
+.hero .butterfly svg { width: 100%; height: auto; filter: drop-shadow(0 2px 6px rgba(90,48,73,.25)); }
+.hero .butterfly .wing-left { transform-origin: 100% 50%; }
+.hero .butterfly .wing-right { transform-origin: 0% 50%; }
+.hero .bfly-1 { top: 22%; left: 20%; }
+.hero .bfly-2 { top: 30%; right: 16%; width: 1.7rem; }
+.hero .bfly-3 { bottom: 24%; left: 30%; width: 1.5rem; }
+@media (min-width: 768px) {
+  .hero .butterfly { width: 2.6rem; }
+  .hero .bfly-2 { width: 2rem; }
+  .hero .bfly-3 { width: 1.8rem; }
+}
+.hero .butterfly .butterfly-body { fill: var(--color-plum-700); }
+.hero .butterfly .butterfly-antenna { fill: none; stroke: var(--color-plum-700); stroke-width: .8; stroke-linecap: round; }
+
+/* ---- streaks of wishing-star light across the upper sky ---- */
+.hero .shooting-star {
+  position: absolute;
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,.8), transparent);
+  pointer-events: none;
+}
+.hero .ss-1 { top: 10%; left: 8%; width: 7rem; }
+.hero .ss-2 { top: 6%; left: 55%; width: 5rem; }
+
+/* ---- toadstool groves tucked into the mist at the portal's feet;
+   caps borrow the butterflies' pink radial so the fauna and flora read
+   as one family ---- */
+.hero .toadstool-grove {
+  position: absolute;
+  width: 5.5rem;
+  pointer-events: none;
+  opacity: .95;
+  filter: drop-shadow(0 6px 10px rgba(90,48,73,.18));
+}
+.hero .toadstool-grove svg { width: 100%; height: auto; }
+.hero .toadstool-grove-left { left: 6%; bottom: 8%; }
+.hero .toadstool-grove-right { right: 5%; bottom: 7%; width: 4rem; transform: scaleX(-1); }
+@media (min-width: 768px) {
+  .hero .toadstool-grove-left { width: 7rem; left: 9%; }
+  .hero .toadstool-grove-right { width: 5rem; right: 8%; }
+}
+.hero .ts-cap { fill: url(#butterflyPinkGrad); stroke: #fff; stroke-opacity: .55; stroke-width: 1; }
+.hero .ts-stem { fill: #fdf6e8; stroke: var(--color-plum-300); stroke-opacity: .5; stroke-width: 1; }
+.hero .ts-dot { fill: #fff; opacity: .9; }
+.hero .ts-grass { fill: none; stroke: var(--color-plum-300); stroke-width: 2; stroke-linecap: round; opacity: .6; }
+/* the whole grove rocks from its roots like a breeze is passing */
+.hero .toadstool-grove svg {
+  animation: breezeSway 7s ease-in-out infinite;
+  transform-origin: 50% 100%;
+}
+.hero .toadstool-grove-right svg { animation-delay: -3.2s; }
+@keyframes breezeSway {
+  0%, 100% { transform: rotate(-1.4deg); }
+  50%      { transform: rotate(1.8deg); }
+}
+
+/* ---- a passing fairy: a glowing mote that swoops across the whole
+   scene every ~19s trailing a ribbon of light, gone before it wears
+   out its welcome ---- */
+.hero .fairy-flyby {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--color-blossom-300) 65%, transparent);
+  box-shadow: 0 0 10px 3px rgba(255,255,255,.8), 0 0 22px 8px rgba(243,169,207,.5);
+  pointer-events: none;
+  opacity: 0;
+  animation: fairyFlyby 19s ease-in-out infinite;
+  animation-delay: 4s;
+}
+.hero .fairy-flyby::after {
+  content: "";
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  width: 70px;
+  height: 2px;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  background: linear-gradient(to left, rgba(255,255,255,.9), rgba(240,217,168,.5), transparent);
+}
+@keyframes fairyFlyby {
+  0%   { transform: translate(-6vw, 34vh); opacity: 0; }
+  4%   { opacity: 1; }
+  22%  { transform: translate(24vw, 14vh); }
+  42%  { transform: translate(52vw, 30vh); }
+  62%  { transform: translate(76vw, 10vh); }
+  76%  { transform: translate(94vw, 16vh); opacity: 1; }
+  82%  { transform: translate(106vw, 14vh); opacity: 0; }
+  100% { transform: translate(106vw, 14vh); opacity: 0; }
+}
+
+/* ---- blossom petals loosed from somewhere above, zigzagging down on
+   the breeze: the outer span falls and sways, its ::before twirls, so
+   the two transforms never fight ---- */
+.hero .petal-fall {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+.hero .pf {
+  position: absolute;
+  top: 0;
+  animation: petalFall var(--dur, 13s) linear infinite;
+  animation-delay: var(--delay, 0s);
+  opacity: 0;
+}
+.hero .pf::before {
+  content: "";
+  display: block;
+  width: var(--size, 13px);
+  height: var(--size, 13px);
+  background: linear-gradient(135deg, #ffe3f0, var(--color-blossom-300) 70%);
+  border-radius: 100% 8% 100% 8%;
+  box-shadow: 0 0 6px rgba(243,169,207,.35);
+  animation: petalTwirl var(--twirl, 3.4s) ease-in-out infinite alternate;
+}
+.hero .pf-lav::before {
+  background: linear-gradient(135deg, #f0e6fb, var(--color-lavender-300) 70%);
+  box-shadow: 0 0 6px rgba(205,178,232,.35);
+}
+.hero .pf-1 { left: 10%; --dur: 13s; --delay: -2s;   --size: 13px; }
+.hero .pf-2 { left: 26%; --dur: 16s; --delay: -9s;   --size: 10px; --twirl: 2.8s; }
+.hero .pf-3 { left: 44%; --dur: 12s; --delay: -5s;   --size: 15px; --twirl: 3.9s; }
+.hero .pf-4 { left: 62%; --dur: 17s; --delay: -12s;  --size: 11px; }
+.hero .pf-5 { left: 78%; --dur: 14s; --delay: -7s;   --size: 14px; --twirl: 3s; }
+.hero .pf-6 { left: 90%; --dur: 15s; --delay: -3.5s; --size: 12px; --twirl: 2.6s; }
+@keyframes petalFall {
+  0%   { transform: translate(0, -6vh); opacity: 0; }
+  6%   { opacity: .85; }
+  25%  { transform: translate(26px, 24vh); }
+  50%  { transform: translate(-18px, 49vh); }
+  75%  { transform: translate(22px, 74vh); }
+  96%  { opacity: .85; }
+  100% { transform: translate(-10px, 104vh); opacity: 0; }
+}
+@keyframes petalTwirl {
+  from { transform: rotate(-38deg); }
+  to   { transform: rotate(42deg); }
+}
+
+/* ---- fireflies wandering the meadow's lower third, each pulsing on
+   its own rhythm (wander animates transform, pulse animates opacity,
+   so they layer cleanly) ---- */
+.hero .firefly {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--color-champagne-300) 55%, transparent);
+  box-shadow: 0 0 8px 2px rgba(240,217,168,.8);
+  pointer-events: none;
+  animation: fireflyWander var(--dur, 14s) ease-in-out infinite,
+             fireflyPulse var(--pulse, 2.8s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s), var(--delay, 0s);
+}
+.hero .ff-1 { left: 14%; bottom: 16%; --dur: 15s; --delay: -3s; }
+.hero .ff-2 { left: 30%; bottom: 24%; --dur: 12s; --delay: -8s;   --pulse: 3.4s; }
+.hero .ff-3 { left: 58%; bottom: 14%; --dur: 17s; --delay: -5s;   --pulse: 2.3s; }
+.hero .ff-4 { left: 74%; bottom: 27%; --dur: 13s; --delay: -10s; }
+.hero .ff-5 { left: 88%; bottom: 18%; --dur: 16s; --delay: -1.5s; --pulse: 3.1s; }
+@keyframes fireflyWander {
+  0%, 100% { transform: translate(0, 0); }
+  22%      { transform: translate(30px, -22px); }
+  48%      { transform: translate(-16px, -40px); }
+  74%      { transform: translate(20px, -10px); }
+}
+@keyframes fireflyPulse {
+  0%, 100% { opacity: .15; }
+  50%      { opacity: 1; }
+}
+
 .hero .hero-inner {
   position: relative;
   margin-inline: auto;
+  width: 100%;
   max-width: 48rem;
+  /* .hero is a row flex container; without this, hero-inner (the flex
+     item) falls back to its content's min-content width instead of
+     shrinking to the viewport, so long text below never gets a real
+     box to wrap against. */
+  min-width: 0;
   display: flex;
   flex-direction: column;
   align-items: center;
   padding-inline: 1.5rem;
   text-align: center;
 }
+/* Same min-width:auto default trips up hero-inner's own children in
+   its column flex context — reset it so the kicker phrase and letter
+   row wrap/shrink instead of pushing past the viewport. */
+.hero .hero-inner > * {
+  min-width: 0;
+  max-width: 100%;
+}
 
 .hero .kicker {
+  position: relative;
   font-size: 1.5rem;
+  font-weight: 700;
   color: var(--color-plum-500);
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
   animation-delay: 0.1s;
 }
+.hero .kicker::before,
+.hero .kicker::after {
+  content: "\2726";
+  display: inline-block;
+  margin: 0 .5rem;
+  font-size: .55em;
+  color: var(--color-champagne-500);
+  animation: twinkle 3s ease-in-out infinite;
+}
+.hero .kicker::after { animation-delay: -1.5s; }
 @media (min-width: 640px) { .hero .kicker { font-size: 1.875rem; } }
 
 .hero h1 {
   display: flex;
-  margin: 0.75rem 0 0;
+  margin: 0.125rem 0 0;
   font-size: 3rem;
   font-weight: 600;
   letter-spacing: 0.03em;
-  color: var(--color-plum-700);
-  animation: textGlowPulse 4s ease-in-out infinite;
 }
 @media (min-width: 640px) { .hero h1 { font-size: 3.75rem; } }
 @media (min-width: 768px) { .hero h1 { font-size: 4.5rem; } }
 .hero h1 span {
   display: inline-block;
-  animation: letterPop 0.7s cubic-bezier(.34,1.56,.64,1) both;
+  animation: letterPop 0.7s cubic-bezier(.34,1.56,.64,1) both,
+             textGlowPulse 4s ease-in-out infinite,
+             gradientFlow 9s ease-in-out infinite;
+  /* background-attachment: fixed ties background-position to the
+     viewport rather than each span's own box, so the gradient reads as
+     one continuous ribbon flowing behind all the letters instead of
+     restarting inside every individual inline-block span. */
+  background-image: linear-gradient(100deg,
+    var(--color-plum-900) 0%, var(--color-champagne-700) 25%,
+    var(--color-blossom-700) 50%, var(--color-plum-700) 75%, var(--color-plum-900) 100%);
+  background-size: 640px 200px;
+  background-attachment: fixed;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero .kicker,
+  .hero h1 span { animation: none; }
 }
 
 .hero .subtitle {
@@ -442,35 +793,178 @@
 }
 
 .hero .showcase-wrap {
+  position: relative;
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
   animation-delay: 0.72s;
 }
 .hero .showcase {
-  margin-top: 3rem;
+  /* The fairy rings/orbiters sit at negative insets (up to -10% of the
+     portal width), so they reach ~2.5-3rem above the disc — this margin
+     keeps them from overlapping the wordmark above. */
+  margin-top: 2.5rem;
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
 }
-.hero .showcase-frame {
-  position: relative;
-  width: 18rem;
-  border: 6px solid var(--color-plum-700);
-  background: var(--color-plum-900);
-  padding: 0.75rem;
-  box-shadow: 0 25px 50px -12px rgba(90,48,73,.4);
-}
-@media (min-width: 640px) { .hero .showcase-frame { width: 24rem; } }
-.hero .showcase-frame video {
-  height: 11rem;
-  width: 100%;
-  object-fit: cover;
-}
-@media (min-width: 640px) { .hero .showcase-frame video { height: 15rem; } }
 
+/* ── fairy logo video portal: a stationary circular disc — solid
+   brand-plum backdrop behind a screen-blended video (drops out the
+   video's black background, leaving only the glowing artwork), cropped
+   to fill the circle edge-to-edge. A slow-swirling multicolour "core"
+   glows behind it all for the magical-energy-source feel; the card
+   itself never drifts/bobs — only the glow layers move. ── */
+.hero .fairy-logo-wrap {
+  position: relative;
+  width: 22rem;
+  aspect-ratio: 1 / 1;
+  /* smooths the pointer-follow drift set inline by main.js */
+  transition: transform 0.3s ease-out;
+}
+@media (min-width: 640px) { .hero .fairy-logo-wrap { width: 30rem; } }
+/* Was 36rem — trimmed so the restored wordmark, the portal, and the
+   CTA all share one laptop viewport instead of pushing the CTA below
+   the fold. */
+@media (min-width: 1024px) { .hero .fairy-logo-wrap { width: 29rem; } }
+/* Short-and-wide laptop screens: tighten the vertical rhythm further
+   so the CTA (the scroll cue) stays above the fold. */
+@media (min-width: 1024px) and (max-height: 960px) {
+  /* 7rem clears the fixed navbar (~100px tall incl. its top offset) so
+     the kicker never hides behind it. */
+  .hero { padding-top: 7rem; }
+  .hero .fairy-logo-wrap { width: 24rem; }
+  .hero .showcase { margin-top: 2rem; }
+  .hero .hero-flourish { margin-top: 0.75rem; }
+  .hero .lead { margin-top: 0.5rem; }
+  .hero .cta { margin-top: 1rem; }
+}
+.hero .fairy-logo-backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  border-radius: 50%;
+  background: #885c7d;
+}
+.hero .fairy-logo-video-mask {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: 50%;
+  overflow: hidden;
+  mix-blend-mode: screen;
+  pointer-events: none;
+}
+.hero .fairy-logo-video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  transform: scale(1.16);
+}
+/* ── fairy-ring framing: a slowly turning string of pearls hugging the
+   portal edge (round-cap dashes — a crochet picot edge) with a finer
+   gold thread counter-rotating just outside it; both rings sit clear of
+   the disc so the card's flat colour stays untouched ── */
+.hero .fairy-ring {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+.hero .fairy-ring-pearls {
+  inset: -5%;
+  filter: drop-shadow(0 0 3px rgba(255,255,255,.8));
+  animation: spinGlow 48s linear infinite;
+}
+.hero .fairy-ring-gold {
+  inset: -8.5%;
+  animation: spinGlow 64s linear infinite reverse;
+}
+/* two fairy lights circling the portal on rotating carrier layers —
+   the dot rides at 12 o'clock and the layer's spin makes the orbit */
+.hero .fairy-orbiter {
+  position: absolute;
+  z-index: 3;
+  pointer-events: none;
+}
+.hero .fairy-orbiter::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 9px;
+  height: 9px;
+  margin: -4.5px 0 0 -4.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--color-champagne-300) 60%, transparent);
+  box-shadow: 0 0 10px 3px rgba(240,217,168,.9), 0 0 22px 7px rgba(243,169,207,.45);
+}
+.hero .fairy-orbiter-1 { inset: -6.5%; animation: spinGlow 16s linear infinite; }
+.hero .fairy-orbiter-2 { inset: -10%; animation: spinGlow 26s linear infinite reverse; }
+.hero .fairy-orbiter-2::before {
+  width: 6px;
+  height: 6px;
+  margin: -3px 0 0 -3px;
+  background: radial-gradient(circle, #fff, var(--color-blossom-300) 60%, transparent);
+  box-shadow: 0 0 8px 3px rgba(243,169,207,.85), 0 0 18px 6px rgba(205,178,232,.4);
+}
+/* little stars perched around the ring */
+.hero .ring-star {
+  position: absolute;
+  z-index: 3;
+  font-size: 1.15rem;
+  color: var(--color-champagne-500);
+  text-shadow: 0 0 8px rgba(255,255,255,.9), 0 0 16px rgba(240,217,168,.7);
+  pointer-events: none;
+}
+.hero .ring-star-1 { top: 1%; left: 9%; }
+.hero .ring-star-2 { top: 26%; right: -4.5%; font-size: 0.9rem; }
+.hero .ring-star-3 { bottom: 7%; left: -3.5%; font-size: 1.35rem; }
+@media (prefers-reduced-motion: reduce) {
+  .hero .fairy-ring,
+  .hero .fairy-orbiter,
+  .hero .toadstool-grove svg,
+  .hero .fl-star,
+  .hero .fl-bloom,
+  .hero .cta .cta-arrow { animation: none; }
+  .hero .fairy-flyby,
+  .hero .pf,
+  .hero .firefly { display: none; }
+}
+
+/* dainty ornament row bridging the portal and the story text: the
+   stars breathe in counterpoint while the bloom turns like a tiny
+   music-box rosette */
+.hero .hero-flourish {
+  margin-top: 1rem;
+  font-size: 0.95rem;
+  letter-spacing: 0.65em;
+  padding-left: 0.65em; /* recenters the tracked glyph row */
+  color: var(--color-plum-300);
+  text-shadow: 0 0 10px rgba(255,255,255,.8);
+  animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
+  animation-delay: 0.9s;
+}
+.hero .hero-flourish .fl-star {
+  display: inline-block;
+  color: var(--color-champagne-500);
+  animation: flStarPulse 3.4s ease-in-out infinite;
+}
+.hero .hero-flourish .fl-bloom {
+  display: inline-block;
+  color: var(--color-blossom-300);
+  animation: spinGlow 16s linear infinite;
+}
+@keyframes flStarPulse {
+  0%, 100% { opacity: .4; transform: scale(.82); }
+  50%      { opacity: 1;  transform: scale(1.12); }
+}
 .hero .lead {
-  margin-top: 2.5rem;
+  margin-top: 0.75rem;
   max-width: 36rem;
   font-size: 1rem;
+  font-weight: 700;
   line-height: 1.7;
   color: rgba(122,67,97,.8);
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
@@ -478,27 +972,42 @@
 }
 @media (min-width: 640px) { .hero .lead { font-size: 1.125rem; } }
 
+/* enchanted-glass CTA: frosted crystal pill with its own gold/white
+   glow loop (overrides .btn-shine's default pink pulse via specificity
+   while keeping its shine-sweep and click-glow behaviour) */
 .hero .cta {
-  margin-top: 2rem;
+  margin-top: 1.25rem;
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  background: var(--color-plum-700);
+  border: 1px solid rgba(255,255,255,.25);
+  background: #885c7d;
   padding: 0.75rem 1.75rem;
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
   color: #fff;
-  box-shadow: 0 10px 15px -3px rgba(122,67,97,.3);
+  backdrop-filter: blur(6px);
   transition: all 0.4s ease-out;
-  animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
-  animation-delay: 1.2s;
+  animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both,
+             ctaCrystalGlow 5s ease-in-out infinite;
+  animation-delay: 1.2s, 0s;
+}
+.hero .cta .cta-arrow {
+  display: inline-block;
+  animation: ctaArrowBob 2s ease-in-out infinite;
+}
+@keyframes ctaArrowBob {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(4px); }
 }
 .hero .cta:hover {
   transform: translateY(-4px) scale(1.04);
-  background: var(--color-plum-900);
-  box-shadow: 0 20px 25px -5px rgba(122,67,97,.4);
+  box-shadow:
+    0 18px 40px -8px rgba(217,180,106,.65),
+    0 0 0 1px rgba(255,255,255,.6) inset,
+    0 0 30px rgba(255,255,255,.5);
 }
 
 /* ============================================================
@@ -545,12 +1054,146 @@
 
 .about {
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-plum-900), var(--color-plum-700), var(--color-plum-500));
-  padding: 6rem 0;
+  /* Eased gradient that holds FLAT at both ends: the sections/dividers
+     touching this one are flat plum, and a gradient still ramping at the
+     boundary shows up as a visible step ("Mach band") even when the hex
+     values match exactly. */
+  background: linear-gradient(
+    to bottom,
+    #5a3049 0%,
+    #5a3049 8%,
+    #6a3a55 30%,
+    #7a4361 48%,
+    #8b506e 64%,
+    #955775 78%,
+    #9a5c79 88%,
+    #9c5d7a 96%,
+    #9c5d7a 100%
+  );
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
   color: #fff;
 }
-.about .glow-1 { top: -8rem; right: -5rem; width: 20rem; height: 20rem; background: rgba(243,169,207,.2); }
-.about .glow-2 { bottom: 0; left: 0; width: 18rem; height: 18rem; background: rgba(205,178,232,.2); }
+/* Pulled below the section's top edge — a blob poking past the boundary
+   gets clipped in a hard straight line that shows as a light "seam"
+   right under the wave divider. */
+.about .glow-1 { top: 5rem; right: -5rem; width: 20rem; height: 20rem; background: rgba(243,169,207,.2); }
+/* bottom: 0 clipped this blob's blur in a straight line at the section's
+   bottom edge — keep it fully inside so the seam below stays clean. */
+.about .glow-2 { bottom: 7rem; left: 0; width: 18rem; height: 18rem; background: rgba(205,178,232,.2); }
+
+/* Aurora layer: three big soft colour-gradient blobs that wander across
+   the plum background and slowly shift hue — luminous moving light
+   behind the fireflies and content (screen blend keeps the dark bg). */
+.about-gradient-drift {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+  /* Fade the aurora near the top/bottom edges so the screen-blended
+     blobs melt into the plum instead of being cut off in a straight
+     line at the section boundary. */
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10rem, #000 calc(100% - 8rem), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10rem, #000 calc(100% - 8rem), transparent 100%);
+}
+.ag-blob {
+  position: absolute;
+  border-radius: 50%;
+  mix-blend-mode: screen;
+  filter: blur(60px);
+  animation: agDrift 26s ease-in-out infinite, agGlowHue 18s ease-in-out infinite;
+}
+.ag-1 {
+  top: -10%; left: -12%;
+  width: 34rem; height: 34rem;
+  background: radial-gradient(circle at 35% 35%, rgba(255,140,196,.5), rgba(171,132,208,.28) 55%, transparent 75%);
+}
+.ag-2 {
+  top: 30%; right: -14%;
+  width: 30rem; height: 30rem;
+  animation-delay: -9s, -6s;
+  animation-duration: 32s, 22s;
+  background: radial-gradient(circle at 60% 40%, rgba(120,190,255,.42), rgba(230,115,173,.25) 60%, transparent 78%);
+}
+.ag-3 {
+  bottom: -12%; left: 22%;
+  width: 38rem; height: 26rem;
+  animation-delay: -17s, -12s;
+  animation-duration: 38s, 26s;
+  background: radial-gradient(ellipse at 50% 50%, rgba(200,150,255,.4), rgba(255,180,150,.22) 55%, transparent 78%);
+}
+@keyframes agDrift {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  25%      { transform: translate(8vw, -4rem) scale(1.15); }
+  50%      { transform: translate(2vw, 3rem) scale(0.95); }
+  75%      { transform: translate(-6vw, -2rem) scale(1.08); }
+}
+/* hue-rotate must restate the blur — filter is one property */
+@keyframes agGlowHue {
+  0%, 100% { filter: blur(60px) hue-rotate(0deg); opacity: 1; }
+  50%      { filter: blur(60px) hue-rotate(45deg); opacity: .8; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .ag-blob { animation: none; }
+}
+
+/* ============================================================
+   About Enchanta — dusk-sky atmosphere
+   Three depth tiers of drifting clouds (far/mid/near — smaller,
+   slower and fainter the farther back), a handful of twinkling
+   fireflies on loose organic paths, and a couple of drifting
+   sparkles. Sits behind the glow-blobs and content (z-index:0),
+   pure CSS transforms so it stays cheap at 60fps.
+   ============================================================ */
+@keyframes aboutCloudRight {
+  0%   { transform: translateX(-15%); }
+  100% { transform: translateX(115%); }
+}
+@keyframes aboutCloudLeft {
+  0%   { transform: translateX(15%); }
+  100% { transform: translateX(-115%); }
+}
+@keyframes aboutFireflyDrift {
+  0%   { transform: translate(0, 0) scale(0.8); opacity: 0; }
+  15%  { opacity: .9; }
+  40%  { transform: translate(16px, -26px) scale(1.1); }
+  60%  { transform: translate(-8px, -44px) scale(0.85); opacity: .95; }
+  85%  { transform: translate(-22px, -16px) scale(1.05); opacity: .3; }
+  100% { transform: translate(0, 0) scale(0.8); opacity: 0; }
+}
+
+.about-atmosphere {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.about-firefly {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, rgba(255,255,255,0) 70%);
+  box-shadow: 0 0 8px 2px rgba(255,255,255,.55);
+  opacity: 0;
+  will-change: transform, opacity;
+  animation: aboutFireflyDrift ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .about-firefly {
+    animation: none;
+    opacity: .3;
+  }
+  .preorder .content .art-placeholder.preorder-art,
+  .preorder-price,
+  .rising-moon .waterline,
+  .rising-moon .pool-ripple {
+    animation: none !important;
+  }
+}
 
 .about .grid {
   position: relative;
@@ -607,33 +1250,130 @@
 
 .summer {
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-sky-700), var(--color-sky-500), var(--color-sky-300));
-  padding: 7rem 0 6rem;
+  /* Bottom stop stays a true periwinkle — the old near-white #ecedfa
+     read as a washed-out "white overlay" band above the wave divider.
+     Flat holds at both ends so the flat dividers meet a flat colour. */
+  background: linear-gradient(to bottom, #9ba0e8 0%, #9ba0e8 7%, #b0b4ec 32%, #c3c7ee 55%, #cacdf0 75%, #cdd0f0 90%, #cdd0f0 100%);
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
   color: #fff;
 }
-@media (min-width: 640px) { .summer { padding-top: 9rem; } }
-
-.summer .wave-top {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  line-height: 0;
-}
-.summer .wave-top svg { display: block; height: 4rem; width: 100%; }
-@media (min-width: 640px) { .summer .wave-top svg { height: 5rem; } }
 
 .summer .float-bubble {
   position: absolute;
   border-radius: 50%;
-  background: rgba(255,255,255,.2);
-  backdrop-filter: blur(4px);
   pointer-events: none;
 }
 .summer .fb-1 { top: 4rem; left: 2.5rem; width: 4rem; height: 4rem; }
-.summer .fb-2 { top: 33%; right: 3rem; width: 2.5rem; height: 2.5rem; background: rgba(255,255,255,.25); animation-delay: 2s; }
-.summer .fb-3 { bottom: 5rem; left: 25%; width: 5rem; height: 5rem; background: rgba(255,255,255,.15); animation-delay: 3.5s; }
+.summer .fb-2 { top: 33%; right: 3rem; width: 2.5rem; height: 2.5rem; animation-delay: 2s; }
+.summer .fb-3 { bottom: 5rem; left: 25%; width: 5rem; height: 5rem; animation-delay: 3.5s; }
 .summer .fb-4 { right: 25%; bottom: 2.5rem; width: 3rem; height: 3rem; animation-delay: 1.2s; }
+
+/* 3-D iridescent soap bubbles (Mermaid Tales): a peach glow lit from the
+   upper left, a translucent pink/lavender film, a cyan→violet→pink rim
+   (conic gradient masked to a soft ring so it scales with any bubble
+   size), and a white crescent reflection along the top curve. */
+.summer .bubbles-layer span,
+.summer .float-bubble {
+  border: none;
+  backdrop-filter: none;
+  background:
+    radial-gradient(circle at 32% 30%, rgba(255,198,150,.6), rgba(255,158,192,.3) 42%, rgba(255,158,192,0) 62%),
+    radial-gradient(circle at 72% 22%, rgba(186,148,255,.45), rgba(186,148,255,0) 50%),
+    radial-gradient(circle at 48% 86%, rgba(255,170,208,.32), rgba(255,170,208,0) 58%),
+    radial-gradient(circle at 50% 50%, rgba(255,228,240,.14) 52%, rgba(255,192,222,.2) 80%, rgba(206,168,236,.28) 100%);
+  box-shadow: 0 10px 24px -10px rgba(140,72,130,.35);
+}
+.summer .bubbles-layer span::before,
+.summer .float-bubble::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 220deg,
+    rgba(124,231,255,.95), rgba(188,146,255,.85) 22%,
+    rgba(255,150,196,.75) 42%, rgba(255,206,150,.85) 58%,
+    rgba(124,231,255,.85) 76%, rgba(188,146,255,.85) 90%,
+    rgba(124,231,255,.95));
+  -webkit-mask: radial-gradient(farthest-side, transparent 78%, #000 92%, #000 96%, transparent 100%);
+          mask: radial-gradient(farthest-side, transparent 78%, #000 92%, #000 96%, transparent 100%);
+  filter: blur(.5px);
+}
+.summer .bubbles-layer span::after,
+.summer .float-bubble::after {
+  content: "";
+  position: absolute;
+  inset: 7% 16% 55% 16%;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top-color: rgba(255,255,255,.85);
+  transform: rotate(-12deg);
+  filter: blur(.6px);
+}
+
+/* Neon jellyfish drifting behind the Mermaid Tales content — a glowing
+   bell (radial gradient + drop-shadow for the "3D lit from above" look)
+   with a few softly swaying tentacles underneath. */
+.summer .jelly {
+  position: absolute;
+  z-index: 0;
+  pointer-events: none;
+  overflow: visible;
+  animation: jellyDrift 10s ease-in-out infinite;
+}
+/* clamp() keeps them proportional on phones instead of fixed desktop sizes */
+.summer .jelly-1 { top: 10%; left: 6%; width: clamp(5rem, 9vw, 7rem); filter: drop-shadow(0 0 16px rgba(255,110,199,.7)); }
+.summer .jelly-2 { top: 46%; right: 8%; width: clamp(3.75rem, 7vw, 5.5rem); animation-delay: -4s; animation-duration: 13s; filter: drop-shadow(0 0 14px rgba(60,231,255,.65)); }
+.summer .jelly-3 { bottom: 16%; left: 3%; width: clamp(3.25rem, 6vw, 4.75rem); animation-delay: -7s; animation-duration: 9s; filter: drop-shadow(0 0 14px rgba(180,110,255,.65)); }
+/* Below 1024px the heading/carousel/products stack into one column, so
+   the desktop percentages above land jelly-2/3 underneath opaque product
+   cards further down the (much taller) section. Keep all three in the
+   open background near the heading instead, where they stay visible. */
+@media (max-width: 1023px) {
+  .summer .jelly-1 { top: 4%; left: 5%; }
+  .summer .jelly-2 { top: 9%; left: 62%; right: auto; }
+  .summer .jelly-3 { top: 24%; left: 10%; bottom: auto; }
+}
+/* A wandering figure-eight-ish swim instead of the old straight bob */
+@keyframes jellyDrift {
+  0%, 100% { transform: translate(0, 0) rotate(-3deg); }
+  25%      { transform: translate(20px, -32px) rotate(3deg); }
+  50%      { transform: translate(42px, -10px) rotate(6deg); }
+  75%      { transform: translate(12px, 24px) rotate(-2deg); }
+}
+/* The bell squeezes and relaxes like real jellyfish propulsion */
+.summer .jelly-bell {
+  transform-origin: 50% 35%;
+  animation: jellyBellPulse 3.4s ease-in-out infinite;
+}
+.summer .jelly-2 .jelly-bell { animation-delay: -1.2s; }
+.summer .jelly-3 .jelly-bell { animation-delay: -2.2s; }
+@keyframes jellyBellPulse {
+  0%, 100% { transform: scale(1, 1); }
+  50%      { transform: scale(1.07, 0.92); }
+}
+.summer .jelly-tentacle {
+  fill: none;
+  stroke-width: 2.5;
+  stroke-linecap: round;
+  opacity: .75;
+  transform-origin: 50% 0%;
+  animation: jellyTentacleSway 3.4s ease-in-out infinite;
+}
+.summer .jelly-1 .jelly-tentacle { stroke: rgba(255,145,210,.8); }
+.summer .jelly-2 .jelly-tentacle { stroke: rgba(130,240,255,.8); }
+.summer .jelly-3 .jelly-tentacle { stroke: rgba(205,160,255,.8); }
+.summer .jelly-tentacle.t2 { animation-delay: -0.6s; }
+.summer .jelly-tentacle.t3 { animation-delay: -1.3s; }
+.summer .jelly-tentacle.t4 { animation-delay: -2s; }
+@keyframes jellyTentacleSway {
+  0%, 100% { transform: rotate(-7deg); }
+  50%      { transform: rotate(7deg); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .summer .jelly,
+  .summer .jelly-bell,
+  .summer .jelly-tentacle { animation: none !important; }
+}
 
 .summer .wrap { position: relative; max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
 
@@ -645,17 +1385,53 @@
 
 .summer .heading-grid > div:first-child { text-align: center; }
 
-.summer .kicker { display: inline-block; font-size: 3rem; }
-@media (min-width: 640px) { .summer .kicker { font-size: 3.75rem; } }
+.summer .kicker { display: inline-block; font-size: 3.75rem; line-height: 1.1; }
+@media (min-width: 640px) { .summer .kicker { font-size: 4.75rem; } }
 .summer h2 {
-  margin: 0.5rem 0 0;
-  font-size: 1.875rem;
+  margin: 0.15rem 0 0;
+  font-size: 1.25rem;
   font-weight: 600;
   letter-spacing: 0.2em;
   text-transform: uppercase;
 }
-@media (min-width: 640px) { .summer h2 { font-size: 2.25rem; } }
-.summer .desc { margin: 1.25rem auto 0; max-width: 28rem; line-height: 1.7; color: rgba(255,255,255,.85); }
+@media (min-width: 640px) { .summer h2 { font-size: 1.5rem; } }
+.summer .desc { margin: 1.25rem auto 0; max-width: 28rem; line-height: 1.7; font-weight: 700; color: rgba(255,255,255,.95); }
+/* White text was washing out against the light parts of the periwinkle
+   gradient — a layered indigo shade (tight contour + wide soft halo)
+   keeps it readable without putting a solid panel behind it. */
+.summer .kicker,
+.summer h2,
+.summer .desc {
+  text-shadow:
+    0 1px 2px rgba(56, 50, 124, .6),
+    0 4px 16px rgba(56, 50, 124, .5),
+    0 0 38px rgba(56, 50, 124, .4);
+}
+
+/* Little pink arrow under the heading, nudging toward the carousel
+   (points right on desktop, down on mobile where the carousel stacks below) */
+.summer .collection-arrow {
+  margin-top: 0.85rem;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ff8dc7;
+  text-shadow: 0 0 14px rgba(255, 105, 180, 0.85), 0 2px 6px rgba(56, 50, 124, 0.4);
+  animation: collectionArrowNudge 1.8s ease-in-out infinite;
+}
+@keyframes collectionArrowNudge {
+  0%, 100% { transform: translateX(0); opacity: 0.75; }
+  50% { transform: translateX(12px); opacity: 1; }
+}
+@media (max-width: 1023.98px) {
+  .summer .collection-arrow { animation-name: collectionArrowNudgeDown; }
+}
+@keyframes collectionArrowNudgeDown {
+  0%, 100% { transform: rotate(90deg) translateX(0); opacity: 0.75; }
+  50% { transform: rotate(90deg) translateX(10px); opacity: 1; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .summer .collection-arrow { animation: none; }
+}
 
 .summer .buy-now {
   margin-top: 1.75rem;
@@ -974,16 +1750,666 @@
 }
 
 /* ============================================================
+   Build Your Own Set — a "choose & combine" bundle promo, a
+   full-bleed pink marble photo behind a translucent glass card
+   (the fade at top/bottom keeps the section-divider handoffs smooth).
+   ============================================================ */
+
+.build-set {
+  position: relative;
+  overflow: hidden;
+  /* Heavier wash at the very top so the flowers fade in gently below the
+     rose wave divider instead of appearing at full strength against it. */
+  background:
+    linear-gradient(to bottom, rgba(254,241,246,.85) 0%, rgba(254,241,246,.45) 22%, rgba(254,241,246,.45) 45%, rgba(254,241,246,.6) 100%),
+    url('../assets/images/tomoko-uji-kxvn1ogpTtE-unsplash.jpg');
+  background-size: cover;
+  background-position: center 65%;
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+}
+/* Kept fully inside the section — blobs poking past the edge get clipped
+   in a hard straight line that shows as a bright seam at the divider. */
+.build-set .glow-1 { top: 4rem; left: -4rem; width: 20rem; height: 20rem; background: rgba(255,255,255,.35); }
+.build-set .glow-2 { bottom: 4rem; right: -4rem; width: 22rem; height: 22rem; background: rgba(230,115,173,.25); animation-delay: -6s; }
+.build-set .bloom { position: absolute; pointer-events: none; }
+.build-set .deco-sparkle { position: absolute; pointer-events: none; color: rgba(255,255,255,.8); }
+
+.build-set .wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 48rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+  /* The top wave divider overlays most of the section's top padding while
+     the bottom keeps its full padding, so the card used to sit visibly
+     high. This nudges it down to sit centered between the two waves. */
+  padding-top: clamp(2rem, 1rem + 3vw, 3.5rem);
+}
+.build-set-card {
+  position: relative;
+  text-align: center;
+  border-radius: 1.75rem;
+  border: 1px solid rgba(255,255,255,.65);
+  background: rgba(255,255,255,.4);
+  backdrop-filter: blur(14px);
+  box-shadow: 0 25px 60px rgba(122,67,97,.18);
+  padding: 3.5rem 2.5rem;
+  animation: buildSetCardGlow 4s ease-in-out infinite;
+}
+@keyframes buildSetCardGlow {
+  0%, 100% { box-shadow: 0 0 30px rgba(255,255,255,.5), 0 25px 60px rgba(122,67,97,.18); }
+  50%      { box-shadow: 0 0 55px rgba(255,255,255,.85), 0 0 90px rgba(230,115,173,.35), 0 25px 60px rgba(122,67,97,.18); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .build-set-card { animation: none; }
+}
+.build-set-card .kicker {
+  display: inline-block;
+  font-size: 1.5rem;
+  color: var(--color-plum-700);
+}
+.build-set-card h2 {
+  margin: 0.5rem 0 0;
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--color-plum-900);
+}
+@media (min-width: 640px) { .build-set-card h2 { font-size: 2.75rem; } }
+.build-set-card .desc {
+  margin: 1.25rem auto 0;
+  max-width: 34rem;
+  line-height: 1.7;
+  color: var(--color-plum-700);
+}
+.build-set-card .btn-shine {
+  display: inline-block;
+  margin-top: 2rem;
+  border-radius: 9999px;
+  background: var(--color-plum-900);
+  padding: 0.9rem 2.5rem;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.build-set-card .btn-shine:hover {
+  transform: translateY(-2px) scale(1.03);
+  box-shadow: 0 15px 30px rgba(90,48,73,.35);
+}
+
+/* ============================================================
+   Keychains — Gossip Girl-coded charm drop on Enchanta's own
+   palette: a blush "paparazzi" backdrop (dotted-lace texture +
+   crossing spotlight sheens over drifting brand auras; edges
+   stay on blossom-50 so the build-set and moodboard seams remain
+   invisible). Layout is a split showcase: big charm carousel on
+   the left, editorial copy + CTA on the right.
+   ============================================================ */
+.keychains {
+  position: relative;
+  overflow: hidden;
+  /* Layered blush atmosphere in brand tones: soft blossom / lavender /
+     sky auras drifting over a deepening pink wash. Flat blossom-50 guard
+     bands are layered on top at both edges (fading inward) so the auras
+     can't tint the seams — the build-set divider above and the night
+     divider below both land on flat blossom-50. */
+  background:
+    linear-gradient(to bottom, var(--color-blossom-50) 0%, rgba(254,241,246,0) 12rem),
+    linear-gradient(to top, var(--color-blossom-50) 0%, rgba(254,241,246,0) 12rem),
+    radial-gradient(ellipse 55% 40% at 14% 24%, rgba(243,169,207,.5), transparent 70%),
+    radial-gradient(ellipse 48% 36% at 88% 28%, rgba(205,178,232,.5), transparent 70%),
+    radial-gradient(ellipse 60% 44% at 50% 60%, rgba(230,115,173,.26), transparent 70%),
+    radial-gradient(ellipse 42% 32% at 78% 84%, rgba(155,203,242,.32), transparent 70%),
+    radial-gradient(ellipse 44% 34% at 8% 78%, rgba(236,225,247,.6), transparent 70%),
+    linear-gradient(to bottom,
+      var(--color-blossom-50) 0%,
+      #fce3ef 26%,
+      #f9d9e9 55%,
+      #fce3ef 80%,
+      var(--color-blossom-50) 100%);
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+}
+/* delicate dotted-lace texture, fading out toward the section edges */
+.keychains::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(rgba(193,77,138,.16) 1px, transparent 1.4px),
+    radial-gradient(rgba(171,132,208,.13) 1px, transparent 1.4px);
+  background-size: 28px 28px;
+  background-position: 0 0, 14px 14px;
+  -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 48%, #000 30%, transparent 78%);
+  mask-image: radial-gradient(ellipse 70% 60% at 50% 48%, #000 30%, transparent 78%);
+  pointer-events: none;
+}
+/* two soft crossing "paparazzi spotlight" sheens, masked so they fade
+   out well before the section seams instead of being cut off */
+.keychains::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(112deg, transparent 38%, rgba(255,255,255,.32) 47%, transparent 56%),
+    linear-gradient(68deg, transparent 58%, rgba(255,255,255,.2) 69%, transparent 80%);
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10rem, #000 calc(100% - 10rem), transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10rem, #000 calc(100% - 10rem), transparent 100%);
+  pointer-events: none;
+}
+
+.keychains .glow-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+.keychains .glow-1 { top: 8%; left: -5rem; width: 22rem; height: 22rem; background: rgba(230,115,173,.28); }
+.keychains .glow-2 { bottom: 10%; right: -5rem; width: 24rem; height: 24rem; background: rgba(205,178,232,.4); animation-delay: -5s; }
+.keychains .deco-sparkle { position: absolute; pointer-events: none; color: rgba(230,115,173,.6); }
+.keychains .deco-kiss { position: absolute; pointer-events: none; font-size: 1.15rem; opacity: .5; }
+.keychains .deco-bow { position: absolute; pointer-events: none; font-size: 1.3rem; opacity: .55; }
+
+/* Giant script "xoxo" standing vertically along the left edge,
+   behind the charm carousel */
+.keychains .xoxo-watermark {
+  position: absolute;
+  top: 50%;
+  left: -0.5rem;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: clamp(8rem, 13vw, 14rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: rgba(230,115,173,.3);
+  text-shadow: 0 0 45px rgba(230,115,173,.45), 0 0 12px rgba(255,255,255,.6);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+/* on small screens the carousel fills the width — keep the watermark
+   out of the way */
+@media (max-width: 991px) {
+  .keychains .xoxo-watermark { display: none; }
+}
+
+.keychains .wrap,
+.bags .wrap {
+  position: relative;
+  z-index: 1;
+  max-width: 72rem;
+  margin-inline: auto;
+  padding-inline: 1.5rem;
+}
+
+/* ── Split showcase: carousel left, copy right ── */
+.keychain-showcase {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 3rem;
+  align-items: center;
+}
+@media (min-width: 992px) {
+  .keychain-showcase { grid-template-columns: 1.15fr 1fr; gap: 4rem; }
+}
+
+.keychain-copy {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+@media (min-width: 992px) {
+  .keychain-copy { align-items: flex-start; text-align: left; }
+}
+.keychains .gossip-chip,
+.bags .gossip-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  background: var(--color-plum-900);
+  border: 1px solid rgba(243,169,207,.6);
+  padding: 0.45rem 1.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-blossom-100);
+  box-shadow: 0 8px 20px rgba(90,48,73,.3);
+}
+.keychains .gossip-chip .chip-bell,
+.bags .gossip-chip .chip-bell { font-size: 0.85rem; }
+.keychain-copy .kicker {
+  display: inline-block;
+  margin-top: 1.25rem;
+  font-size: 2rem;
+  color: var(--color-blossom-500);
+}
+.keychain-copy h2 {
+  margin: 0.35rem 0 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--color-plum-900);
+  text-shadow: 0 0 20px rgba(255,255,255,.8);
+}
+.keychain-copy .desc {
+  margin: 1.1rem 0 0;
+  max-width: 32rem;
+  line-height: 1.75;
+  color: rgba(90,48,73,.85);
+}
+.keychain-copy .desc em { font-style: italic; color: var(--color-plum-900); }
+
+/* ── Big charm carousel (left column) ── */
+.keychain-stage { position: relative; }
+/* soft halo glowing behind the carousel frame */
+.keychain-stage::before {
+  content: "";
+  position: absolute;
+  inset: -2.5rem;
+  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(230,115,173,.3), transparent 70%);
+  filter: blur(18px);
+  pointer-events: none;
+}
+
+.keychain-carousel {
+  position: relative;
+  border-radius: 30px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.8);
+  box-shadow: 0 30px 70px rgba(90,48,73,.28), 0 0 40px rgba(230,115,173,.25);
+  transform: rotate(-1.6deg);
+  transition: transform .6s cubic-bezier(.16,1,.3,1);
+}
+.keychain-carousel:hover { transform: rotate(0deg) scale(1.01); }
+
+.keychain-slide { position: relative; }
+.keychain-slide img {
+  width: 100%;
+  height: clamp(22rem, 46vw, 34rem);
+  object-fit: cover;
+}
+
+.keychain-slide .spotted-tag {
+  position: absolute;
+  top: 1.1rem;
+  left: 1.1rem;
+  z-index: 2;
+  border-radius: 9999px;
+  background: var(--color-plum-900);
+  border: 1px solid rgba(243,169,207,.65);
+  padding: 0.3rem 0.85rem;
+  font-size: 0.64rem;
+  font-weight: 700;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--color-blossom-100);
+}
+
+/* glassy caption bar riding the bottom of each slide */
+.keychain-slide-caption {
+  position: absolute;
+  left: 1.1rem;
+  right: 1.1rem;
+  bottom: 1.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  border-radius: 20px;
+  border: 1px solid rgba(255,255,255,.65);
+  background: rgba(255,255,255,.8);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  padding: 0.85rem 1.25rem;
+  box-shadow: 0 12px 30px rgba(90,48,73,.22);
+}
+.keychain-slide-caption .meta { text-align: left; }
+.keychain-slide-caption .meta h3 {
+  margin: 0;
+  font-size: 1.15rem;
+  letter-spacing: 0.03em;
+  color: var(--color-plum-900);
+}
+.keychain-slide-caption .meta .price {
+  font-size: 1rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  color: var(--color-blossom-500);
+}
+.keychain-add-btn {
+  flex-shrink: 0;
+  border-radius: 9999px;
+  border: 1px solid rgba(243,169,207,.6);
+  background: var(--color-plum-900);
+  padding: 0.6rem 1.3rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-blossom-100);
+  transition: all .35s ease-out;
+}
+.keychain-add-btn:hover {
+  background: linear-gradient(135deg, var(--color-blossom-500), var(--color-blossom-300));
+  border-color: var(--color-blossom-500);
+  color: #fff;
+  box-shadow: 0 10px 20px -4px rgba(230,115,173,.55);
+}
+
+/* round frosted prev/next buttons instead of Bootstrap's full-height zones */
+.keychain-carousel .carousel-control-prev,
+.keychain-carousel .carousel-control-next {
+  top: 50%;
+  bottom: auto;
+  width: 2.7rem;
+  height: 2.7rem;
+  transform: translateY(-50%);
+  border-radius: 50%;
+  border: 1px solid rgba(243,169,207,.7);
+  background: rgba(255,255,255,.75);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  color: var(--color-plum-900);
+  font-size: 1.05rem;
+  opacity: 1;
+  box-shadow: 0 8px 18px rgba(90,48,73,.2);
+  transition: all .3s ease-out;
+}
+.keychain-carousel .carousel-control-prev { left: 1rem; }
+.keychain-carousel .carousel-control-next { right: 1rem; }
+.keychain-carousel .carousel-control-prev:hover,
+.keychain-carousel .carousel-control-next:hover {
+  background: var(--color-plum-900);
+  border-color: var(--color-plum-900);
+  color: var(--color-blossom-100);
+}
+
+/* dot indicators pinned top-right, clear of the caption bar */
+.keychain-carousel .carousel-indicators {
+  top: 1.2rem;
+  right: 1.2rem;
+  left: auto;
+  bottom: auto;
+  margin: 0;
+  gap: 0.4rem;
+}
+.keychain-carousel .carousel-indicators button {
+  width: 0.55rem;
+  height: 0.55rem;
+  border-radius: 50%;
+  border: 1px solid rgba(90,48,73,.4);
+  background: rgba(255,255,255,.65);
+  opacity: 1;
+  transition: all .3s ease-out;
+}
+.keychain-carousel .carousel-indicators button.active {
+  background: var(--color-blossom-500);
+  border-color: var(--color-blossom-500);
+  transform: scale(1.25);
+}
+
+/* ── See-more + sign-off (inside the copy column) ── */
+.keychains .see-more,
+.bags .see-more { margin-top: 2rem; display: flex; justify-content: center; }
+.keychains .see-more a,
+.bags .see-more a {
+  border-radius: 9999px;
+  border: 1px solid rgba(243,169,207,.7);
+  background: rgba(255,255,255,.65);
+  padding: 0.75rem 2rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: var(--color-plum-900);
+  backdrop-filter: blur(6px);
+  box-shadow: 0 8px 20px rgba(90,48,73,.12);
+  transition: all 0.4s ease-out;
+}
+.keychains .see-more a:hover,
+.bags .see-more a:hover {
+  background: var(--color-plum-900);
+  border-color: var(--color-plum-900);
+  color: var(--color-blossom-100);
+  box-shadow: 0 15px 30px rgba(90,48,73,.35);
+}
+
+.keychains .gossip-signoff,
+.bags .gossip-signoff {
+  margin: 2.5rem 0 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  text-align: center;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(90,48,73,.7);
+}
+.keychains .gossip-signoff .font-script,
+.bags .gossip-signoff .font-script {
+  font-size: 2.1rem;
+  letter-spacing: normal;
+  text-transform: none;
+  color: var(--color-blossom-500);
+}
+@media (min-width: 992px) {
+  .keychains .see-more,
+  .bags .see-more { justify-content: flex-start; }
+  .keychains .gossip-signoff,
+  .bags .gossip-signoff { align-items: flex-start; text-align: left; }
+}
+
+/* ============================================================
+   Bags — "The Signature Bags" atelier spotlight. Mirrored twin of
+   the keychain showcase (copy LEFT, carousel RIGHT), reusing the
+   keychain-* component plumbing; only the section atmosphere, the
+   column order and the carousel tilt are bespoke. Sea-glass palette
+   nods to the Mermaid Tales bags it features. Flat blossom-50 guard
+   bands at both edges keep the seams invisible — the moodboard's
+   curve-divider tail above and the editorial's top band below both
+   land on #fef1f6. ============================================== */
+.bags {
+  position: relative;
+  overflow: hidden;
+  background:
+    linear-gradient(to bottom, var(--color-blossom-50) 0%, rgba(254,241,246,0) 12rem),
+    linear-gradient(to top, var(--color-blossom-50) 0%, rgba(254,241,246,0) 12rem),
+    radial-gradient(ellipse 52% 40% at 12% 26%, rgba(155,203,242,.38), transparent 70%),
+    radial-gradient(ellipse 50% 38% at 88% 30%, rgba(205,178,232,.42), transparent 70%),
+    radial-gradient(ellipse 58% 42% at 50% 64%, rgba(243,169,207,.28), transparent 70%),
+    radial-gradient(ellipse 42% 32% at 10% 82%, rgba(236,225,247,.55), transparent 70%),
+    linear-gradient(to bottom,
+      var(--color-blossom-50) 0%,
+      #eef4fd 30%,
+      #f3ecfb 58%,
+      #fdeaf4 84%,
+      var(--color-blossom-50) 100%);
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
+}
+.bags .glow-blob { position: absolute; border-radius: 50%; filter: blur(60px); pointer-events: none; }
+.bags .glow-1 { top: 10%; right: -5rem; width: 22rem; height: 22rem; background: rgba(155,203,242,.35); }
+.bags .glow-2 { bottom: 12%; left: -5rem; width: 24rem; height: 24rem; background: rgba(243,169,207,.3); animation-delay: -6s; }
+.bags .deco-sparkle { position: absolute; pointer-events: none; color: rgba(122,161,222,.6); }
+.bags .deco-shell { position: absolute; pointer-events: none; font-size: 1.2rem; opacity: .5; }
+
+/* Giant script watermark along the RIGHT edge — mirror of the
+   keychains' vertical "xoxo" on the left */
+.bags .bag-watermark {
+  position: absolute;
+  top: 50%;
+  right: -0.5rem;
+  transform: translateY(-50%);
+  writing-mode: vertical-rl;
+  font-size: clamp(8rem, 13vw, 14rem);
+  line-height: 1;
+  letter-spacing: 0.06em;
+  color: rgba(155,203,242,.4);
+  text-shadow: 0 0 45px rgba(155,203,242,.5), 0 0 12px rgba(255,255,255,.6);
+  pointer-events: none;
+  user-select: none;
+  white-space: nowrap;
+}
+@media (max-width: 991px) {
+  .bags .bag-watermark { display: none; }
+}
+
+/* Mirrored split: copy LEFT (1fr), carousel RIGHT (1.15fr) —
+   this rule sits after .keychain-showcase's so it wins at 992px+ */
+@media (min-width: 992px) {
+  .bag-showcase { grid-template-columns: 1fr 1.15fr; }
+}
+/* opposite resting tilt so the two showcases lean toward each other */
+.bag-carousel { transform: rotate(1.6deg); }
+/* sea-glass halo behind the frame instead of the keychains' pink */
+.bag-showcase .keychain-stage::before {
+  background: radial-gradient(ellipse 60% 55% at 50% 50%, rgba(155,203,242,.38), transparent 70%);
+}
+
+/* ============================================================
    Moodboard
    ============================================================ */
 
 .moodboard {
   overflow: hidden;
-  background: linear-gradient(to bottom right, var(--color-blossom-50), var(--color-lavender-100), var(--color-blossom-100));
-  padding: 6rem 0;
+  /* Ghibli-style painterly sky: pale morning light at the top settling
+     into a warm dusk rose at the horizon. The top stop matches the
+     preorder dawn divider's tail; the bottom now stays on the dusk rose
+     so the mist-bank divider (dvGradMoodboard, in index.html) has a
+     silhouette to rise against — the divider's own gradient carries the
+     seam down to #fef1f6, the editorial's top band. */
+  background: linear-gradient(to bottom,
+    var(--color-blossom-50) 0%,
+    var(--color-blossom-50) 6%,
+    var(--color-sky-100) 30%,
+    var(--color-lavender-100) 58%,
+    var(--color-blossom-100) 84%,
+    #fde9f3 94%,
+    #fbdff0 100%);
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
 }
 .moodboard .glow-1 { top: 2.5rem; left: 2.5rem; width: 14rem; height: 14rem; background: rgba(243,169,207,.3); }
 .moodboard .glow-2 { right: 2.5rem; bottom: 2.5rem; width: 16rem; height: 16rem; background: rgba(205,178,232,.3); animation-delay: -7s; }
+
+/* ── Ghibli sky atmosphere: soft sun-glow, layered drifting clouds
+   (reusing the About section's far/mid tier keyframes for a consistent
+   drift language), and a hazy rolling-hills horizon sitting behind the
+   gallery card. Sits at z-index:0, same convention as .about-atmosphere. ── */
+.moodboard-sky {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.moodboard-sun {
+  position: absolute;
+  top: -3.5rem;
+  right: 10%;
+  width: 20rem;
+  height: 20rem;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,244,214,.85) 0%, rgba(255,214,168,.32) 45%, transparent 72%);
+  filter: blur(6px);
+  animation: moodboardSunGlow 8s ease-in-out infinite alternate;
+}
+@keyframes moodboardSunGlow {
+  0%   { opacity: .7; transform: scale(1); }
+  100% { opacity: 1; transform: scale(1.08); }
+}
+.moodboard-cloud {
+  position: absolute;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 35%, rgba(255,255,255,.95), rgba(255,255,255,.22) 55%, transparent 75%);
+  filter: blur(14px);
+  will-change: transform;
+}
+.moodboard-cloud.mc-far-1 { width: 11rem; height: 4.5rem; top: 12%; left: -15%; opacity: .32; animation: aboutCloudRight 32s linear infinite; }
+.moodboard-cloud.mc-far-2 { width: 10rem; height: 4rem; top: 26%; left: 115%; opacity: .28; animation: aboutCloudLeft 36s linear infinite; animation-delay: -12s; }
+.moodboard-cloud.mc-mid-1 { width: 17rem; height: 6.5rem; top: 5%; left: -18%; opacity: .48; animation: aboutCloudRight 21s linear infinite; animation-delay: -5s; filter: blur(16px); }
+.moodboard-cloud.mc-mid-2 { width: 14rem; height: 6rem; top: 18%; left: 115%; opacity: .42; animation: aboutCloudLeft 24s linear infinite; animation-delay: -9s; filter: blur(16px); }
+.moodboard-hills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 52%;
+  min-height: 13rem;
+}
+.moodboard-hills .hill-back { fill: rgba(171,132,208,.16); }
+.moodboard-hills .hill-front { fill: rgba(230,115,173,.13); }
+@media (prefers-reduced-motion: reduce) {
+  .moodboard-sun,
+  .moodboard-cloud {
+    animation: none;
+    opacity: .3;
+  }
+}
+
+/* ── Pink butterflies drifting left→right across the gallery sky.
+   Each is a small SVG (shared radial gradient for a glossy, domed "3D"
+   wing shading) inside a positioned wrapper that carries the flight
+   path; the wings flap independently via scaleX hinged at the body, so
+   the flutter reads as real wing motion rather than a flat sprite. ── */
+.moodboard-butterflies {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+.moodboard-butterfly {
+  position: absolute;
+  will-change: transform;
+  animation-name: moodboardButterflyFloat;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+.moodboard-butterfly svg {
+  display: block;
+  filter: drop-shadow(2px 5px 7px rgba(190,24,93,.35));
+}
+.moodboard-butterfly .wing {
+  transform-box: fill-box;
+  animation: butterflyFlap .7s ease-in-out infinite;
+}
+.moodboard-butterfly .wing-left { transform-origin: 100% 50%; }
+.moodboard-butterfly .wing-right { transform-origin: 0% 50%; animation-delay: -.02s; }
+.moodboard-butterfly .butterfly-body { fill: var(--color-plum-700); }
+.moodboard-butterfly .butterfly-antenna { fill: none; stroke: var(--color-plum-700); stroke-width: .8; stroke-linecap: round; }
+
+/* One large "hero" butterfly plus three small ones, all just hovering
+   in place — no side-to-side travel, only a gentle float + wing flap.
+   On mobile the grid's text + image stack into one tall column, so a
+   percentage-based `top` (relative to the whole, much taller section)
+   would drift down into the text. Anchoring with `top`/`bottom` in rem
+   instead keeps every butterfly inside the section's own top/bottom
+   padding band — which is always empty, at any viewport width, since
+   --section-pad-top/bottom never shrinks to zero. Sizes use clamp() so
+   they scale down on narrow screens instead of needing a breakpoint. */
+.moodboard-butterfly.mb-1 { top: 1.25rem; left: 6%; animation-duration: 6.5s; }
+.moodboard-butterfly.mb-1 svg { width: clamp(42px, 9vw, 68px); height: auto; }
+.moodboard-butterfly.mb-2 { top: 1.75rem; right: 7%; animation-duration: 5s; animation-delay: -1.5s; }
+.moodboard-butterfly.mb-2 svg { width: clamp(18px, 4vw, 26px); height: auto; }
+.moodboard-butterfly.mb-3 { bottom: 1.75rem; left: 9%; animation-duration: 5.8s; animation-delay: -3s; }
+.moodboard-butterfly.mb-3 svg { width: clamp(17px, 3.6vw, 24px); height: auto; }
+.moodboard-butterfly.mb-4 { bottom: 1.25rem; right: 9%; animation-duration: 4.6s; animation-delay: -2s; }
+.moodboard-butterfly.mb-4 svg { width: clamp(16px, 3.2vw, 22px); height: auto; }
+
+@keyframes moodboardButterflyFloat {
+  0%, 100% { transform: translateY(0) rotate(-4deg); }
+  50%      { transform: translateY(-14px) rotate(4deg); }
+}
+@keyframes butterflyFlap {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(.32); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .moodboard-butterfly,
+  .moodboard-butterfly .wing {
+    animation: none;
+  }
+}
 .moodboard .sheen {
   position: absolute;
   inset: 0;
@@ -1001,6 +2427,13 @@
 .moodboard .ss-1 { top: 8%; left: 5%; width: 8rem; }
 .moodboard .ss-2 { top: 35%; left: 40%; width: 6rem; animation-delay: 2.5s; }
 .moodboard .ss-3 { top: 2%; left: 55%; width: 5rem; animation-delay: 5s; }
+
+.moodboard .deco-sparkle {
+  position: absolute;
+  pointer-events: none;
+  color: rgba(230,115,173,.55);
+  text-shadow: 0 0 10px rgba(255,255,255,.6);
+}
 
 .moodboard .grid {
   position: relative;
@@ -1046,10 +2479,10 @@
 .moodboard .right-col .art-placeholder {
   aspect-ratio: 4/5;
   width: 100%;
-  max-width: 28rem;
+  max-width: 52rem;
   border-radius: 2rem;
   border: 4px solid #fff;
-  box-shadow: 0 25px 50px -12px rgba(122,67,97,.2);
+  box-shadow: 0 25px 60px -10px rgba(205,255,140,.45);
   margin-left: auto;
 }
 .moodboard .open-btn {
@@ -1081,8 +2514,13 @@
 
 .preorder {
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-night-900), var(--color-night-800), var(--color-night-700));
-  padding: 6rem 0;
+  /* Same plum ramp as the About section, eased with flat holds at both
+     ends — the keychains divider above lands on flat #5a3049 and the
+     dawn divider below lifts off from flat #9c5d7a; a still-ramping
+     gradient at the boundary shows as a faint step even with matching
+     hex values. */
+  background: linear-gradient(to bottom, #5a3049 0%, #5a3049 8%, #6a3a55 30%, #7a4361 48%, #8b506e 64%, #955775 78%, #9a5c79 88%, #9c5d7a 96%, #9c5d7a 100%);
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
   color: #fff;
 }
 .preorder .star { position: absolute; border-radius: 9999px; background: rgba(255,255,255,.7); pointer-events: none; }
@@ -1090,31 +2528,86 @@
 .preorder .star-2 { top: 6rem; right: 22%; width: 0.375rem; height: 0.375rem; background: rgba(255,255,255,.6); }
 .preorder .star-3 { bottom: 8rem; left: 30%; width: 0.25rem; height: 0.25rem; background: rgba(255,255,255,.5); }
 .preorder .star-4 { top: 50%; right: 12%; width: 0.375rem; height: 0.375rem; background: rgba(255,255,255,.6); }
-.preorder .deco-sparkle { position: absolute; pointer-events: none; }
+.preorder .star-5 { top: 22%; left: 44%; width: 0.25rem; height: 0.25rem; background: rgba(255,255,255,.5); }
+.preorder .star-6 { bottom: 24%; right: 38%; width: 0.3rem; height: 0.3rem; background: rgba(255,255,255,.55); }
+.preorder .deco-sparkle { position: absolute; pointer-events: none; text-shadow: 0 0 12px rgba(255,255,255,.5); }
 .preorder .ds-1 { top: 2.5rem; right: 33%; font-size: 1.5rem; opacity: 0.6; }
 .preorder .ds-2 { bottom: 4rem; left: 25%; font-size: 1.25rem; opacity: 0.5; animation-delay: 3s; }
 
+/* wishing-star streaks in the upper sky, same recipe as the moodboard's */
+.preorder .shooting-star {
+  position: absolute;
+  height: 1px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #fff, rgba(255,255,255,.8), transparent);
+  pointer-events: none;
+}
+.preorder .pss-1 { top: 9%; left: 12%; width: 7rem; }
+.preorder .pss-2 { top: 4%; left: 58%; width: 5rem; animation-delay: 3.5s; }
+
 .preorder .wrap { position: relative; max-width: 64rem; margin-inline: auto; padding-inline: 1.5rem; text-align: center; }
-.preorder .kicker { font-size: 1.5rem; color: var(--color-lavender-300); }
-.preorder h2 {
+
+/* frosted champagne chip announcing the drop — gold is the "limited"
+   accent here, kept to whispers so the blossom/lavender stay in charge */
+.preorder .edition-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(240,217,168,.45);
+  background: rgba(255,255,255,.08);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.45rem 1.2rem;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--color-champagne-100);
+  box-shadow: 0 8px 24px rgba(0,0,0,.25), inset 0 0 18px rgba(240,217,168,.12);
+}
+.preorder .kicker { display: block; margin-top: 1.1rem; font-size: 1.5rem; color: var(--color-lavender-300); }
+.preorder .edition-sub {
+  margin: 1.1rem auto 0;
+  max-width: 34rem;
+  line-height: 1.75;
+  color: rgba(255,255,255,.78);
+}
+/* Stacked title lockup: LIMITED as a big glowing gradient word,
+   "Edition" hand-written beneath it in script, tucked up into its
+   baseline — no pill, the glow itself is the emphasis. */
+.preorder h2.edition-title {
   margin: 0.25rem 0 0;
-  background: linear-gradient(to right, #fff, var(--color-lavender-100), var(--color-sky-100));
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: 1;
+}
+.edition-word-limited {
+  background: linear-gradient(to right, #fff, var(--color-blossom-100), var(--color-lavender-100));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
-  font-size: 2.25rem;
+  font-size: clamp(2.6rem, 6vw, 4.2rem);
   font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  animation: limitedGlow 4s ease-in-out infinite;
 }
-@media (min-width: 640px) { .preorder h2 { font-size: 3rem; } }
-
-.preorder h2 .preorder-highlight {
-  background-image: linear-gradient(to right, #e673ad, #f3a9cf);
-  -webkit-background-clip: border-box;
-  background-clip: border-box;
-  color: #fff;
-  padding: 0.05em 0.55em;
-  border-radius: 9999px;
-  display: inline-block;
+@keyframes limitedGlow {
+  0%, 100% { filter: drop-shadow(0 0 10px rgba(243,169,207,.55)) drop-shadow(0 0 30px rgba(205,178,232,.35)); }
+  50%      { filter: drop-shadow(0 0 22px rgba(243,169,207,.95)) drop-shadow(0 0 55px rgba(205,178,232,.65)); }
+}
+.edition-word-edition {
+  font-size: clamp(2.3rem, 4.5vw, 3.4rem);
+  font-weight: 400;
+  color: var(--color-blossom-300);
+  margin-top: -0.3em;
+  transform: rotate(-4deg);
+  text-shadow: 0 0 24px rgba(230,115,173,.55), 0 0 8px rgba(255,255,255,.35);
+}
+@media (prefers-reduced-motion: reduce) {
+  .edition-word-limited { animation: none; filter: drop-shadow(0 0 14px rgba(243,169,207,.6)); }
 }
 
 .preorder .content {
@@ -1124,14 +2617,123 @@
   gap: 2.5rem;
   justify-content: center;
 }
-@media (min-width: 640px) { .preorder .content { grid-template-columns: minmax(0,300px) minmax(0,420px); } }
+@media (min-width: 640px) { .preorder .content { grid-template-columns: minmax(0,430px) minmax(0,460px); } }
 
 .preorder .preorder-art-wrap { position: relative; }
+/* slow-wheeling aurora halo behind the artwork — blossom, lavender, sky
+   and a champagne glint, blurred into one soft ring of fairy light */
+.preorder-halo {
+  position: absolute;
+  inset: -3.5rem;
+  z-index: 0;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg,
+    rgba(243,169,207,.5),
+    rgba(205,178,232,.42),
+    rgba(155,203,242,.36),
+    rgba(240,217,168,.42),
+    rgba(243,169,207,.5));
+  filter: blur(34px);
+  opacity: .85;
+  pointer-events: none;
+}
+/* hand-stitched dashed seam just inside the frame — crochet motif */
+.preorder .preorder-art::after {
+  content: "";
+  position: absolute;
+  inset: 0.65rem;
+  z-index: 2;
+  border: 1.6px dashed rgba(255,255,255,.55);
+  border-radius: 0.6rem;
+  pointer-events: none;
+}
+/* champagne hand-numbered tag, the "limited" proof on the piece itself */
+.edition-number {
+  position: absolute;
+  top: 0.9rem;
+  left: 0.9rem;
+  z-index: 3;
+  background: linear-gradient(135deg, var(--color-champagne-300), var(--color-champagne-100));
+  color: var(--color-plum-900);
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 0.35rem 0.9rem;
+  border-radius: 9999px;
+  box-shadow: 0 8px 20px -4px rgba(0,0,0,.45), 0 0 18px rgba(240,217,168,.5);
+}
+.edition-number em {
+  font-style: italic;
+  text-transform: none;
+  letter-spacing: normal;
+  opacity: .7;
+  padding: 0 0.1em;
+}
+/* a butterfly resting on the frame's shoulder */
+.preorder-butterfly {
+  position: absolute;
+  top: -1.7rem;
+  right: -1.1rem;
+  width: 3.4rem;
+  z-index: 3;
+  transform: rotate(10deg);
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,.35));
+  pointer-events: none;
+}
+.preorder-butterfly svg { width: 100%; height: auto; overflow: visible; }
+.preorder-butterfly .wing {
+  transform-box: fill-box;
+  animation: butterflyFlap 2.8s ease-in-out infinite;
+}
+.preorder-butterfly .wing-left { transform-origin: 100% 50%; }
+.preorder-butterfly .wing-right { transform-origin: 0% 50%; animation-delay: -.02s; }
+.preorder-butterfly .butterfly-body { fill: var(--color-blossom-100); }
+.preorder-butterfly .butterfly-antenna { fill: none; stroke: var(--color-blossom-100); stroke-width: .8; stroke-linecap: round; }
+@media (prefers-reduced-motion: reduce) {
+  .preorder-butterfly .wing { animation: none; }
+}
+
+/* right column: edition promises stacked above the waitlist card */
+.preorder .edition-col { display: flex; flex-direction: column; }
+.preorder .edition-notes {
+  list-style: none;
+  margin: 0 0 1.75rem;
+  padding: 0;
+  display: grid;
+  gap: 0.8rem;
+  text-align: left;
+}
+.preorder .edition-note {
+  display: flex;
+  gap: 0.9rem;
+  align-items: flex-start;
+  border-radius: 1.1rem;
+  border: 1px solid rgba(255,255,255,.14);
+  background: rgba(255,255,255,.06);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  padding: 0.85rem 1.1rem;
+  box-shadow: 0 12px 30px rgba(0,0,0,.18);
+  transition: transform .35s ease-out, background .35s ease-out, border-color .35s ease-out;
+}
+.preorder .edition-note:hover {
+  transform: translateX(6px);
+  background: rgba(255,255,255,.1);
+  border-color: rgba(243,169,207,.45);
+}
+.preorder .edition-note .icon {
+  font-size: 1.25rem;
+  line-height: 1.3;
+  filter: drop-shadow(0 0 8px rgba(255,255,255,.35));
+}
+.preorder .edition-note h3 { margin: 0; font-size: 0.95rem; font-weight: 600; letter-spacing: 0.04em; color: #fff; }
+.preorder .edition-note p { margin: 0.2rem 0 0; font-size: 0.82rem; line-height: 1.55; color: rgba(255,255,255,.7); }
 .preorder-art-glow {
   position: absolute;
-  inset: -18px;
-  background: radial-gradient(circle, rgba(205,178,232,.55) 0%, rgba(255,182,212,.35) 50%, transparent 100%);
-  filter: blur(28px);
+  inset: -30px;
+  background: radial-gradient(circle, rgba(205,178,232,.7) 0%, rgba(255,182,212,.5) 50%, transparent 100%);
+  filter: blur(36px);
   z-index: 0;
   pointer-events: none;
   animation: carouselAuraPulse 6s infinite ease-in-out;
@@ -1143,33 +2745,46 @@
   width: 100%;
   border-radius: 1rem;
   border: none;
-  box-shadow: 0 25px 60px -10px rgba(0,0,0,.5), 0 0 40px rgba(205,178,232,.3);
+  box-shadow:
+    0 25px 60px -10px rgba(0,0,0,.5),
+    0 0 45px rgba(243,169,207,.5),
+    0 0 90px rgba(205,178,232,.4);
   animation: preorderFloat 5s ease-in-out infinite;
 }
 @keyframes preorderFloat {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-10px); }
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-16px) scale(1.03); }
 }
 .preorder-price {
   position: absolute;
-  bottom: 0.75rem;
-  right: 0.75rem;
+  bottom: 0.9rem;
+  right: 0.9rem;
   z-index: 2;
   background: linear-gradient(135deg, #ff7dbf, #ff9ebb);
   color: #fff;
   font-family: 'Alice', serif;
-  font-size: 1.0625rem;
+  font-size: 1.5rem;
   font-weight: 700;
-  padding: 0.3rem 0.9rem;
+  padding: 0.4rem 1.15rem;
   border-radius: 9999px;
-  box-shadow: 0 8px 20px -4px rgba(193,77,138,.5);
+  box-shadow: 0 8px 24px -4px rgba(193,77,138,.6);
+  animation: preorderPricePulse 2.5s infinite ease-in-out;
+}
+@keyframes preorderPricePulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.06); }
 }
 
 .preorder form {
   position: relative;
   border-radius: 1.5rem;
-  border: 1px solid rgba(255,255,255,.1);
-  background: rgba(255,255,255,.05);
+  /* gradient hairline: glass fill in the padding-box, a blossom →
+     lavender → champagne sheen in the border-box showing through the
+     transparent 1px border */
+  border: 1px solid transparent;
+  background:
+    linear-gradient(rgba(255,255,255,.07), rgba(255,255,255,.05)) padding-box,
+    linear-gradient(135deg, rgba(243,169,207,.55), rgba(205,178,232,.35), rgba(240,217,168,.5)) border-box;
   padding: 1.75rem;
   text-align: left;
   box-shadow: 0 25px 50px -12px rgba(0,0,0,.4);
@@ -1252,11 +2867,26 @@
 
 .editorial {
   overflow: hidden;
-  background: linear-gradient(to bottom right, var(--color-blossom-50), #fff, var(--color-lavender-100));
-  padding: 6rem 0;
+  /* The diagonal wash varies horizontally, so flat bands matching the
+     dividers' exact colours are layered at the top (#fef1f6, preorder
+     divider tail) and bottom (#ece1f7, editorial divider start) and
+     fade into the diagonal — otherwise the seams show a colour step. */
+  background:
+    linear-gradient(to bottom, #fef1f6 0%, rgba(254,241,246,0) 14rem),
+    linear-gradient(to top, #ece1f7 0%, rgba(236,225,247,0) 12rem),
+    linear-gradient(to bottom right, var(--color-blossom-50), #fff, var(--color-lavender-100));
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
 }
-.editorial .glow-1 { top: 0; left: 0; width: 18rem; height: 18rem; background: rgba(243,169,207,.25); }
-.editorial .glow-2 { right: 0; bottom: 0; width: 20rem; height: 20rem; background: rgba(205,178,232,.25); }
+/* Kept clear of the top/bottom edges so their blur isn't clipped into a
+   straight bright line at the section seams. */
+.editorial .glow-1 { top: 4rem; left: 0; width: 18rem; height: 18rem; background: rgba(243,169,207,.25); }
+.editorial .glow-2 { right: 0; bottom: 4rem; width: 20rem; height: 20rem; background: rgba(205,178,232,.25); animation-delay: -6s; }
+.editorial .deco-sparkle {
+  position: absolute;
+  pointer-events: none;
+  color: rgba(230,115,173,.55);
+  text-shadow: 0 0 10px rgba(255,255,255,.7);
+}
 
 .editorial .card {
   position: relative;
@@ -1281,30 +2911,200 @@
 .editorial header .sub { margin: 0.25rem 0 0; font-size: 1.25rem; color: var(--color-plum-500); }
 .editorial header .meta { margin-top: 1rem; display: flex; justify-content: center; gap: 1.5rem; font-size: 0.75rem; letter-spacing: 0.25em; color: rgba(122,67,97,.5); text-transform: uppercase; }
 
-.editorial .content-grid { margin-top: 2.5rem; display: grid; gap: 2rem; }
-@media (min-width: 1024px) { .editorial .content-grid { grid-template-columns: 1.1fr 0.9fr; } }
-.editorial .main-img .art-placeholder { aspect-ratio: 4/5; width: 100%; border-radius: 1rem; border: 4px solid #fff; box-shadow: 0 20px 25px -5px rgba(0,0,0,.1); }
-
-.editorial .side-col { display: flex; flex-direction: column; gap: 1.5rem; }
-.editorial .side-img-1 .art-placeholder { aspect-ratio: 5/4; width: 100%; border-radius: 0.75rem; border: 4px solid #fff; box-shadow: 0 10px 15px -3px rgba(0,0,0,.1); transform: rotate(-2deg); transition: all 0.5s ease-out; }
-.editorial .side-img-1:hover .art-placeholder { transform: translateY(-4px) rotate(-3deg); box-shadow: 0 25px 50px -12px rgba(122,67,97,.2); }
-.editorial .caption { margin: -0.25rem 0 0 0.25rem; font-size: 0.875rem; color: rgba(122,67,97,.6); font-style: italic; }
-.editorial .side-img-2 { align-self: flex-end; }
-.editorial .side-img-2 .art-placeholder { aspect-ratio: 4/5; width: 100%; max-width: 14rem; border-radius: 0.75rem; border: 4px solid #fff; box-shadow: 0 10px 15px -3px rgba(0,0,0,.1); transform: rotate(2deg); transition: all 0.5s ease-out; }
-.editorial .side-img-2:hover .art-placeholder { transform: translateY(-4px) rotate(3deg); box-shadow: 0 25px 50px -12px rgba(122,67,97,.2); }
-
-.editorial blockquote {
-  margin: 2.5rem 0 0;
-  border-left: 2px solid rgba(156,93,122,.4);
-  padding-left: 1.5rem;
-  font-family: var(--font-display);
-  font-size: 1.125rem;
-  color: rgba(122,67,97,.8);
-  font-style: italic;
-  transition: all 0.5s ease-out;
+/* ── Two-page magazine spread inside the card ──
+   Left leaf: full-bleed cover photo with scrim, kicker + cover line, a
+   photo credit, and a washi-taped polaroid over the corner. Right leaf:
+   kicker, headline, drop-cap body, ruled pull-quote, two captioned
+   figures. A hairline "fold" splits the leaves on desktop. */
+.editorial .mag-spread {
+  position: relative;
+  display: grid;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  text-align: left;
 }
-@media (min-width: 640px) { .editorial blockquote { font-size: 1.25rem; } }
-.editorial blockquote:hover { border-color: rgba(156,93,122,.8); color: var(--color-plum-700); }
+@media (min-width: 992px) {
+  .editorial .mag-spread { grid-template-columns: 1fr 1px 1.05fr; gap: 2.25rem; }
+}
+.editorial .mag-fold { display: none; }
+@media (min-width: 992px) {
+  .editorial .mag-fold {
+    display: block;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(90,48,73,.2) 15%, rgba(90,48,73,.2) 85%, transparent);
+  }
+}
+.editorial .mag-page-left { position: relative; }
+.editorial .mag-kicker {
+  margin: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.28em;
+  text-transform: uppercase;
+  color: var(--color-blossom-500);
+}
+.editorial .mag-kicker::before {
+  content: "";
+  width: 1.6rem;
+  height: 1px;
+  background: currentColor;
+  opacity: .6;
+}
+.editorial .mag-cover {
+  position: relative;
+  margin: 0;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 24px 50px rgba(122,67,97,.25);
+}
+.editorial .mag-cover img {
+  width: 100%;
+  height: clamp(24rem, 42vw, 33rem);
+  object-fit: cover;
+  display: block;
+  transition: transform .8s cubic-bezier(.16,1,.3,1);
+}
+.editorial .mag-cover:hover img { transform: scale(1.04); }
+.editorial .mag-cover-scrim {
+  position: absolute;
+  left: 0; right: 0; bottom: 0;
+  padding: 3.5rem 1.4rem 1.3rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  background: linear-gradient(to top, rgba(74,47,68,.78), rgba(74,47,68,.25) 60%, transparent);
+}
+.editorial .mag-kicker.on-photo { color: var(--color-blossom-100); }
+.editorial .mag-cover-title {
+  font-size: clamp(1.7rem, 3vw, 2.4rem);
+  line-height: 1.12;
+  color: #fff;
+  text-shadow: 0 4px 22px rgba(0,0,0,.35);
+}
+.editorial .mag-credit {
+  margin: 0.7rem 0 0 0.15rem;
+  font-size: 0.64rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: rgba(122,67,97,.5);
+}
+.editorial .mag-polaroid {
+  margin: -1.4rem 0 0;
+  padding: 0.5rem 0.5rem 0.4rem;
+  background: #fffdfb;
+  border-radius: 0.3rem;
+  box-shadow: 0 16px 34px rgba(74,47,68,.32);
+  transform: rotate(5deg);
+  transition: transform .5s ease-out, box-shadow .5s ease-out;
+  z-index: 2;
+}
+.editorial .mag-polaroid:hover { transform: rotate(2deg) translateY(-4px); box-shadow: 0 24px 44px rgba(74,47,68,.4); }
+/* washi tape holding the polaroid down */
+.editorial .mag-polaroid::before {
+  content: "";
+  position: absolute;
+  top: -0.6rem;
+  left: 50%;
+  width: 3rem;
+  height: 1.1rem;
+  transform: translateX(-50%) rotate(-4deg);
+  background: rgba(243,169,207,.55);
+  border-radius: 2px;
+  box-shadow: 0 2px 6px rgba(74,47,68,.15);
+}
+.editorial .mag-polaroid img { width: 100%; aspect-ratio: 1; object-fit: cover; display: block; border-radius: 0.15rem; }
+.editorial .mag-polaroid figcaption { margin-top: 0.35rem; text-align: center; font-size: 1.15rem; color: var(--color-plum-700); }
+
+/* Photo mosaic: a tall lead frame beside two stacked squares — the
+   fashion-magazine "story in pictures" block replacing body copy */
+.editorial .mag-mosaic {
+  display: grid;
+  grid-template-columns: 1.15fr 1fr;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+.editorial .mm-stack { display: grid; gap: 1rem; align-content: start; }
+.editorial .mm-tall img { aspect-ratio: 3 / 4; height: 100%; }
+.editorial .mm-sq img { aspect-ratio: 1 / 1; }
+.editorial .mag-quote {
+  margin: 1.5rem 0 0;
+  padding: 1.1rem 0.25rem;
+  border-top: 1px solid rgba(122,67,97,.18);
+  border-bottom: 1px solid rgba(122,67,97,.18);
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  text-align: center;
+  color: rgba(122,67,97,.85);
+}
+.editorial .mag-figures {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.1rem;
+  margin-top: 1.5rem;
+}
+.editorial .mag-figure { margin: 0; }
+.editorial .mag-figure img {
+  width: 100%;
+  aspect-ratio: 4 / 5;
+  object-fit: cover;
+  display: block;
+  border-radius: 0.4rem;
+  box-shadow: 0 14px 30px rgba(122,67,97,.18);
+  transition: transform .6s cubic-bezier(.16,1,.3,1), box-shadow .6s ease-out;
+}
+.editorial .mag-figure:hover img { transform: translateY(-4px); box-shadow: 0 22px 42px rgba(122,67,97,.28); }
+.editorial .mag-figure figcaption {
+  margin-top: 0.55rem;
+  padding-top: 0.45rem;
+  border-top: 1px solid rgba(122,67,97,.16);
+  font-size: 0.62rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(122,67,97,.55);
+}
+/* Scattered photo collage on the left page: a loose 2×2 of kept
+   photos — sunrise top-left, pearl top-right, sea shell lower-left,
+   lace polaroid lower-right — each with its own tilt and offset so
+   they read as tossed onto the layout table rather than aligned. */
+.editorial .mag-contact {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.4rem 1.6rem;
+  margin-top: 1.6rem;
+  padding: 0 0.4rem;
+}
+.editorial .mag-contact-item {
+  margin: 0;
+  padding: 0.5rem 0.5rem 0.4rem;
+  background: #fffdfb;
+  border-radius: 0.25rem;
+  box-shadow: 0 12px 26px rgba(74,47,68,.22);
+  transform: rotate(-7deg);
+  transition: transform .45s ease-out, box-shadow .45s ease-out;
+}
+.editorial .mag-contact-item:nth-child(2) { transform: rotate(6deg); margin-top: -0.6rem; }
+.editorial .mag-contact-item:nth-child(3) { transform: rotate(-4deg); margin: -0.8rem 0 0 1.1rem; }
+.editorial .mag-contact-item:hover { transform: rotate(0deg) translateY(-4px); box-shadow: 0 18px 34px rgba(74,47,68,.3); }
+.editorial .mag-contact-item img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  display: block;
+  border-radius: 0.15rem;
+}
+.editorial .mag-contact-item figcaption {
+  margin-top: 0.3rem;
+  text-align: center;
+  font-size: 0.6rem;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(122,67,97,.5);
+}
 
 .editorial .footer-note { margin-top: 2.5rem; text-align: center; font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(122,67,97,.4); }
 
@@ -1314,11 +3114,17 @@
 
 .custom-made {
   overflow: hidden;
-  background: linear-gradient(to bottom right, var(--color-lavender-100), var(--color-blossom-100), var(--color-sky-100));
-  padding: 6rem 0;
+  /* Same treatment as .editorial: flat bands matching the neighbouring
+     dividers (#ece1f7 above, #dcedfb below) fading into the diagonal. */
+  background:
+    linear-gradient(to bottom, #ece1f7 0%, rgba(236,225,247,0) 14rem),
+    linear-gradient(to top, #dcedfb 0%, rgba(220,237,251,0) 12rem),
+    linear-gradient(to bottom right, var(--color-lavender-100), var(--color-blossom-100), var(--color-sky-100));
+  padding: var(--section-pad-top) 0 var(--section-pad-bottom);
 }
 .custom-made .glow-1 { top: 2.5rem; right: 2.5rem; width: 16rem; height: 16rem; background: rgba(205,178,232,.3); }
-.custom-made .glow-2 { bottom: 0; left: 2.5rem; width: 18rem; height: 18rem; background: rgba(243,169,207,.3); }
+/* bottom: 0 clipped this blob's blur into a straight line at the seam */
+.custom-made .glow-2 { bottom: 4rem; left: 2.5rem; width: 18rem; height: 18rem; background: rgba(243,169,207,.3); }
 
 .custom-made .grid {
   position: relative;
@@ -1420,34 +3226,76 @@
 
 .rising-moon {
   overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-moon-950), var(--color-moon-900), var(--color-moon-950));
-  padding: 8rem 0;
+  background: var(--color-moon-950);
+  padding: var(--section-pad-top-anchor) 0 var(--section-pad-bottom-anchor);
   color: #fff;
 }
-.rising-moon .wave-top { position: absolute; top: 0; left: 0; width: 100%; line-height: 0; }
-.rising-moon .wave-top svg { display: block; height: 4rem; width: 100%; }
-@media (min-width: 640px) { .rising-moon .wave-top svg { height: 5rem; } }
-
 .rising-moon .star { position: absolute; border-radius: 9999px; background: #fff; pointer-events: none; }
 .rising-moon .deco-sparkle { position: absolute; pointer-events: none; color: rgba(255,255,255,.3); }
 
-.rising-moon .glow-1 { top: 25%; left: 50%; transform: translateX(-50%); width: 28rem; height: 28rem; background: rgba(59,130,246,.06); filter: blur(120px); }
-.rising-moon .glow-2 { bottom: 33%; right: 2.5rem; width: 18rem; height: 18rem; background: rgba(99,102,241,.08); }
-.rising-moon .glow-3 { bottom: 25%; left: 2.5rem; width: 14rem; height: 14rem; background: rgba(96,165,250,.06); }
+/* Bioluminescent glow instead of deep-space indigo — teal/aqua like light
+   scattering through water rather than starlight through a vacuum. */
+.rising-moon .glow-1 { top: 25%; left: 50%; transform: translateX(-50%); width: 28rem; height: 28rem; background: rgba(45,212,191,.07); filter: blur(120px); }
+.rising-moon .glow-2 { bottom: 33%; right: 2.5rem; width: 18rem; height: 18rem; background: rgba(20,184,166,.09); }
+.rising-moon .glow-3 { bottom: 10%; left: 2.5rem; width: 20rem; height: 20rem; background: rgba(45,212,191,.09); }
+
+/* Rising bubbles + a shimmering waterline reflection beneath the moon —
+   reuses the same .bubbles-layer engine as the Summer section. */
+.rising-moon .bubbles-layer { z-index: 0; }
+.rising-moon .waterline {
+  position: absolute;
+  left: 50%;
+  /* Fixed offset (not %) so the line always sits inside the section's
+     bottom padding, below the See More button, at any viewport height. */
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+  width: min(70vw, 42rem);
+  height: 2px;
+  border-radius: 9999px;
+  background: linear-gradient(to right, transparent, rgba(94,234,212,.5), rgba(255,255,255,.7), rgba(94,234,212,.5), transparent);
+  filter: blur(0.5px);
+  animation: waterlineShimmer 5s ease-in-out infinite;
+  pointer-events: none;
+}
+@keyframes waterlineShimmer {
+  0%, 100% { opacity: .4; transform: translateX(-50%) scaleX(0.92); }
+  50%      { opacity: .85; transform: translateX(-50%) scaleX(1.05); }
+}
 
 .rising-moon .wrap { position: relative; max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
 .rising-moon .header { margin-bottom: 5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
 .rising-moon .moon-wrap { position: relative; margin-bottom: 2.5rem; display: flex; align-items: center; justify-content: center; }
 .rising-moon .moon-ring { position: absolute; border-radius: 9999px; pointer-events: none; }
-.rising-moon .ring-1 { width: 16rem; height: 16rem; background: rgba(147,197,253,.1); filter: blur(48px); }
-.rising-moon .ring-2 { width: 11rem; height: 11rem; background: rgba(191,219,254,.15); filter: blur(32px); animation-delay: 1.5s; }
+.rising-moon .ring-1 { width: 16rem; height: 16rem; background: rgba(94,234,212,.1); filter: blur(48px); }
+.rising-moon .ring-2 { width: 11rem; height: 11rem; background: rgba(153,246,228,.15); filter: blur(32px); animation-delay: 1.5s; }
 .rising-moon .ring-3 { width: 8rem; height: 8rem; background: rgba(255,255,255,.2); filter: blur(24px); animation-delay: 0.8s; }
-.rising-moon .moon-wrap svg { position: relative; filter: drop-shadow(0 0 40px rgba(147,197,253,.8)); }
+.rising-moon .moon-wrap svg { position: relative; filter: drop-shadow(0 0 40px rgba(94,234,212,.75)); }
 
-.rising-moon .kicker { font-size: 1.25rem; color: rgba(191,219,254,.6); }
+/* Moon Pool ripples — concentric rings expanding outward from the moon's
+   reflection, like its light activating still water. */
+.rising-moon .pool-ripple {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  border-radius: 50%;
+  border: 1.5px solid rgba(153,246,228,.55);
+  pointer-events: none;
+  transform: translate(-50%, -50%) scale(0.7);
+  opacity: 0;
+  animation: poolRippleOut 4s ease-out infinite;
+}
+.rising-moon .pool-ripple.pr-1 { width: 9rem; height: 9rem; }
+.rising-moon .pool-ripple.pr-2 { width: 9rem; height: 9rem; animation-delay: 1.3s; }
+.rising-moon .pool-ripple.pr-3 { width: 9rem; height: 9rem; animation-delay: 2.6s; }
+@keyframes poolRippleOut {
+  0%   { transform: translate(-50%, -50%) scale(0.7); opacity: .6; }
+  100% { transform: translate(-50%, -50%) scale(2.6); opacity: 0; }
+}
+
+.rising-moon .kicker { font-size: 1.25rem; color: rgba(153,246,228,.65); }
 .rising-moon h2 { margin: 0.5rem 0 0; font-size: 3rem; font-weight: 700; letter-spacing: 0.02em; }
 @media (min-width: 640px) { .rising-moon h2 { font-size: 3.75rem; } }
-.rising-moon .tagline { margin-top: 0.25rem; font-size: 1.125rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(147,197,253,.7); }
+.rising-moon .tagline { margin-top: 0.25rem; font-size: 1.125rem; letter-spacing: 0.45em; text-transform: uppercase; color: rgba(94,234,212,.75); }
 .rising-moon .desc { margin-top: 1.25rem; max-width: 32rem; line-height: 1.7; color: rgba(255,255,255,.5); }
 
 .rising-moon .items { display: flex; flex-direction: column; gap: 1.5rem; }
@@ -1465,14 +3313,15 @@
   transition: all 0.5s ease-out;
 }
 .rising-moon .item:hover {
-  border-color: rgba(147,197,253,.3);
+  border-color: rgba(94,234,212,.3);
   background: rgba(255,255,255,.07);
-  box-shadow: 0 20px 60px rgba(59,130,246,.22);
+  box-shadow: 0 20px 60px rgba(20,184,166,.22);
 }
 @media (min-width: 640px) {
-  .rising-moon .item { flex-direction: row; align-items: center; }
+  .rising-moon .item { flex-direction: row; align-items: center; gap: 2.5rem; }
   .rising-moon .item.reverse { flex-direction: row-reverse; }
-  .rising-moon .item .art-placeholder, .rising-moon .item-info { width: 50%; }
+  .rising-moon .item .art-placeholder { width: 32%; max-width: 220px; }
+  .rising-moon .item-info { width: 68%; }
 }
 .rising-moon .item .art-placeholder { aspect-ratio: 1/1; width: 100%; border-radius: 1rem; }
 .rising-moon .edition-badge {
@@ -1481,239 +3330,298 @@
   right: 1rem;
   z-index: 10;
   border-radius: 9999px;
-  border: 1px solid rgba(147,197,253,.25);
-  background: rgba(96,165,250,.15);
+  border: 1px solid rgba(94,234,212,.3);
+  background: rgba(20,184,166,.18);
   padding: 0.25rem 0.75rem;
   font-family: var(--font-display);
   font-size: 0.75rem;
   font-weight: 600;
-  color: var(--color-sky-300);
+  color: #99f6e4;
   backdrop-filter: blur(4px);
 }
-.rising-moon .item-info h3 { margin: 0; font-size: 1.125rem; font-weight: 600; }
+.rising-moon .item-info h3 { margin: 0; font-size: 1.5rem; font-weight: 600; }
 .rising-moon .item-info .price {
-  margin-top: 0.25rem;
+  margin-top: 0.375rem;
   display: inline-block;
   width: fit-content;
   border-radius: 0.375rem;
-  background: rgba(147,197,253,.15);
-  padding: 0.125rem 0.625rem;
+  background: rgba(20,184,166,.18);
+  padding: 0.25rem 0.875rem;
   font-family: var(--font-display);
-  font-size: 0.875rem;
+  font-size: 1.0625rem;
   font-weight: 600;
-  color: #dbeafe;
+  color: #ccfbf1;
 }
-.rising-moon .item-info .desc { margin-top: 0.75rem; font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,.55); font-style: italic; }
+.rising-moon .item-info .desc { margin-top: 1rem; font-size: 0.9375rem; line-height: 1.7; color: rgba(255,255,255,.55); font-style: italic; }
 .rising-moon .item-info .reserve-btn {
-  margin-top: 1.25rem;
+  margin-top: 1.5rem;
   width: fit-content;
   border-radius: 9999px;
-  background: var(--color-moon-800);
-  padding: 0.625rem 2rem;
-  font-size: 0.875rem;
+  background: #0d4f4d;
+  padding: 0.75rem 2.25rem;
+  font-size: 0.9375rem;
   font-weight: 600;
   color: #fff;
   transition: all 0.4s ease-out;
 }
 .rising-moon .item-info .reserve-btn:hover {
   transform: translateY(-2px) scale(1.03);
-  background: var(--color-moon-700);
-  box-shadow: 0 10px 15px -3px rgba(30,58,138,.6);
+  background: #146b64;
+  box-shadow: 0 10px 15px -3px rgba(20,184,166,.5);
 }
 
 .rising-moon .see-more { margin-top: 3rem; display: flex; justify-content: center; }
 .rising-moon .see-more button {
   border-radius: 9999px;
-  border: 1px solid rgba(147,197,253,.25);
+  border: 1px solid rgba(94,234,212,.25);
   background: rgba(255,255,255,.05);
   padding: 0.75rem 2rem;
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: #dbeafe;
+  color: #ccfbf1;
   backdrop-filter: blur(6px);
   transition: all 0.4s ease-out;
 }
 .rising-moon .see-more button:hover {
   transform: translateY(-2px) scale(1.03);
   background: rgba(255,255,255,.1);
-  box-shadow: 0 10px 15px -3px rgba(30,58,138,.4);
+  box-shadow: 0 10px 15px -3px rgba(20,184,166,.4);
 }
 
 /* ============================================================
-   Artistry
+   Moonlit Hollow — gothic night-forest capsule (bare branches,
+   drifting fog, no moon of its own — it borrows Rising Moon's
+   light, the two sections fade into one continuous night scene
+   instead of meeting at a hard seam).
    ============================================================ */
 
-.artistry {
+.moonlit-hollow {
+  position: relative;
   overflow: hidden;
-  background: linear-gradient(to bottom right, var(--color-plum-900), #7a3060, var(--color-blossom-700));
-  padding: 8rem 0;
+  background:
+    radial-gradient(ellipse 65% 40% at 50% 0%, rgba(150,172,192,.4), transparent 65%),
+    linear-gradient(to bottom, var(--color-moon-950) 0%, #1c2739 16%, #2c3d55 42%, var(--color-moon-900) 78%, #06101f 92%, #06101f 100%);
+  padding: var(--section-pad-top-anchor) 0 var(--section-pad-bottom-anchor);
   color: #fff;
 }
-.artistry .wave-top, .artistry .wave-bottom { position: absolute; left: 0; width: 100%; line-height: 0; }
-.artistry .wave-top { top: 0; }
-.artistry .wave-bottom { bottom: 0; }
-.artistry .wave-top svg, .artistry .wave-bottom svg { display: block; height: 4rem; width: 100%; }
-@media (min-width: 640px) { .artistry .wave-top svg, .artistry .wave-bottom svg { height: 5rem; } }
 
-.artistry .glow-2 { top: 33%; right: -5rem; width: 20rem; height: 20rem; background: rgba(171,132,208,.3); filter: blur(110px); }
-.artistry .glow-3 { bottom: 0; left: 25%; width: 16rem; height: 16rem; background: rgba(168,85,247,.2); filter: blur(100px); }
-.artistry .glow-4 { right: 25%; bottom: 25%; width: 14rem; height: 14rem; background: rgba(243,169,207,.2); }
-
-.artistry .deco-sparkle { position: absolute; pointer-events: none; }
-.artistry .ds-1 { top: 16%; left: 10%; font-size: 1.5rem; opacity: 0.5; }
-.artistry .ds-2 { top: 12%; right: 12%; font-size: 1.25rem; opacity: 0.6; animation-delay: 3s; }
-.artistry .ds-3 { bottom: 18%; left: 8%; font-size: 1.125rem; opacity: 0.5; animation-delay: 6s; }
-.artistry .ds-4 { right: 8%; bottom: 14%; font-size: 1.5rem; opacity: 0.4; animation-delay: 9s; }
-
-.artistry .wrap { position: relative; max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
-.artistry .header { margin-bottom: 4rem; text-align: center; }
-.artistry .kicker { font-size: 1.5rem; color: var(--color-blossom-100); }
-.artistry h2 { margin: 0.25rem 0 0; font-size: 2.25rem; font-weight: 700; }
-@media (min-width: 640px) { .artistry h2 { font-size: 3rem; } }
-.artistry .desc { margin: 1rem auto 0; max-width: 28rem; font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,.7); }
-
-.artistry .grid { display: grid; gap: 1.5rem; }
-@media (min-width: 640px) { .artistry .grid { grid-template-columns: repeat(3, 1fr); } }
-.artistry .work-card {
-  display: flex;
-  flex-direction: column;
-  border-radius: 1.75rem;
-  border: 1px solid rgba(255,255,255,.15);
-  background: rgba(255,255,255,.1);
-  padding: 1.25rem;
-  backdrop-filter: blur(6px);
-  transition: all 0.5s ease-out;
-}
-.artistry .work-card:hover {
-  transform: translateY(-12px);
-  border-color: rgba(255,255,255,.3);
-  background: rgba(255,255,255,.16);
-  box-shadow: 0 20px 60px rgba(230,115,173,.3);
-}
-.artistry .work-card .art-placeholder { aspect-ratio: 4/3; width: 100%; border-radius: 1rem; }
-.artistry .work-card .title-row { margin-top: 1rem; display: flex; align-items: flex-start; justify-content: space-between; gap: 0.5rem; }
-.artistry .work-card h3 { margin: 0; font-size: 1rem; font-weight: 600; line-height: 1.4; }
-.artistry .work-card .tag {
-  flex-shrink: 0;
-  border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,.25);
-  padding: 0.125rem 0.625rem;
-  font-family: var(--font-display);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: rgba(255,255,255,.7);
-}
-.artistry .work-card .desc { margin: 0.5rem 0 0; flex-grow: 1; font-size: 0.875rem; line-height: 1.7; color: rgba(255,255,255,.75); font-style: italic; }
-.artistry .work-card .view-btn {
-  margin-top: 1.25rem;
-  border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,.25);
-  background: rgba(255,255,255,.1);
-  padding: 0.625rem 0;
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #fff;
-  transition: all 0.4s ease-out;
-}
-.artistry .work-card .view-btn:hover {
-  transform: translateY(-2px) scale(1.03);
-  border-color: rgba(255,255,255,.4);
-  background: rgba(255,255,255,.2);
-  box-shadow: 0 10px 15px -3px rgba(230,115,173,.3);
-}
-
-.artistry .bottom-cta { margin-top: 4rem; display: flex; justify-content: center; }
-.artistry .bottom-cta a {
-  border-radius: 9999px;
-  background: linear-gradient(to right, var(--color-blossom-500), var(--color-lavender-500));
-  padding: 0.875rem 2.5rem;
-  font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: #fff;
-  box-shadow: 0 20px 25px -5px rgba(90,48,73,.4);
-  transition: all 0.4s ease-out;
-}
-.artistry .bottom-cta a:hover {
-  transform: translateY(-4px) scale(1.04);
-  box-shadow: 0 12px 40px rgba(230,115,173,.45);
-}
-
-/* ============================================================
-   Digital Art
-   ============================================================ */
-
-.digital-art {
-  overflow: hidden;
-  background: linear-gradient(to bottom, var(--color-cream), var(--color-lavender-100), var(--color-blossom-50));
-  padding: 6rem 0;
-}
-.digital-art .glow-1 { top: 2.5rem; left: 0; width: 18rem; height: 18rem; background: rgba(205,178,232,.25); }
-.digital-art .glow-2 { right: 0; bottom: 0; width: 20rem; height: 20rem; background: rgba(243,169,207,.25); }
-
-.digital-art .wrap { position: relative; max-width: 72rem; margin-inline: auto; padding-inline: 1.5rem; }
-.digital-art .header { margin-bottom: 4rem; text-align: center; }
-.digital-art .kicker { font-size: 1.5rem; color: var(--color-plum-500); }
-.digital-art h2 { margin: 0.5rem 0 0; font-size: 2.25rem; font-weight: 700; color: var(--color-plum-700); }
-@media (min-width: 640px) { .digital-art h2 { font-size: 3rem; } }
-.digital-art h2 .story { position: relative; display: inline-block; }
-.digital-art h2 .story::before {
-  content: "";
+/* Soft veil of light where Rising Moon's dark bleeds into this section —
+   the "seam" is a fade, not a shape, so the two read as one scene. */
+.moonlit-hollow .hollow-fade-veil {
   position: absolute;
-  inset: -0.5rem;
-  transform: rotate(-3deg);
-  border: 2px solid rgba(156,93,122,.5);
-  border-radius: 9999px;
+  inset-inline: 0;
+  top: 0;
+  height: 16rem;
+  background: linear-gradient(to bottom, rgba(200,212,224,.1), transparent);
   pointer-events: none;
+  z-index: 0;
+  animation: hollowVeilBreathe 8s ease-in-out infinite;
 }
-.digital-art h2 .life { text-decoration: underline wavy var(--color-blossom-500); text-decoration-thickness: 1px; text-underline-offset: 4px; }
+@keyframes hollowVeilBreathe {
+  0%, 100% { opacity: .7; }
+  50%      { opacity: 1; }
+}
 
-.digital-art .grid { display: grid; gap: 2rem; }
-@media (min-width: 640px) { .digital-art .grid { grid-template-columns: repeat(3, 1fr); } }
-.digital-art .work { display: flex; flex-direction: column; }
-.digital-art .work .img-wrap { position: relative; overflow: hidden; border-radius: 1rem; box-shadow: 0 20px 25px -5px rgba(122,67,97,.15); }
-.digital-art .work .art-placeholder { aspect-ratio: 4/5; width: 100%; transition: transform 0.5s ease-out; }
-.digital-art .work:hover .art-placeholder { transform: scale(1.05); }
-.digital-art .work .title-pill {
+.moonlit-hollow .hollow-vignette {
   position: absolute;
-  bottom: 1.25rem;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(ellipse 80% 70% at 50% 45%, transparent 55%, rgba(2,6,14,.55) 100%);
+}
+
+.moonlit-hollow .star { position: absolute; border-radius: 9999px; background: #fff; pointer-events: none; }
+
+/* Bare branch silhouettes reach in from all four corners plus a pair
+   of mid-height clusters along the sides, filling the frame the way
+   a real night-forest canopy would rather than leaving bare corners. */
+.moonlit-hollow .hollow-branch {
+  position: absolute;
+  width: 15rem;
+  height: auto;
+  pointer-events: none;
+  z-index: 1;
+  filter: drop-shadow(0 4px 14px rgba(0,0,0,.5));
+  transform-origin: top center;
+  animation: hollowBranchSway 9s ease-in-out infinite;
+}
+.moonlit-hollow .hollow-branch-tl { top: -0.5rem; left: -1.5rem; }
+.moonlit-hollow .hollow-branch-tr { top: -0.5rem; right: -1.5rem; transform: scaleX(-1); animation-delay: -3s; }
+.moonlit-hollow .hollow-branch-bl { bottom: -0.5rem; left: -1.5rem; width: 13rem; transform-origin: bottom center; transform: scaleY(-1); animation-delay: -5s; }
+.moonlit-hollow .hollow-branch-br { bottom: -0.5rem; right: -1.5rem; width: 13rem; transform-origin: bottom center; transform: scale(-1,-1); animation-delay: -1.5s; }
+.moonlit-hollow .hollow-branch-ml { top: 38%; left: -3.5rem; width: 9rem; opacity: .85; transform-origin: center left; animation-delay: -6.5s; }
+.moonlit-hollow .hollow-branch-mr { top: 46%; right: -3.5rem; width: 9rem; opacity: .85; transform-origin: center right; transform: scaleX(-1); animation-delay: -2.2s; }
+@keyframes hollowBranchSway {
+  0%, 100% { rotate: 0deg; }
+  50%      { rotate: 0.8deg; }
+}
+@media (min-width: 640px) {
+  .moonlit-hollow .hollow-branch { width: 19rem; }
+  .moonlit-hollow .hollow-branch-bl,
+  .moonlit-hollow .hollow-branch-br { width: 16rem; }
+  .moonlit-hollow .hollow-branch-ml,
+  .moonlit-hollow .hollow-branch-mr { width: 12rem; }
+}
+
+.moonlit-hollow .hollow-mist {
+  position: absolute;
   left: 50%;
   transform: translateX(-50%);
+  width: min(90vw, 60rem);
+  height: 7rem;
+  background: radial-gradient(ellipse, rgba(200,212,224,.16), transparent 70%);
+  filter: blur(6px);
+  pointer-events: none;
+  animation: hollowMistDrift 12s ease-in-out infinite;
+}
+.moonlit-hollow .hollow-mist-1 { top: 18%; }
+.moonlit-hollow .hollow-mist-2 { bottom: 8%; animation-delay: -6s; animation-duration: 15s; }
+@keyframes hollowMistDrift {
+  0%, 100% { opacity: .5; transform: translateX(-50%) scaleX(0.94); }
+  50%      { opacity: .85; transform: translateX(-50%) scaleX(1.06); }
+}
+
+.moonlit-hollow .wrap { position: relative; z-index: 2; max-width: 78rem; margin-inline: auto; padding-inline: 1.5rem; }
+.moonlit-hollow .header { margin-bottom: 4.5rem; display: flex; flex-direction: column; align-items: center; text-align: center; }
+.moonlit-hollow .kicker { font-size: 1.25rem; color: rgba(200,212,224,.7); }
+.moonlit-hollow h2 { margin: 0.5rem 0 0; font-size: 2.5rem; font-weight: 700; letter-spacing: 0.02em; }
+@media (min-width: 640px) { .moonlit-hollow h2 { font-size: 3.25rem; } }
+.moonlit-hollow .header .desc { margin-top: 1.25rem; max-width: 32rem; line-height: 1.7; color: rgba(255,255,255,.55); }
+
+.moonlit-hollow .grid { display: grid; gap: 2.5rem; }
+@media (min-width: 640px) { .moonlit-hollow .grid { grid-template-columns: repeat(3, 1fr); } }
+
+.moonlit-hollow .see-more { margin-top: 3.5rem; display: flex; justify-content: center; position: relative; z-index: 2; }
+.moonlit-hollow .see-more button {
   border-radius: 9999px;
-  background: rgba(251,220,236,.9);
-  padding: 0.625rem 1.5rem;
-  font-family: var(--font-display);
+  border: 1px solid rgba(150,172,192,.3);
+  background: rgba(255,255,255,.05);
+  padding: 0.75rem 2rem;
   font-size: 0.875rem;
   font-weight: 600;
   letter-spacing: 0.02em;
-  color: var(--color-plum-700);
-  box-shadow: 0 4px 6px -1px rgba(0,0,0,.1);
-  backdrop-filter: blur(4px);
-  white-space: nowrap;
-}
-.digital-art .work .desc { margin-top: 1rem; text-align: center; font-size: 0.875rem; line-height: 1.7; color: rgba(122,67,97,.7); font-style: italic; }
-
-.digital-art .bottom-cta { margin-top: 4rem; display: flex; justify-content: center; }
-.digital-art .bottom-cta a {
-  border-radius: 9999px;
-  background: var(--color-plum-700);
-  padding: 0.875rem 2.5rem;
-  font-family: var(--font-display);
-  font-size: 0.875rem;
-  font-weight: 600;
-  letter-spacing: 0.15em;
-  text-transform: uppercase;
-  color: #fff;
-  box-shadow: 0 10px 15px -3px rgba(90,48,73,.3);
+  color: #dbe4ee;
+  backdrop-filter: blur(6px);
   transition: all 0.4s ease-out;
 }
-.digital-art .bottom-cta a:hover {
-  transform: translateY(-4px) scale(1.04);
-  background: var(--color-plum-900);
-  box-shadow: 0 20px 25px -5px rgba(90,48,73,.4);
+.moonlit-hollow .see-more button:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: rgba(255,255,255,.1);
+  box-shadow: 0 10px 15px -3px rgba(90,110,140,.4);
+}
+
+.moonlit-hollow .hollow-card {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  border-radius: 1.5rem;
+  border: 1px solid rgba(210,222,235,.22);
+  background: rgba(255,255,255,.05);
+  padding: 2rem;
+  backdrop-filter: blur(6px);
+  transition: all 0.5s ease-out;
+  animation: hollowCardGlow 4.5s ease-in-out infinite;
+}
+.moonlit-hollow .hollow-card:nth-child(2) { animation-delay: -1.5s; }
+.moonlit-hollow .hollow-card:nth-child(3) { animation-delay: -3s; }
+@keyframes hollowCardGlow {
+  0%, 100% { box-shadow: 0 0 0 rgba(200,212,224,0), 0 12px 32px rgba(0,0,0,.35); }
+  50%      { box-shadow: 0 0 34px rgba(200,222,240,.32), 0 12px 32px rgba(0,0,0,.35); }
+}
+.moonlit-hollow .hollow-card:hover {
+  border-color: rgba(210,222,235,.5);
+  background: rgba(255,255,255,.08);
+  transform: translateY(-4px);
+  box-shadow: 0 0 44px rgba(200,222,240,.45), 0 20px 60px rgba(0,0,0,.4);
+}
+/* Continuous moonlight shimmer sweeping across each card, staggered
+   so all three don't glint in unison. */
+.moonlit-hollow .hollow-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(115deg, transparent 40%, rgba(255,255,255,.16) 50%, transparent 60%);
+  transform: translateX(-120%);
+  animation: hollowCardShine 5s ease-in-out infinite;
+  pointer-events: none;
+}
+.moonlit-hollow .hollow-card:nth-child(2)::after { animation-delay: 1.6s; }
+.moonlit-hollow .hollow-card:nth-child(3)::after { animation-delay: 3.2s; }
+@keyframes hollowCardShine {
+  0%, 15%   { transform: translateX(-120%); }
+  45%, 100% { transform: translateX(120%); }
+}
+
+.moonlit-hollow .hollow-card .art-placeholder { aspect-ratio: 4/5; width: 100%; border-radius: 1rem; }
+.moonlit-hollow .hollow-card .art-placeholder .card-png-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease-out;
+}
+.moonlit-hollow .hollow-card:hover .art-placeholder .card-png-img { transform: scale(1.06); }
+.moonlit-hollow .hollow-icon-badge {
+  position: absolute;
+  z-index: 1;
+  top: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: rgba(6,16,31,.55);
+  border: 1px solid rgba(255,255,255,.25);
+  backdrop-filter: blur(4px);
+  font-size: 1.125rem;
+}
+.moonlit-hollow .hollow-card-info { display: flex; flex-direction: column; align-items: center; }
+.moonlit-hollow .hollow-card-info h3 { margin: 1.25rem 0 0; font-size: 1.25rem; font-weight: 600; }
+.moonlit-hollow .hollow-card-info .price {
+  margin-top: 0.5rem;
+  display: inline-block;
+  width: fit-content;
+  border-radius: 0.375rem;
+  background: rgba(255,255,255,.1);
+  padding: 0.25rem 0.875rem;
+  font-family: var(--font-display);
+  font-size: 1.0625rem;
+  font-weight: 600;
+  color: #e8edf2;
+}
+.moonlit-hollow .hollow-card-info .desc { margin-top: 1rem; font-size: 0.9375rem; line-height: 1.7; color: rgba(255,255,255,.55); font-style: italic; }
+.moonlit-hollow .hollow-add-btn {
+  position: relative;
+  z-index: 1;
+  margin-top: 1.5rem;
+  border-radius: 9999px;
+  background: rgba(255,255,255,.1);
+  border: 1px solid rgba(255,255,255,.2);
+  padding: 0.75rem 2.25rem;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  color: #fff;
+}
+.moonlit-hollow .hollow-add-btn:hover {
+  background: rgba(255,255,255,.18);
+  transform: translateY(-2px) scale(1.03);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .moonlit-hollow .hollow-branch,
+  .moonlit-hollow .hollow-mist,
+  .moonlit-hollow .hollow-fade-veil,
+  .moonlit-hollow .hollow-card,
+  .moonlit-hollow .hollow-card::after {
+    animation: none !important;
+  }
 }
 
 /* ============================================================
@@ -1727,7 +3635,7 @@
   padding: 5rem 0 2rem;
   color: #fff;
 }
-.site-footer .glow-1 { top: 0; left: 25%; width: 16rem; height: 16rem; background: rgba(230,115,173,.1); }
+.site-footer .glow-1 { top: 4rem; left: 25%; width: 16rem; height: 16rem; background: rgba(230,115,173,.1); }
 .site-footer .glow-2 { right: 20%; bottom: 0; width: 18rem; height: 18rem; background: rgba(171,132,208,.1); }
 .site-footer .deco-1 { top: 2.5rem; left: 12%; font-size: 1.5rem; opacity: 0.4; }
 .site-footer .deco-2 { right: 10%; bottom: 8rem; font-size: 1.25rem; opacity: 0.3; animation-delay: 6s; }
@@ -1837,4 +3745,189 @@
 }
 @media (min-width: 640px) { .site-footer .bottom-bar { flex-direction: row; justify-content: space-between; text-align: left; } }
 .site-footer .bottom-bar p { margin: 0; font-family: var(--font-display); font-size: 0.75rem; letter-spacing: 0.3em; text-transform: uppercase; color: rgba(255,255,255,.5); }
+
+/* Section dividers (thin horizon-line seams between sections) — the
+   shared plumbing (.section-divider, .divider-line, .dv-accent, the
+   dvFloat/shimmer keyframes) lives in style.css as a cross-page utility;
+   each section supplies its own curve + accent markup inline in
+   index.html. See style.css's "Section dividers" block. */
+
 .site-footer .bottom-bar .emoji { font-size: 1.5rem; }
+
+/* ============================================================
+   Nav-click page transitions
+   A short full-screen "magical event" plays when the visitor
+   clicks any in-page anchor link, then the page jumps to the
+   target section while hidden behind it. `.pt-veil` is the
+   functional part — a plain colour fade that guarantees the
+   jump is fully hidden regardless of how the decorative shapes
+   move. Everything else in this block is pure flourish, driven
+   by js/page-transitions.js (GSAP). No WebGL, no morphing —
+   just transforms and opacity, so it stays light and reliable.
+   ============================================================ */
+
+.page-transition {
+  position: fixed;
+  inset: 0;
+  z-index: 999999;
+  pointer-events: none;
+  visibility: hidden;
+}
+.page-transition.is-active { visibility: visible; }
+
+.page-transition .pt-veil {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background-color: var(--color-cream);
+}
+
+.page-transition .pt-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+.page-transition .pt-scene { opacity: 0; }
+
+/* ---- the one shared fairy-core scene: golden sparkle stars, glowing
+   pink dust motes, drifting petals — gold + pink read against both the
+   light (cream/blush) and dark (moon/night) veil colours ---- */
+.pt-fairy-star { fill: #ffd98e; filter: drop-shadow(0 0 1px rgba(255, 214, 150, .95)); }
+.pt-fairy-mote { fill: #f7b8d8; filter: drop-shadow(0 0 1px rgba(247, 184, 216, .9)); }
+.pt-fairy-petal { fill: var(--color-blossom-300); }
+
+@media (prefers-reduced-motion: reduce) {
+  .page-transition { display: none; }
+}
+
+/* ============================================================
+   One-time welcome popup — a stack of white thank-you cards
+   with a purple paperclip and purple heart (see index.html
+   #welcomePopup; shown once per visitor via js/main.js).
+   ============================================================ */
+.welcome-popup {
+  position: fixed;
+  inset: 0;
+  z-index: 100001;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  background: rgba(31,19,38,.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .45s ease;
+}
+.welcome-popup.active { opacity: 1; pointer-events: auto; }
+
+.welcome-card-stack {
+  position: relative;
+  width: min(34rem, 92vw);
+  transform: scale(.8) rotate(-12deg);
+  transition: transform .55s cubic-bezier(.16,1,.3,1);
+}
+.welcome-popup.active .welcome-card-stack { transform: scale(1) rotate(0deg); }
+
+/* the loose cards peeking out underneath */
+.welcome-card-under {
+  position: absolute;
+  inset: 0;
+  border-radius: 10px;
+  background: #f6f4f4;
+  box-shadow: 0 18px 45px rgba(0,0,0,.28);
+}
+.welcome-card-under.u1 { transform: rotate(-9deg) translate(-0.4rem, 0.8rem); }
+.welcome-card-under.u2 { transform: rotate(4deg) translate(0.6rem, -0.3rem); }
+
+.welcome-card {
+  position: relative;
+  border-radius: 10px;
+  background: linear-gradient(155deg, #ffffff 0%, #fdfcfc 60%, #f4f1f1 100%);
+  box-shadow: 0 25px 60px rgba(0,0,0,.35);
+  padding: 3.5rem 2.5rem 3rem;
+  text-align: center;
+  transform: rotate(-4deg);
+}
+
+.welcome-card .welcome-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 0.9rem;
+  border: none;
+  background: none;
+  font-size: 1.6rem;
+  line-height: 1;
+  color: rgba(90,48,73,.45);
+  cursor: pointer;
+  transition: color .25s ease, transform .25s ease;
+}
+.welcome-card .welcome-close:hover { color: var(--color-lavender-500); transform: scale(1.15); }
+
+.welcome-card .welcome-clip {
+  position: absolute;
+  top: -1.6rem;
+  left: 14%;
+  width: 2.6rem;
+  height: auto;
+  transform: rotate(24deg);
+  filter: drop-shadow(0 2px 3px rgba(0,0,0,.25));
+}
+
+.welcome-card .welcome-kiss {
+  position: absolute;
+  top: -0.5rem;
+  right: 4%;
+  font-size: 3.6rem;
+  transform: rotate(18deg);
+  filter: saturate(1.2);
+  pointer-events: none;
+}
+
+.welcome-card h2 {
+  margin: 0.5rem 0 0;
+  font-size: clamp(1.5rem, 4.5vw, 2.15rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--color-lavender-500);
+}
+.welcome-card .welcome-script {
+  margin: 1.1rem 0 0;
+  font-size: clamp(1.5rem, 4vw, 1.9rem);
+  line-height: 1.35;
+  color: var(--color-lavender-500);
+}
+
+.welcome-card .welcome-follow-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.75rem;
+  border-radius: 9999px;
+  background: var(--color-lavender-500);
+  padding: 0.7rem 1.8rem;
+  font-size: 0.875rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #fff;
+  text-decoration: none;
+  box-shadow: 0 10px 22px rgba(171,132,208,.35);
+  transition: all .35s ease-out;
+}
+.welcome-card .welcome-follow-btn:hover {
+  transform: translateY(-2px) scale(1.03);
+  background: #8f63ba;
+  box-shadow: 0 15px 30px rgba(171,132,208,.45);
+}
+
+@media (max-width: 480px) {
+  .welcome-card { padding: 3rem 1.5rem 2.5rem; }
+  .welcome-card .welcome-kiss { font-size: 2.8rem; }
+}

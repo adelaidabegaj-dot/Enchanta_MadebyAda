@@ -73,6 +73,29 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ============================================================
+     Lazy autoplay videos — below-the-fold <video data-src> tags don't
+     fetch a byte until they approach the viewport, then start playing.
+     ============================================================ */
+  const lazyVideos = document.querySelectorAll("video[data-src]");
+  function loadLazyVideo(v) {
+    v.src = v.dataset.src;
+    v.removeAttribute("data-src");
+    if (v.autoplay) v.play().catch(() => {});
+  }
+  if ("IntersectionObserver" in window && lazyVideos.length) {
+    const videoObserver = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        loadLazyVideo(entry.target);
+        videoObserver.unobserve(entry.target);
+      });
+    }, { rootMargin: "400px" });
+    lazyVideos.forEach((v) => videoObserver.observe(v));
+  } else {
+    lazyVideos.forEach(loadLazyVideo);
+  }
+
+  /* ============================================================
      Nav
      ============================================================ */
   const nav = document.querySelector(".site-nav");
@@ -164,26 +187,58 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const heroSection = document.querySelector(".hero");
-  const petals = document.querySelectorAll(".hero .petal");
-  const petalFactors = [
-    { x: -24, y: -24 },
-    { x: 30, y: 30 },
-    { x: 18, y: -18 },
-    { x: -28, y: 22 },
+  /* ---- fairy dust: fine motes rising slowly through the portal,
+     fading in and out at the ends of their climb ---- */
+  const FAIRY_DUST = [
+    { left: "6%", delay: "0s", duration: "9s", x: "14px", opacity: 0.7 },
+    { left: "14%", delay: "-3s", duration: "11s", x: "-10px", opacity: 0.5 },
+    { left: "22%", delay: "-6.5s", duration: "8s", x: "18px", opacity: 0.8 },
+    { left: "30%", delay: "-1.5s", duration: "12s", x: "-16px", opacity: 0.55 },
+    { left: "38%", delay: "-8s", duration: "9.5s", x: "12px", opacity: 0.65 },
+    { left: "46%", delay: "-4s", duration: "10.5s", x: "-14px", opacity: 0.7 },
+    { left: "54%", delay: "-10s", duration: "8.5s", x: "16px", opacity: 0.6 },
+    { left: "62%", delay: "-2s", duration: "11.5s", x: "-12px", opacity: 0.75 },
+    { left: "70%", delay: "-7s", duration: "9s", x: "10px", opacity: 0.5 },
+    { left: "78%", delay: "-5.5s", duration: "10s", x: "-18px", opacity: 0.65 },
+    { left: "86%", delay: "-9s", duration: "8s", x: "14px", opacity: 0.7 },
+    { left: "94%", delay: "-3.5s", duration: "12.5s", x: "-10px", opacity: 0.55 },
+    { left: "10%", delay: "-6s", duration: "10s", x: "16px", opacity: 0.6 },
+    { left: "50%", delay: "-1s", duration: "9s", x: "-12px", opacity: 0.7 },
+    { left: "90%", delay: "-8.5s", duration: "11s", x: "12px", opacity: 0.5 },
+    { left: "34%", delay: "-4.5s", duration: "8.5s", x: "-16px", opacity: 0.65 },
   ];
-  if (heroSection && petals.length) {
-    heroSection.addEventListener("mousemove", (e) => {
-      const rect = heroSection.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      petals.forEach((petal, i) => {
-        const f = petalFactors[i];
-        petal.style.transform = `translate(${x * f.x}px, ${y * f.y}px)`;
-      });
+
+  const fairyDustField = document.querySelector(".hero .fairy-dust");
+  if (fairyDustField) {
+    FAIRY_DUST.forEach((d) => {
+      const span = document.createElement("span");
+      span.className = "anim-dust";
+      span.style.left = d.left;
+      span.style.animationDelay = d.delay;
+      span.style.animationDuration = d.duration;
+      span.style.setProperty("--dust-x", d.x);
+      span.style.setProperty("--dust-op", d.opacity);
+      fairyDustField.appendChild(span);
     });
-    heroSection.addEventListener("mouseleave", () => {
-      petals.forEach((petal) => (petal.style.transform = "translate(0, 0)"));
+  }
+
+  const heroSection = document.querySelector(".hero");
+  const driftEls = document.querySelectorAll(".hero [data-drift-x], .hero [data-drift-y]");
+  if (heroSection && driftEls.length && window.EnchantaMotion) {
+    // Piggybacks on motion.js's single rAF-batched pointer tracker
+    // instead of adding another raw mousemove listener.
+    window.EnchantaMotion.onPointerMove((clientX, clientY) => {
+      const rect = heroSection.getBoundingClientRect();
+      const inside =
+        clientX >= rect.left && clientX <= rect.right &&
+        clientY >= rect.top && clientY <= rect.bottom;
+      const x = inside ? (clientX - rect.left) / rect.width - 0.5 : 0;
+      const y = inside ? (clientY - rect.top) / rect.height - 0.5 : 0;
+      driftEls.forEach((el) => {
+        const fx = parseFloat(el.dataset.driftX || 0);
+        const fy = parseFloat(el.dataset.driftY || 0);
+        el.style.transform = `translate(${x * fx}px, ${y * fy}px)`;
+      });
     });
   }
 
@@ -201,7 +256,7 @@ document.addEventListener("DOMContentLoaded", () => {
           }
         });
       },
-      { threshold: 0.15 }
+      { root: null, rootMargin: "0px 0px -12% 0px", threshold: 0.02 }
     );
     revealEls.forEach((el) => observer.observe(el));
   } else {
@@ -313,4 +368,42 @@ document.addEventListener("DOMContentLoaded", () => {
       if (name && details && msg) msg.style.display = "block";
     });
   }
+});
+
+/* ============================================================
+   One-time welcome popup (index.html #welcomePopup) — shows on a
+   visitor's very first visit only; the localStorage flag is set
+   the moment it appears so it never shows a second time.
+   ============================================================ */
+function closeWelcomePopup() {
+  const popup = document.getElementById("welcomePopup");
+  if (popup) {
+    popup.classList.remove("active");
+    popup.setAttribute("aria-hidden", "true");
+  }
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+  const popup = document.getElementById("welcomePopup");
+  if (!popup) return;
+
+  const KEY = "enchantaWelcomeSeen";
+  try {
+    if (localStorage.getItem(KEY)) return;
+    localStorage.setItem(KEY, "1");
+  } catch (e) {
+    return; // storage unavailable (private mode) — skip rather than nag on every visit
+  }
+
+  setTimeout(() => {
+    popup.classList.add("active");
+    popup.setAttribute("aria-hidden", "false");
+  }, 900);
+
+  popup.addEventListener("click", (e) => {
+    if (e.target === popup) closeWelcomePopup();
+  });
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeWelcomePopup();
+  });
 });

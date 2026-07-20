@@ -30,6 +30,17 @@
   --color-sky-500: #6fa9e8;
   --color-sky-700: #4a7fc4;
 
+  --color-champagne-100: #fdf6e8;
+  --color-champagne-300: #f0d9a8;
+  --color-champagne-500: #d9b46a;
+  --color-champagne-700: #a8763a;
+
+  --color-mint-100: #e3f7ec;
+  --color-mint-300: #a8e6c3;
+  --color-mint-500: #6dd6a0;
+
+  --color-pearl: #fffaf3;
+
   --color-night-900: #1f1326;
   --color-night-800: #2c1c34;
   --color-night-700: #3c2740;
@@ -38,6 +49,17 @@
   --color-moon-900: #0a1628;
   --color-moon-800: #0f1f3d;
   --color-moon-700: #152a52;
+
+  --color-divider-pink: #e8b8c9;
+
+  /* Shared vertical rhythm for section padding — every standard section
+     uses the same top/bottom clamp so the scroll feels evenly paced;
+     rising-moon/moonlit-hollow use the -anchor pair for a deliberately
+     bigger reveal moment rather than an arbitrary one-off value. */
+  --section-pad-top: clamp(4.5rem, 3rem + 5vw, 7rem);
+  --section-pad-bottom: clamp(6rem, 4rem + 8vw, 9rem);
+  --section-pad-top-anchor: clamp(5.5rem, 4rem + 6vw, 8rem);
+  --section-pad-bottom-anchor: clamp(6.5rem, 4rem + 8vw, 9rem);
 }
 
 * {
@@ -156,6 +178,114 @@ button {
   to { transform: rotate(360deg); }
 }
 
+/* Section-divider crest highlight: a short bright dash travels slowly
+   along the top edge of a silhouette, by animating its dash offset — a
+   faint catch-the-light shimmer, not a spotlight. */
+@keyframes dividerShimmerTravel {
+  to { stroke-dashoffset: -2200; }
+}
+
+/* Tiny leaf/petal/cloud/star accents resting on a divider: a slow, small
+   sway rather than the bigger 6s/14px .anim-float bob used elsewhere —
+   these need to read as barely-there, not as obviously animated. */
+@keyframes dvFloat {
+  0%, 100% { transform: translateY(0) rotate(0deg); opacity: var(--dv-op-low, .5); }
+  50%      { transform: translateY(-3px) rotate(3deg); opacity: var(--dv-op-high, .92); }
+}
+
+/* Slow horizontal drift for mist/cloud bands on a divider */
+@keyframes dvDrift {
+  0%, 100% { transform: translateX(0); }
+  50%      { transform: translateX(16px); }
+}
+
+/* Soft breathing glow for moon/dawn divider accents */
+@keyframes dvGlow {
+  0%, 100% { opacity: .45; }
+  50%      { opacity: .85; }
+}
+
+/* Fairy dust mote drifting up through the hero portal and fading at
+   both ends of its climb — paired with randomized --dust-x/--dust-op/
+   duration per instance so the field doesn't read as a single repeated
+   sprite. */
+@keyframes dustRise {
+  0%   { transform: translate(0, 0) scale(0.6); opacity: 0; }
+  12%  { opacity: var(--dust-op, .8); }
+  88%  { opacity: var(--dust-op, .8); }
+  100% { transform: translate(var(--dust-x, 18px), -150px) scale(1); opacity: 0; }
+}
+
+/* Butterfly wing pairs pivoting at the body edge (transform-origin set
+   per-wing in sections.css) rather than the whole insect scaling. */
+@keyframes wingFlap {
+  0%, 100% { transform: scaleX(1); }
+  50%      { transform: scaleX(0.32); }
+}
+
+/* Small wandering loop for a butterfly's whole body — gentle drift
+   rather than a straight bob, so it reads as flight, not floating. */
+@keyframes butterflyDrift {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  25%  { transform: translate(10px, -16px) rotate(6deg); }
+  50%  { transform: translate(-5px, -26px) rotate(-4deg); }
+  75%  { transform: translate(-15px, -9px) rotate(4deg); }
+  100% { transform: translate(0, 0) rotate(0deg); }
+}
+
+/* Wide, slow-moving background wash for the hero portal — background-
+   size is oversized so the position swing stays subtle even though the
+   travel distance (0%->100%) sounds large. */
+@keyframes heroAurora {
+  0%, 100% { background-position: 0% 45%; }
+  50%      { background-position: 100% 55%; }
+}
+
+/* Mist/vapor bands: horizontal sway + opacity breathing combined in one
+   keyframe (rather than layering a second animation on the same
+   transform property). */
+@keyframes mistFlow {
+  0%, 100% { transform: translateX(-3%) scaleX(1); opacity: .5; }
+  50%      { transform: translateX(3%) scaleX(1.04); opacity: .75; }
+}
+
+/* Continuous diagonal glass highlight across the portal window — same
+   idea as .art-placeholder's hover sheen, but looping on its own so the
+   "glass" reads as alive without needing a hover. */
+@keyframes sheenSweep {
+  0%   { transform: translateX(-120%) skewX(-18deg); opacity: 0; }
+  8%   { opacity: .5; }
+  35%  { opacity: .5; }
+  50%  { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+  100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
+}
+
+/* Faceted-gem glint: opacity, scale and a tiny rock all in one keyframe
+   so it can run standalone on a leaf element without fighting another
+   animation over the transform property. */
+@keyframes crystalGlow {
+  0%, 100% { opacity: .75; transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 6px rgba(255,255,255,.5)); }
+  50%      { opacity: 1;  transform: scale(1.08) rotate(3deg); filter: drop-shadow(0 0 14px rgba(240,217,168,.85)); }
+}
+
+/* Enchanted-glass CTA idle glow: gold-and-white inset shimmer, defined
+   standalone (rather than reusing btnGlowPulse) so the hero CTA reads
+   as crystal rather than the site-wide pink/lavender button pulse. */
+@keyframes ctaCrystalGlow {
+  0%, 100% {
+    box-shadow:
+      0 10px 26px -8px rgba(217,180,106,.45),
+      0 0 0 1px rgba(255,255,255,.5) inset,
+      0 0 18px rgba(255,255,255,.35) inset;
+  }
+  50% {
+    box-shadow:
+      0 12px 34px -8px rgba(217,180,106,.65),
+      0 0 0 1px rgba(255,255,255,.6) inset,
+      0 0 26px rgba(255,255,255,.5) inset;
+  }
+}
+
 @keyframes clickGlow {
   0% {
     box-shadow: 0 0 0 0 rgba(230, 115, 173, 0.55), 0 0 0 0 rgba(171, 132, 208, 0.4);
@@ -184,11 +314,194 @@ button {
 .anim-title-glow { animation: textGlowPulse 4s ease-in-out infinite; }
 .anim-spin-glow { animation: spinGlow 9s linear infinite; }
 .anim-bubble-flow { animation: bubbleFlow 8s linear infinite; }
+.anim-dv-float {
+  animation: dvFloat 12s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.anim-dv-drift {
+  animation: dvDrift 15s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.anim-dv-glow {
+  animation: dvGlow 6.5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.anim-ray-spin { animation: spinGlow 60s linear infinite; }
+.anim-ray-spin-rev { animation: spinGlow 46s linear infinite reverse; }
+.anim-dust { animation: dustRise linear infinite; }
+.anim-wing-flap {
+  animation: wingFlap 2.6s ease-in-out infinite;
+  transform-box: fill-box;
+}
+.anim-butterfly-drift {
+  animation: butterflyDrift 10s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+.anim-mist-flow { animation: mistFlow 14s ease-in-out infinite; }
+.anim-sheen-sweep { animation: sheenSweep 6s ease-in-out infinite; }
+.anim-crystal-glow {
+  animation: crystalGlow 5s ease-in-out infinite;
+  transform-box: fill-box;
+  transform-origin: center;
+}
 
-/* ── shimmer sweep on buttons ── */
+/* ============================================================
+   Section dividers — layered organic fairycore seams
+   Each divider is a small stack of soft, asymmetric silhouettes
+   (rolling hill, ribbon, cloud, mist, petal-strewn ground, forest
+   line, moonrise) whose fill gradients carry both the departing
+   and the arriving section's colour, so the seam reads as one
+   continuous surface melting into the next rather than a hard cut.
+   A blurred "back" layer does the heavy colour-blending across the
+   full seam height; a crisp "mid" layer carries the actual
+   silhouette with a soft drop-shadow for quiet depth; a thin crest
+   highlight catches the light along its top edge. Small accents
+   (petals, clouds, mist wisps, fireflies, a sliver moon) rest on
+   top with a slow drift. Curve data + gradient stops are bespoke
+   per divider, in index.html; this holds the shared plumbing only.
+   `.on-dark` lifts accent/crest opacity for the seams that sit
+   against a dark section background.
+   ============================================================ */
+.section-divider {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  height: 5rem;
+  pointer-events: none;
+  overflow: visible;
+  z-index: 1;
+  line-height: 0;
+}
+@media (min-width: 640px) { .section-divider { height: 6.5rem; } }
+
+.divider-svg {
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -1px;
+  width: 100%;
+  height: calc(100% + 1px);
+  overflow: visible;
+}
+
+/* Flipped variant: sits at the TOP of a section and paints the previous
+   section's colour ABOVE the curve, so this section's background (e.g. a
+   full-bleed photo) shows through with a clean wavy top edge. */
+.section-divider.at-top { top: -1px; bottom: auto; }
+.section-divider.at-top .divider-svg { top: -1px; bottom: auto; }
+
+.divider-back { opacity: .6; filter: blur(9px); }
+/* No drop-shadow on the wave: the path's fill box extends past the
+   divider's bottom edge, so a shadow paints a dark full-width band onto
+   the top of the NEXT section — a permanent "seam line" at every
+   divider no matter how well the colours match. */
+.divider-mid { }
+.divider-crest {
+  fill: none;
+  stroke: rgba(255, 255, 255, .65);
+  stroke-width: 1.2;
+  stroke-linecap: round;
+  opacity: .5;
+  stroke-dasharray: 60 2200;
+  animation: dividerShimmerTravel 20s linear infinite;
+}
+
+.dv-accent { fill: var(--color-divider-pink); }
+.dv-accent.dv-leaf { fill: var(--color-plum-300); }
+.dv-accent .dv-vein { fill: none; stroke: var(--color-divider-pink); stroke-width: .6; opacity: .8; }
+.dv-cloud { fill: #fffdfb; opacity: .85; }
+.dv-mist { fill: #fffdfb; filter: blur(7px); }
+.dv-star { fill: #fff8f0; filter: drop-shadow(0 0 3px rgba(255, 248, 240, .8)); }
+.dv-moon { fill: #fff8f0; filter: drop-shadow(0 0 7px rgba(255, 248, 240, .55)); }
+
+.section-divider.on-dark { --dv-op-low: .72; --dv-op-high: 1; }
+.section-divider.on-dark .divider-crest { opacity: .7; }
+
+/* Two small shared fairycore accents, built on the timings above rather
+   than new keyframes — a glowing firefly dot (pairs with .anim-twinkle)
+   and a soft flower glyph that blooms in and out (pairs with
+   .anim-breathing-glow). Any section can sprinkle these in freely. */
+.firefly {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, #fde9c8 60%, transparent 100%);
+  box-shadow: 0 0 8px 2px rgba(255, 244, 214, .8);
+  pointer-events: none;
+}
+.bloom {
+  position: absolute;
+  font-size: 1.1rem;
+  line-height: 1;
+  pointer-events: none;
+  filter: drop-shadow(0 0 6px rgba(255, 255, 255, .55));
+}
+
+/* One global off-switch for every decorative animation on the site —
+   the .anim-* utility library above, the shine/glow loops further down,
+   plus product.css/index.html's own looping keyframes — so a single
+   settings.css rule doesn't have to be duplicated per feature. Anything
+   with a fixed end-state (scroll-reveal, hover feedback) is untouched,
+   since those aren't the kind of motion this preference objects to. */
+@media (prefers-reduced-motion: reduce) {
+  .hero,
+  .hero h1 {
+    animation: none !important;
+  }
+  .anim-float,
+  .anim-moon-pulse,
+  .anim-drift,
+  .anim-gradient-flow,
+  .anim-twinkle,
+  .anim-pulse-glow,
+  .anim-blob,
+  .anim-shooting-star,
+  .anim-breathing-glow,
+  .anim-title-glow,
+  .anim-spin-glow,
+  .anim-bubble-flow,
+  .anim-dv-float,
+  .anim-dv-drift,
+  .anim-dv-glow,
+  .anim-ray-spin,
+  .anim-ray-spin-rev,
+  .anim-dust,
+  .anim-wing-flap,
+  .anim-butterfly-drift,
+  .anim-mist-flow,
+  .anim-sheen-sweep,
+  .anim-crystal-glow,
+  .divider-crest,
+  .glow-ring::before,
+  .luxury-card::before,
+  .btn-shine,
+  .btn-shine:active,
+  .btn-shine:focus-visible {
+    animation: none !important;
+  }
+  .anim-dv-float { opacity: var(--dv-op-high, .7); }
+  .anim-dv-glow { opacity: .7; }
+  .anim-dust { opacity: 0; }
+}
+
+/* ── shimmer sweep on buttons, plus a soft idle glow so buttons feel
+   quietly alive at rest, not just on hover (paused on :hover so the
+   two never fight over the box-shadow property) ── */
 .btn-shine {
   position: relative;
   overflow: hidden;
+  animation: btnGlowPulse 5s ease-in-out infinite;
+}
+@keyframes btnGlowPulse {
+  0%, 100% { box-shadow: 0 4px 18px rgba(230, 115, 173, .18), 0 0 18px rgba(205, 178, 232, .14); }
+  50%      { box-shadow: 0 4px 22px rgba(230, 115, 173, .3), 0 0 28px rgba(205, 178, 232, .24); }
 }
 .btn-shine::after {
   content: "";
@@ -203,6 +516,7 @@ button {
 }
 .btn-shine:hover::after { left: 135%; }
 .btn-shine:hover {
+  animation: none;
   box-shadow: 0 8px 30px rgba(230, 115, 173, 0.35), 0 0 40px rgba(205, 178, 232, 0.35);
 }
 .btn-shine:active,
@@ -259,7 +573,8 @@ button {
    ============================================================ */
 
 [data-reveal] {
-  transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+  transition: opacity 1.4s cubic-bezier(.16,1,.3,1), transform 1.4s cubic-bezier(.16,1,.3,1);
+  will-change: transform, opacity;
 }
 [data-reveal="up"] { opacity: 0; transform: translateY(2rem); }
 [data-reveal="up-sm"] { opacity: 0; transform: translateY(1.5rem); }
@@ -360,9 +675,6 @@ section { position: relative; }
 .grad-moon1      { background: linear-gradient(to bottom right, #475569, #1a2d5a, var(--color-moon-950)); }
 .grad-moon2      { background: linear-gradient(to bottom right, #4338ca, #0d1b42, var(--color-moon-950)); }
 .grad-moon3      { background: linear-gradient(to bottom right, #1a4a7a, #0d1b42, var(--color-moon-950)); }
-.grad-art1       { background: linear-gradient(to bottom right, #92400e, #7c2d12, var(--color-plum-900)); }
-.grad-art2       { background: linear-gradient(to bottom right, #5b21b6, #581c87, var(--color-plum-900)); }
-.grad-art3       { background: linear-gradient(to bottom right, #9f1239, #831843, var(--color-plum-900)); }
 .grad-digital1   { background: linear-gradient(to bottom right, #334155, var(--color-plum-700), var(--color-plum-900)); }
 .grad-digital2   { background: linear-gradient(to bottom right, #b45309, #9a3412, var(--color-plum-900)); }
 .grad-digital3   { background: linear-gradient(to bottom right, var(--color-sky-700), var(--color-moon-800), var(--color-moon-950)); }
