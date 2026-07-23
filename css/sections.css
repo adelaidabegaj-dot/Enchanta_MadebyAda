@@ -3691,19 +3691,13 @@
   background: #885c7d;
   color: #fff;
   box-shadow: 0 10px 25px -5px rgba(94,46,77,.5);
-  opacity: 0;
-  pointer-events: none;
-  transition: all 0.3s ease, opacity 0.35s ease;
+  transition: all 0.3s ease;
 }
 .whatsapp-float:hover {
   background: #6e4965;
   transform: translateY(-3px) scale(1.06);
   box-shadow: 0 15px 30px -5px rgba(94,46,77,.6);
 }
-/* Kept off the hero — a fixed bottom-right button sits right on top of
-   the hero's closing paragraph on mobile since the hero fills the
-   screen. Shown once .hero has scrolled out of view (js/main.js). */
-body.hero-passed .whatsapp-float { opacity: 1; pointer-events: auto; }
 @media (min-width: 640px) {
   .whatsapp-float { right: 1.75rem; bottom: 1.75rem; }
 }

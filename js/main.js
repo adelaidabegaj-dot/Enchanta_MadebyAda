@@ -96,26 +96,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     Floating buttons (WhatsApp + Ada launcher) — hidden while the
-     hero is in view so a fixed bottom-right button never sits on top
-     of the hero's closing paragraph on mobile; shown once scrolled past.
-     ============================================================ */
-  const heroForFloats = document.querySelector(".hero");
-  if (heroForFloats && "IntersectionObserver" in window) {
-    const floatsObserver = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          document.body.classList.toggle("hero-passed", !entry.isIntersecting);
-        });
-      },
-      { threshold: 0 }
-    );
-    floatsObserver.observe(heroForFloats);
-  } else {
-    document.body.classList.add("hero-passed");
-  }
-
-  /* ============================================================
      Nav
      ============================================================ */
   const nav = document.querySelector(".site-nav");
