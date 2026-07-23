@@ -18,13 +18,13 @@
   overflow: hidden;
   cursor: pointer;
   background: var(--color-pearl);
-  box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 12px 2px rgba(230, 115, 173, 0.45);
+  box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 12px 2px rgba(217,165,191, 0.45);
   transition: all 0.3s ease;
   animation: adaLauncherGlow 2.6s ease-in-out infinite;
 }
 @keyframes adaLauncherGlow {
-  0%, 100% { box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 10px 2px rgba(230, 115, 173, 0.35); }
-  50% { box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 22px 7px rgba(230, 115, 173, 0.65); }
+  0%, 100% { box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 10px 2px rgba(217,165,191, 0.35); }
+  50% { box-shadow: 0 10px 25px -5px rgba(94, 46, 77, 0.5), 0 0 22px 7px rgba(217,165,191, 0.65); }
 }
 .ada-launcher img {
   width: 100%;
@@ -36,7 +36,7 @@
 .ada-launcher:hover {
   transform: translateY(-3px) scale(1.06);
   animation: none;
-  box-shadow: 0 15px 30px -5px rgba(94, 46, 77, 0.6), 0 0 26px 9px rgba(230, 115, 173, 0.7);
+  box-shadow: 0 15px 30px -5px rgba(94, 46, 77, 0.6), 0 0 26px 9px rgba(217,165,191, 0.7);
   border-color: var(--color-blossom-500);
 }
 .ada-launcher-badge {
@@ -156,7 +156,7 @@
   flex-direction: column;
   gap: 0.6rem;
   background:
-    radial-gradient(circle at 85% 10%, rgba(243, 169, 207, 0.12), transparent 40%),
+    radial-gradient(circle at 85% 10%, rgba(229,194,212, 0.12), transparent 40%),
     var(--color-cream);
 }
 .ada-msg {

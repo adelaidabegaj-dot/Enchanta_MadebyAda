@@ -10,11 +10,11 @@
   --color-cream: #fbf2ef;
   --color-ink: #4a2f44;
 
-  --color-blossom-50: #fef1f6;
-  --color-blossom-100: #fbdcec;
-  --color-blossom-300: #f3a9cf;
-  --color-blossom-500: #e673ad;
-  --color-blossom-700: #c14d8a;
+  --color-blossom-50: #f9f1f5;
+  --color-blossom-100: #f1dfe8;
+  --color-blossom-300: #e5c2d4;
+  --color-blossom-500: #d9a5bf;
+  --color-blossom-700: #c06894;
 
   --color-lavender-100: #ece1f7;
   --color-lavender-300: #cdb2e8;
@@ -53,7 +53,7 @@
   --color-moonlight: #f5f0fb;
   --color-dusty-rose: #c98ca0;
 
-  --color-divider-pink: #e8b8c9;
+  --color-divider-pink: #e5c2d4;
 
   /* Shared vertical rhythm for section padding — every standard section
      uses the same top/bottom clamp so the scroll feels evenly paced;
@@ -175,8 +175,8 @@ button {
 }
 
 @keyframes textGlowPulse {
-  0%, 100% { text-shadow: 0 0 18px rgba(243, 169, 207, 0.35), 0 0 36px rgba(122, 67, 97, 0.18); }
-  50%      { text-shadow: 0 0 28px rgba(243, 169, 207, 0.55), 0 0 50px rgba(122, 67, 97, 0.35); }
+  0%, 100% { text-shadow: 0 0 18px rgba(229,194,212, 0.35), 0 0 36px rgba(122, 67, 97, 0.18); }
+  50%      { text-shadow: 0 0 28px rgba(229,194,212, 0.55), 0 0 50px rgba(122, 67, 97, 0.35); }
 }
 
 @keyframes spinGlow {
@@ -268,13 +268,13 @@ button {
 
 @keyframes clickGlow {
   0% {
-    box-shadow: 0 0 0 0 rgba(230, 115, 173, 0.55), 0 0 0 0 rgba(171, 132, 208, 0.4);
+    box-shadow: 0 0 0 0 rgba(217,165,191, 0.55), 0 0 0 0 rgba(171, 132, 208, 0.4);
   }
   60% {
-    box-shadow: 0 0 0 14px rgba(230, 115, 173, 0), 0 0 0 26px rgba(171, 132, 208, 0);
+    box-shadow: 0 0 0 14px rgba(217,165,191, 0), 0 0 0 26px rgba(171, 132, 208, 0);
   }
   100% {
-    box-shadow: 0 0 0 0 rgba(230, 115, 173, 0), 0 0 0 0 rgba(171, 132, 208, 0);
+    box-shadow: 0 0 0 0 rgba(217,165,191, 0), 0 0 0 0 rgba(171, 132, 208, 0);
   }
 }
 
@@ -464,8 +464,8 @@ button {
   animation: btnGlowPulse 5s ease-in-out infinite;
 }
 @keyframes btnGlowPulse {
-  0%, 100% { box-shadow: 0 4px 18px rgba(230, 115, 173, .18), 0 0 18px rgba(205, 178, 232, .14); }
-  50%      { box-shadow: 0 4px 22px rgba(230, 115, 173, .3), 0 0 28px rgba(205, 178, 232, .24); }
+  0%, 100% { box-shadow: 0 4px 18px rgba(217,165,191, .18), 0 0 18px rgba(205, 178, 232, .14); }
+  50%      { box-shadow: 0 4px 22px rgba(217,165,191, .3), 0 0 28px rgba(205, 178, 232, .24); }
 }
 .btn-shine::after {
   content: "";
@@ -481,7 +481,7 @@ button {
 .btn-shine:hover::after { left: 135%; }
 .btn-shine:hover {
   animation: none;
-  box-shadow: 0 8px 30px rgba(230, 115, 173, 0.35), 0 0 40px rgba(205, 178, 232, 0.35);
+  box-shadow: 0 8px 30px rgba(217,165,191, 0.35), 0 0 40px rgba(205, 178, 232, 0.35);
 }
 .btn-shine:active,
 .btn-shine:focus-visible {
