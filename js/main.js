@@ -272,57 +272,6 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   /* ============================================================
-     Collections filter + show more
-     ============================================================ */
-  const filterButtons = document.querySelectorAll(".collections-grid .filters button");
-  const relics = document.querySelectorAll(".collections-grid .relic");
-  const seeMoreBtn = document.querySelector(".collections-grid .see-more button");
-  let showAll = false;
-
-  function applyCollectionsFilter() {
-    const activeFilter = document.querySelector(".collections-grid .filters button.active")?.dataset.filter || "all";
-    let visibleCount = 0;
-    let matchCount = 0;
-    relics.forEach((relic) => {
-      const matches = activeFilter === "all" || relic.dataset.category === activeFilter;
-      if (matches) matchCount++;
-    });
-    relics.forEach((relic) => {
-      const matches = activeFilter === "all" || relic.dataset.category === activeFilter;
-      let show = false;
-      if (matches) {
-        if (showAll || visibleCount < 3) {
-          show = true;
-          visibleCount++;
-        }
-      }
-      relic.style.display = show ? "" : "none";
-    });
-    if (seeMoreBtn) {
-      seeMoreBtn.parentElement.style.display = matchCount > 3 ? "" : "none";
-      seeMoreBtn.textContent = showAll ? "Show less" : "See more";
-    }
-  }
-
-  filterButtons.forEach((btn) => {
-    btn.addEventListener("click", () => {
-      filterButtons.forEach((b) => b.classList.remove("active"));
-      btn.classList.add("active");
-      showAll = false;
-      applyCollectionsFilter();
-    });
-  });
-
-  if (seeMoreBtn) {
-    seeMoreBtn.addEventListener("click", () => {
-      showAll = !showAll;
-      applyCollectionsFilter();
-    });
-  }
-
-  if (filterButtons.length) applyCollectionsFilter();
-
-  /* ============================================================
      PreOrder form
      ============================================================ */
   const preorderForm = document.querySelector(".preorder form");

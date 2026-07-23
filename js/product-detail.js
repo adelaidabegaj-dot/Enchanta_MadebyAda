@@ -117,7 +117,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const relatedGridEl = wrap.querySelector("[data-related-grid]");
   if (relatedGridEl) {
-    const others = (window.PRODUCTS || []).filter((p) => p.id !== product.id);
+    /* Only products with their own products/*.html page can be linked to
+       here — several PRODUCTS entries (starfish-hat, meadow-poncho, etc.)
+       exist for the homepage grid/assistant only and have no detail page,
+       so linking to "<id>.html" for those would 404. */
+    const pagedIds = [
+      "sunrise", "deep-ocean", "sea-shell", "coral-dream", "tide-pool",
+      "salty-horizon", "moonrise-tote", "crescent-clutch", "mako-pearl-bag",
+      "widows-lace", "raven-feather", "hollow-bloom"
+    ];
+    const others = (window.PRODUCTS || []).filter((p) => p.id !== product.id && pagedIds.includes(p.id));
     const sameCollection = others.filter((p) => p.collection === product.collection);
     const rest = others.filter((p) => p.collection !== product.collection);
     const related = sameCollection.concat(rest).slice(0, 4);
