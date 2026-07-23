@@ -327,11 +327,12 @@
 }
 
 /* ============================================================
-   Hero — enchanted portal
+   Hero — twilight enchanted portal
    Layered back-to-front: aurora wash -> rotating light rays ->
-   breathing glow/blobs/gradient sides -> mist -> flower vines ->
-   sparkle field + fairy dust -> bokeh petals -> crystals ->
-   butterflies -> content (kicker/headline/portal window/lead/CTA).
+   breathing glow/blobs/gradient sides -> mist -> constellations ->
+   sparkle field + fairy dust -> bokeh petals -> shooting stars ->
+   mushroom groves -> falling petals -> fireflies ->
+   content (kicker/headline/portal window/lead/CTA).
    ============================================================ */
 
 .hero {
@@ -529,16 +530,6 @@
   .hero .petal-4 { width: 7rem; height: 7rem; }
 }
 
-/* ---- faceted crystal accents at the portal's base ---- */
-.hero .crystal-wrap { position: absolute; pointer-events: none; width: 2.6rem; }
-.hero .crystal-wrap svg { width: 100%; height: auto; }
-.hero .crystal-1 { left: 5%; bottom: 22%; }
-.hero .crystal-2 { right: 6%; bottom: 26%; width: 2.1rem; }
-@media (min-width: 768px) {
-  .hero .crystal-1 { width: 3.4rem; left: 8%; }
-  .hero .crystal-2 { width: 2.8rem; right: 9%; }
-}
-
 /* ---- streaks of wishing-star light across the upper sky ---- */
 .hero .shooting-star {
   position: absolute;
@@ -549,38 +540,6 @@
 }
 .hero .ss-1 { top: 10%; left: 8%; width: 7rem; }
 .hero .ss-2 { top: 6%; left: 55%; width: 5rem; }
-
-/* ---- toadstool groves tucked into the mist at the portal's feet;
-   caps borrow the butterflies' pink radial so the fauna and flora read
-   as one family ---- */
-.hero .toadstool-grove {
-  position: absolute;
-  width: 5.5rem;
-  pointer-events: none;
-  opacity: .95;
-  filter: drop-shadow(0 6px 10px rgba(90,48,73,.18));
-}
-.hero .toadstool-grove svg { width: 100%; height: auto; }
-.hero .toadstool-grove-left { left: 6%; bottom: 8%; }
-.hero .toadstool-grove-right { right: 5%; bottom: 7%; width: 4rem; transform: scaleX(-1); }
-@media (min-width: 768px) {
-  .hero .toadstool-grove-left { width: 7rem; left: 9%; }
-  .hero .toadstool-grove-right { width: 5rem; right: 8%; }
-}
-.hero .ts-cap { fill: url(#butterflyPinkGrad); stroke: #fff; stroke-opacity: .55; stroke-width: 1; }
-.hero .ts-stem { fill: #fdf6e8; stroke: var(--color-plum-300); stroke-opacity: .5; stroke-width: 1; }
-.hero .ts-dot { fill: #fff; opacity: .9; }
-.hero .ts-grass { fill: none; stroke: var(--color-plum-300); stroke-width: 2; stroke-linecap: round; opacity: .6; }
-/* the whole grove rocks from its roots like a breeze is passing */
-.hero .toadstool-grove svg {
-  animation: breezeSway 7s ease-in-out infinite;
-  transform-origin: 50% 100%;
-}
-.hero .toadstool-grove-right svg { animation-delay: -3.2s; }
-@keyframes breezeSway {
-  0%, 100% { transform: rotate(-1.4deg); }
-  50%      { transform: rotate(1.8deg); }
-}
 
 /* ---- a passing fairy: a glowing mote that swoops across the whole
    scene every ~19s trailing a ribbon of light, gone before it wears
@@ -946,7 +905,6 @@
 @media (prefers-reduced-motion: reduce) {
   .hero .fairy-ring,
   .hero .fairy-orbiter,
-  .hero .toadstool-grove svg,
   .hero .fl-star,
   .hero .fl-bloom,
   .hero .cta .cta-arrow { animation: none; }

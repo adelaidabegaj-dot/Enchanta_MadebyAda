@@ -248,14 +248,6 @@ button {
   100% { transform: translateX(140%) skewX(-18deg); opacity: 0; }
 }
 
-/* Faceted-gem glint: opacity, scale and a tiny rock all in one keyframe
-   so it can run standalone on a leaf element without fighting another
-   animation over the transform property. */
-@keyframes crystalGlow {
-  0%, 100% { opacity: .75; transform: scale(1) rotate(-3deg); filter: drop-shadow(0 0 6px rgba(255,255,255,.5)); }
-  50%      { opacity: 1;  transform: scale(1.08) rotate(3deg); filter: drop-shadow(0 0 14px rgba(240,217,168,.85)); }
-}
-
 /* Enchanted-glass CTA idle glow: gold-and-white inset shimmer, defined
    standalone (rather than reusing btnGlowPulse) so the hero CTA reads
    as crystal rather than the site-wide pink/lavender button pulse. */
@@ -322,11 +314,6 @@ button {
 .anim-dust { animation: dustRise linear infinite; }
 .anim-mist-flow { animation: mistFlow 14s ease-in-out infinite; }
 .anim-sheen-sweep { animation: sheenSweep 6s ease-in-out infinite; }
-.anim-crystal-glow {
-  animation: crystalGlow 5s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
 
 /* ============================================================
    Section dividers — layered organic fairycore seams
@@ -454,7 +441,6 @@ button {
   .anim-dust,
   .anim-mist-flow,
   .anim-sheen-sweep,
-  .anim-crystal-glow,
   .divider-crest,
   .glow-ring::before,
   .luxury-card::before,
