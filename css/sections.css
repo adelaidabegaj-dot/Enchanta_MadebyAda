@@ -823,8 +823,6 @@
      orbiter path visible on every screen. */
   width: min(22rem, 78vw);
   aspect-ratio: 1 / 1;
-  /* smooths the pointer-follow drift set inline by main.js */
-  transition: transform 0.3s ease-out;
 }
 @media (min-width: 640px) { .hero .fairy-logo-wrap { width: min(30rem, 70vw); } }
 /* Was 36rem — trimmed so the restored wordmark, the portal, and the

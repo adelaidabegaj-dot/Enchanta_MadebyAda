@@ -222,26 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  const heroSection = document.querySelector(".hero");
-  const driftEls = document.querySelectorAll(".hero [data-drift-x], .hero [data-drift-y]");
-  if (heroSection && driftEls.length && window.EnchantaMotion) {
-    // Piggybacks on motion.js's single rAF-batched pointer tracker
-    // instead of adding another raw mousemove listener.
-    window.EnchantaMotion.onPointerMove((clientX, clientY) => {
-      const rect = heroSection.getBoundingClientRect();
-      const inside =
-        clientX >= rect.left && clientX <= rect.right &&
-        clientY >= rect.top && clientY <= rect.bottom;
-      const x = inside ? (clientX - rect.left) / rect.width - 0.5 : 0;
-      const y = inside ? (clientY - rect.top) / rect.height - 0.5 : 0;
-      driftEls.forEach((el) => {
-        const fx = parseFloat(el.dataset.driftX || 0);
-        const fy = parseFloat(el.dataset.driftY || 0);
-        el.style.transform = `translate(${x * fx}px, ${y * fy}px)`;
-      });
-    });
-  }
-
   /* ============================================================
      Scroll reveal (IntersectionObserver)
      ============================================================ */
