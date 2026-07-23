@@ -816,12 +816,17 @@
    itself never drifts/bobs — only the glow layers move. ── */
 .hero .fairy-logo-wrap {
   position: relative;
-  width: 22rem;
+  /* min() instead of a flat rem value — the fairy-ring/fairy-orbiter
+     layers around it are sized as % insets of this box, so on narrow
+     phones a fixed 22rem card left them clipped unevenly by the hero's
+     overflow:hidden. Scaling with viewport width keeps the full ring +
+     orbiter path visible on every screen. */
+  width: min(22rem, 78vw);
   aspect-ratio: 1 / 1;
   /* smooths the pointer-follow drift set inline by main.js */
   transition: transform 0.3s ease-out;
 }
-@media (min-width: 640px) { .hero .fairy-logo-wrap { width: 30rem; } }
+@media (min-width: 640px) { .hero .fairy-logo-wrap { width: min(30rem, 70vw); } }
 /* Was 36rem — trimmed so the restored wordmark, the portal, and the
    CTA all share one laptop viewport instead of pushing the CTA below
    the fold. */
