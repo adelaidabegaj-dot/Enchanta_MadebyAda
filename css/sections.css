@@ -341,14 +341,15 @@
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  background: linear-gradient(120deg,
-    var(--color-sky-100) 0%,
-    var(--color-champagne-100) 24%,
-    var(--color-blossom-100) 50%,
-    var(--color-lavender-100) 76%,
-    var(--color-sky-100) 100%);
-  background-size: 280% 280%;
-  animation: heroAurora 26s ease-in-out infinite;
+  background: linear-gradient(160deg,
+    var(--color-night-900) 0%,
+    var(--color-night-800) 20%,
+    var(--color-night-700) 38%,
+    var(--color-plum-700) 62%,
+    var(--color-plum-900) 86%,
+    var(--color-plum-900) 100%);
+  background-size: 240% 240%;
+  animation: heroAurora 30s ease-in-out infinite;
   padding: var(--section-pad-top) 0 var(--section-pad-bottom);
 }
 
@@ -361,6 +362,7 @@
   top: 50%;
   left: 50%;
   pointer-events: none;
+  mix-blend-mode: screen;
   mask-image: radial-gradient(circle at center, #000 0%, #000 22%, transparent 58%);
   -webkit-mask-image: radial-gradient(circle at center, #000 0%, #000 22%, transparent 58%);
   will-change: transform;
@@ -370,11 +372,11 @@
   height: 130vmax;
   margin: -65vmax 0 0 -65vmax;
   background: conic-gradient(from 0deg,
-    transparent 0deg, rgba(255,244,214,.4) 6deg, transparent 18deg,
-    transparent 68deg, rgba(243,169,207,.32) 76deg, transparent 90deg,
-    transparent 150deg, rgba(205,178,232,.34) 158deg, transparent 172deg,
-    transparent 230deg, rgba(255,244,214,.34) 238deg, transparent 250deg,
-    transparent 310deg, rgba(155,203,242,.28) 318deg, transparent 332deg,
+    transparent 0deg, rgba(245,240,251,.5) 6deg, transparent 18deg,
+    transparent 68deg, rgba(217,180,106,.4) 76deg, transparent 90deg,
+    transparent 150deg, rgba(205,178,232,.42) 158deg, transparent 172deg,
+    transparent 230deg, rgba(245,240,251,.4) 238deg, transparent 250deg,
+    transparent 310deg, rgba(155,203,242,.32) 318deg, transparent 332deg,
     transparent 360deg);
   opacity: .8;
   animation: spinGlow 70s linear infinite;
@@ -384,9 +386,9 @@
   height: 100vmax;
   margin: -50vmax 0 0 -50vmax;
   background: conic-gradient(from 40deg,
-    transparent 0deg, rgba(217,180,106,.3) 10deg, transparent 26deg,
-    transparent 120deg, rgba(171,132,208,.3) 132deg, transparent 148deg,
-    transparent 240deg, rgba(111,169,232,.26) 250deg, transparent 266deg,
+    transparent 0deg, rgba(217,180,106,.36) 10deg, transparent 26deg,
+    transparent 120deg, rgba(201,140,157,.34) 132deg, transparent 148deg,
+    transparent 240deg, rgba(155,203,242,.3) 250deg, transparent 266deg,
     transparent 360deg);
   opacity: .6;
   animation: spinGlow 52s linear infinite reverse;
@@ -395,7 +397,8 @@
 .hero .breathing-glow {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 38%, rgba(255,250,240,.75), transparent 60%);
+  background: radial-gradient(circle at 50% 42%, rgba(240,197,168,.38) 0%, rgba(201,140,157,.22) 34%, transparent 68%);
+  mix-blend-mode: screen;
   pointer-events: none;
 }
 
@@ -403,12 +406,13 @@
   position: absolute;
   border-radius: 50%;
   filter: blur(48px);
+  mix-blend-mode: screen;
   pointer-events: none;
 }
-.hero .blob-1 { top: -6rem; left: 25%; width: 18rem; height: 18rem; background: rgba(243,169,207,.4); }
-.hero .blob-2 { top: 2.5rem; right: 0; width: 20rem; height: 20rem; background: rgba(205,178,232,.4); animation-delay: -5s; }
-.hero .blob-3 { bottom: 0; left: 0; width: 16rem; height: 16rem; background: rgba(155,203,242,.4); animation-delay: -10s; }
-.hero .blob-4 { right: 2.5rem; bottom: -4rem; width: 18rem; height: 18rem; background: rgba(217,180,106,.32); animation-delay: -3s; }
+.hero .blob-1 { top: -6rem; left: 25%; width: 18rem; height: 18rem; background: rgba(205,178,232,.36); }
+.hero .blob-2 { top: 2.5rem; right: 0; width: 20rem; height: 20rem; background: rgba(245,240,251,.26); animation-delay: -5s; }
+.hero .blob-3 { bottom: 0; left: 0; width: 16rem; height: 16rem; background: rgba(155,203,242,.32); animation-delay: -10s; }
+.hero .blob-4 { right: 2.5rem; bottom: -4rem; width: 18rem; height: 18rem; background: rgba(217,180,106,.28); animation-delay: -3s; }
 
 .hero .gradient-side {
   position: absolute;
@@ -416,15 +420,16 @@
   height: 100%;
   width: 66.6%;
   filter: blur(48px);
+  mix-blend-mode: screen;
   pointer-events: none;
 }
 .hero .gradient-side-left {
   left: -33.3%;
-  background: linear-gradient(to bottom right, rgba(243,169,207,.5), rgba(240,217,168,.3), rgba(155,203,242,.5));
+  background: linear-gradient(to bottom right, rgba(201,140,157,.4), rgba(217,180,106,.2), rgba(155,203,242,.34));
 }
 .hero .gradient-side-right {
   right: -33.3%;
-  background: linear-gradient(to bottom left, rgba(155,203,242,.5), rgba(205,178,232,.4), rgba(240,217,168,.35));
+  background: linear-gradient(to bottom left, rgba(155,203,242,.34), rgba(205,178,232,.32), rgba(201,140,157,.3));
   animation-delay: -8s;
 }
 
@@ -441,29 +446,43 @@
 .hero .portal-mist-back {
   bottom: 8%;
   height: 14rem;
-  background: linear-gradient(to top, rgba(255,250,244,.55), transparent 80%);
+  background: linear-gradient(to top, rgba(122,67,97,.55), transparent 80%);
 }
 .hero .portal-mist-front {
   bottom: -2rem;
   height: 9rem;
-  background: linear-gradient(to top, rgba(236,225,247,.7), transparent 85%);
+  background: linear-gradient(to top, rgba(90,48,73,.65), transparent 85%);
 }
 
-/* ---- flower vines framing the top corners ---- */
-.hero .portal-vine {
+/* ---- constellations framing the top corners: a few connected stars
+   twinkling via the shared twinkle keyframe/--twinkle-opacity mechanism
+   the sparkle-field already uses ---- */
+.hero .constellation {
   position: absolute;
-  top: 3%;
-  width: 8rem;
+  top: 4%;
+  width: 9rem;
   height: auto;
   pointer-events: none;
-  opacity: .92;
+  opacity: .85;
 }
-.hero .portal-vine-left { left: 2%; }
-.hero .portal-vine-right { right: 2%; transform: scaleX(-1); }
+.hero .constellation-left { left: 3%; }
+.hero .constellation-right { right: 3%; }
 @media (min-width: 768px) {
-  .hero .portal-vine { width: 11rem; top: 1.5%; }
-  .hero .portal-vine-left { left: 4%; }
-  .hero .portal-vine-right { right: 4%; }
+  .hero .constellation { width: 12rem; top: 2.5%; }
+  .hero .constellation-left { left: 4%; }
+  .hero .constellation-right { right: 4%; }
+}
+.hero .const-line {
+  fill: none;
+  stroke: rgba(245,240,251,.22);
+  stroke-width: .6;
+}
+.hero .const-star {
+  fill: #fff;
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: twinkle var(--dur, 4s) ease-in-out infinite;
+  animation-delay: var(--delay, 0s);
 }
 
 .hero .sparkle-field { position: absolute; inset: 0; pointer-events: none; }
@@ -481,13 +500,13 @@
   box-shadow: 0 0 6px 2px rgba(240,217,168,.7);
 }
 
-/* ---- soft bokeh petals: outer div carries position + pointer-driven
-   drift (data-drift-x/y, set in main.js); inner div carries the blur,
-   colour and float bob — kept on separate elements so the two
-   transforms never fight over the same property ---- */
+/* ---- soft bokeh petals: outer div carries position, inner div
+   carries the blur, colour and float bob — kept on separate elements
+   so a future transform on the outer div won't fight the bob ---- */
 .hero .petal {
   position: absolute;
   pointer-events: none;
+  mix-blend-mode: screen;
   transition: transform 0.3s ease-out;
 }
 .hero .petal-inner {
@@ -519,28 +538,6 @@
   .hero .crystal-1 { width: 3.4rem; left: 8%; }
   .hero .crystal-2 { width: 2.8rem; right: 9%; }
 }
-
-/* ---- butterflies: outer element drifts a slow wandering loop; each
-   wing pivots at the shared body edge (matching that wing's own SVG
-   bounding box) so scaleX reads as a flap, not a squash ---- */
-.hero .butterfly {
-  position: absolute;
-  width: 2.2rem;
-  pointer-events: none;
-}
-.hero .butterfly svg { width: 100%; height: auto; filter: drop-shadow(0 2px 6px rgba(90,48,73,.25)); }
-.hero .butterfly .wing-left { transform-origin: 100% 50%; }
-.hero .butterfly .wing-right { transform-origin: 0% 50%; }
-.hero .bfly-1 { top: 22%; left: 20%; }
-.hero .bfly-2 { top: 30%; right: 16%; width: 1.7rem; }
-.hero .bfly-3 { bottom: 24%; left: 30%; width: 1.5rem; }
-@media (min-width: 768px) {
-  .hero .butterfly { width: 2.6rem; }
-  .hero .bfly-2 { width: 2rem; }
-  .hero .bfly-3 { width: 1.8rem; }
-}
-.hero .butterfly .butterfly-body { fill: var(--color-plum-700); }
-.hero .butterfly .butterfly-antenna { fill: none; stroke: var(--color-plum-700); stroke-width: .8; stroke-linecap: round; }
 
 /* ---- streaks of wishing-star light across the upper sky ---- */
 .hero .shooting-star {
@@ -733,7 +730,17 @@
   position: relative;
   font-size: 1.5rem;
   font-weight: 700;
-  color: var(--color-plum-500);
+  /* Allura (the script font) carries a lot of built-in leading — at the
+     default line-height that reads as a big empty gap above "ENCHANTA"
+     even though the h1's own margin-top is nearly zero. Tightening it
+     pulls the wordmark closer so the kicker sits further from the fixed
+     navbar above instead of crowding right under it. */
+  line-height: 0.85;
+  /* line-height alone only trims the font's own built-in leading — this
+     negative margin pulls the kicker's baseline the rest of the way
+     toward "ENCHANTA" so the two read as one tight lockup. */
+  margin-bottom: -0.65rem;
+  color: var(--color-champagne-300);
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
   animation-delay: 0.1s;
 }
@@ -747,7 +754,7 @@
   animation: twinkle 3s ease-in-out infinite;
 }
 .hero .kicker::after { animation-delay: -1.5s; }
-@media (min-width: 640px) { .hero .kicker { font-size: 1.875rem; } }
+@media (min-width: 640px) { .hero .kicker { font-size: 1.875rem; margin-bottom: -0.85rem; } }
 
 .hero h1 {
   display: flex;
@@ -768,8 +775,8 @@
      one continuous ribbon flowing behind all the letters instead of
      restarting inside every individual inline-block span. */
   background-image: linear-gradient(100deg,
-    var(--color-plum-900) 0%, var(--color-plum-700) 25%,
-    var(--color-blossom-700) 50%, var(--color-plum-700) 75%, var(--color-plum-900) 100%);
+    var(--color-moonlight) 0%, var(--color-champagne-300) 25%,
+    #fff 50%, var(--color-champagne-300) 75%, var(--color-moonlight) 100%);
   background-size: 640px 200px;
   background-attachment: fixed;
   -webkit-background-clip: text;
@@ -946,6 +953,7 @@
   .hero .fairy-flyby,
   .hero .pf,
   .hero .firefly { display: none; }
+  .hero .cta-spark { animation: none !important; }
 }
 
 /* dainty ornament row bridging the portal and the story text: the
@@ -956,7 +964,7 @@
   font-size: 0.95rem;
   letter-spacing: 0.65em;
   padding-left: 0.65em; /* recenters the tracked glyph row */
-  color: var(--color-plum-300);
+  color: var(--color-lavender-300);
   text-shadow: 0 0 10px rgba(255,255,255,.8);
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
   animation-delay: 0.9s;
@@ -968,7 +976,7 @@
 }
 .hero .hero-flourish .fl-bloom {
   display: inline-block;
-  color: var(--color-blossom-300);
+  color: var(--color-dusty-rose);
   animation: spinGlow 16s linear infinite;
 }
 @keyframes flStarPulse {
@@ -981,7 +989,7 @@
   font-size: 1rem;
   font-weight: 700;
   line-height: 1.7;
-  color: rgba(122,67,97,.8);
+  color: rgba(245,240,251,.88);
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both;
   animation-delay: 1s;
 }
@@ -989,15 +997,27 @@
 
 /* enchanted-glass CTA: frosted crystal pill with its own gold/white
    glow loop (overrides .btn-shine's default pink pulse via specificity
-   while keeping its shine-sweep and click-glow behaviour) */
-.hero .cta {
+   while keeping its shine-sweep and click-glow behaviour), a slowly
+   rotating gradient border, and a hover/focus particle burst. The
+   burst lives in a sibling `.cta-particles` element rather than inside
+   `.cta` itself, because `.btn-shine` sets overflow:hidden (needed for
+   its own shine-sweep) which would otherwise clip the sparks. */
+.hero .cta-wrap {
+  position: relative;
+  display: inline-flex;
   margin-top: 1.25rem;
+}
+.hero .cta {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   border-radius: 9999px;
-  border: 1px solid rgba(255,255,255,.25);
-  background: #885c7d;
+  border: 1px solid transparent;
+  background:
+    linear-gradient(#885c7d, #885c7d) padding-box,
+    conic-gradient(from var(--cta-border-angle, 0deg),
+      var(--color-moonlight) 0%, var(--color-champagne-500) 20%, var(--color-dusty-rose) 40%,
+      var(--color-lavender-300) 60%, var(--color-sky-300) 80%, var(--color-moonlight) 100%) border-box;
   padding: 0.75rem 1.75rem;
   font-size: 0.875rem;
   font-weight: 600;
@@ -1006,8 +1026,20 @@
   backdrop-filter: blur(6px);
   transition: all 0.4s ease-out;
   animation: heroIn 0.85s cubic-bezier(.16,1,.3,1) both,
-             ctaCrystalGlow 5s ease-in-out infinite;
-  animation-delay: 1.2s, 0s;
+             ctaCrystalGlow 5s ease-in-out infinite,
+             ctaBorderSpin 7s linear infinite;
+  animation-delay: 1.2s, 0s, 0s;
+}
+/* registers --cta-border-angle as an animatable <angle> so the conic
+   gradient can rotate smoothly; unsupported browsers just keep it at
+   0deg — a static (not broken) multicolor ring, no fallback needed */
+@property --cta-border-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+@keyframes ctaBorderSpin {
+  to { --cta-border-angle: 360deg; }
 }
 .hero .cta .cta-arrow {
   display: inline-block;
@@ -1023,6 +1055,36 @@
     0 18px 40px -8px rgba(217,180,106,.65),
     0 0 0 1px rgba(255,255,255,.6) inset,
     0 0 30px rgba(255,255,255,.5);
+}
+
+.hero .cta-particles {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: visible;
+}
+.hero .cta-spark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 4px;
+  height: 4px;
+  margin: -2px 0 0 -2px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #fff, var(--color-champagne-300) 60%, transparent);
+  box-shadow: 0 0 6px 2px rgba(240,217,168,.8);
+  opacity: 0;
+  transform: translate(0, 0) scale(0);
+}
+.hero .cta:hover ~ .cta-particles .cta-spark,
+.hero .cta:focus-visible ~ .cta-particles .cta-spark {
+  animation: ctaBurst .7s ease-out both;
+  animation-delay: var(--spark-delay, 0s);
+}
+@keyframes ctaBurst {
+  0%   { opacity: 0; transform: translate(0,0) scale(0); }
+  25%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(var(--tx,0), var(--ty,0)) scale(1); }
 }
 
 /* ============================================================

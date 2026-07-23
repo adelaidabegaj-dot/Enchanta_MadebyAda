@@ -50,6 +50,9 @@
   --color-moon-800: #0f1f3d;
   --color-moon-700: #152a52;
 
+  --color-moonlight: #f5f0fb;
+  --color-dusty-rose: #c98ca0;
+
   --color-divider-pink: #e8b8c9;
 
   /* Shared vertical rhythm for section padding — every standard section
@@ -218,23 +221,6 @@ button {
   100% { transform: translate(var(--dust-x, 18px), -150px) scale(1); opacity: 0; }
 }
 
-/* Butterfly wing pairs pivoting at the body edge (transform-origin set
-   per-wing in sections.css) rather than the whole insect scaling. */
-@keyframes wingFlap {
-  0%, 100% { transform: scaleX(1); }
-  50%      { transform: scaleX(0.32); }
-}
-
-/* Small wandering loop for a butterfly's whole body — gentle drift
-   rather than a straight bob, so it reads as flight, not floating. */
-@keyframes butterflyDrift {
-  0%   { transform: translate(0, 0) rotate(0deg); }
-  25%  { transform: translate(10px, -16px) rotate(6deg); }
-  50%  { transform: translate(-5px, -26px) rotate(-4deg); }
-  75%  { transform: translate(-15px, -9px) rotate(4deg); }
-  100% { transform: translate(0, 0) rotate(0deg); }
-}
-
 /* Wide, slow-moving background wash for the hero portal — background-
    size is oversized so the position swing stays subtle even though the
    travel distance (0%->100%) sounds large. */
@@ -334,15 +320,6 @@ button {
 .anim-ray-spin { animation: spinGlow 60s linear infinite; }
 .anim-ray-spin-rev { animation: spinGlow 46s linear infinite reverse; }
 .anim-dust { animation: dustRise linear infinite; }
-.anim-wing-flap {
-  animation: wingFlap 2.6s ease-in-out infinite;
-  transform-box: fill-box;
-}
-.anim-butterfly-drift {
-  animation: butterflyDrift 10s ease-in-out infinite;
-  transform-box: fill-box;
-  transform-origin: center;
-}
 .anim-mist-flow { animation: mistFlow 14s ease-in-out infinite; }
 .anim-sheen-sweep { animation: sheenSweep 6s ease-in-out infinite; }
 .anim-crystal-glow {
@@ -475,8 +452,6 @@ button {
   .anim-ray-spin,
   .anim-ray-spin-rev,
   .anim-dust,
-  .anim-wing-flap,
-  .anim-butterfly-drift,
   .anim-mist-flow,
   .anim-sheen-sweep,
   .anim-crystal-glow,
@@ -491,6 +466,7 @@ button {
   .anim-dv-float { opacity: var(--dv-op-high, .7); }
   .anim-dv-glow { opacity: .7; }
   .anim-dust { opacity: 0; }
+  .const-star { opacity: var(--twinkle-opacity, .85); }
 }
 
 /* ── shimmer sweep on buttons, plus a soft idle glow so buttons feel
