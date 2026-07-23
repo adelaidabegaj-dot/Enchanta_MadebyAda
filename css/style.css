@@ -172,8 +172,8 @@ button {
 }
 
 @keyframes textGlowPulse {
-  0%, 100% { text-shadow: 0 0 18px rgba(243, 169, 207, 0.35), 0 0 36px rgba(205, 178, 232, 0.18); }
-  50%      { text-shadow: 0 0 28px rgba(243, 169, 207, 0.55), 0 0 50px rgba(205, 178, 232, 0.35); }
+  0%, 100% { text-shadow: 0 0 18px rgba(243, 169, 207, 0.35), 0 0 36px rgba(122, 67, 97, 0.18); }
+  50%      { text-shadow: 0 0 28px rgba(243, 169, 207, 0.55), 0 0 50px rgba(122, 67, 97, 0.35); }
 }
 
 @keyframes spinGlow {
