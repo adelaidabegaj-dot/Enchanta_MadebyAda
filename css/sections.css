@@ -875,13 +875,25 @@
   z-index: 3;
   pointer-events: none;
 }
+/* <svg> is a replaced element like <video> (see .fairy-logo-video above) —
+   inset alone doesn't reliably stretch-fit replaced elements on every
+   engine (notably iOS Safari), which let these rings fall back to their
+   intrinsic SVG box instead of tracking the card. Explicit top/left +
+   width/height (same numbers as the old inset shorthand) removes that
+   ambiguity so the ring stays concentric with the card on every device. */
 .hero .fairy-ring-pearls {
-  inset: -5%;
+  top: -5%;
+  left: -5%;
+  width: 110%;
+  height: 110%;
   filter: drop-shadow(0 0 3px rgba(255,255,255,.8));
   animation: spinGlow 48s linear infinite;
 }
 .hero .fairy-ring-gold {
-  inset: -8.5%;
+  top: -8.5%;
+  left: -8.5%;
+  width: 117%;
+  height: 117%;
   animation: spinGlow 64s linear infinite reverse;
 }
 /* two fairy lights circling the portal on rotating carrier layers —
